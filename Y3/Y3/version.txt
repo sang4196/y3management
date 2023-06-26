@@ -1,11 +1,77 @@
 ﻿ver 1.0.0.0
-배포
 
-1.회원 정보 에서 전화번호 입력시
-자동으로 - 입력되게
-유저트레이너 저장;
+CREATE TABLE `session` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `trainer_id` int DEFAULT NULL,
+  `trainer_name` varchar(20) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
+  `session_price_id` int DEFAULT NULL,
+  `session_price_name` varchar(20) DEFAULT NULL,
+  `session_count` int DEFAULT NULL,
+  `session_total_price` decimal(10,2) DEFAULT NULL,
+  `is_service` tinyint DEFAULT '0',
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-프로램창 화면 내리는거 추가 필요
+CREATE TABLE `session_price` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `session_name` varchar(20) DEFAULT NULL,
+  `price` decimal(12,2) DEFAULT NULL,
+  `percentage` decimal(4,2) DEFAULT NULL,
+  `deduct` decimal(4,2) DEFAULT NULL,
+  `final_price` decimal(12,2) DEFAULT NULL,
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-락커는 사진 보내준거처럼 저런식으로
-하면 좋음.
+CREATE TABLE `session_trainer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `session_id` int DEFAULT NULL,
+  `session_name` varchar(20) DEFAULT NULL,
+  `trainer_id` int DEFAULT NULL,
+  `trainer_name` varchar(20) DEFAULT NULL,
+  `percentage` decimal(4,2) DEFAULT NULL,
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `trainer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
+  `phone_number` varchar(30) DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `locker_no` int DEFAULT NULL,
+  `memo` varchar(300) DEFAULT NULL,
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `trainer_sales` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `trainer_id` int DEFAULT NULL,
+  `trainer_name` varchar(20) DEFAULT NULL,
+  `sales_date` datetime DEFAULT NULL,
+  `sales_price` int DEFAULT NULL,
+  `memo` varchar(300) DEFAULT NULL,
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
+  `phone_number` varchar(30) DEFAULT NULL,
+  `session_id` int DEFAULT NULL,
+  `session_name` varchar(20) DEFAULT NULL,
+  `remain_session` int DEFAULT NULL,
+  `remain_service` int DEFAULT NULL,
+  `locker_no` int DEFAULT NULL,
+  `memo` varchar(300) DEFAULT NULL,
+  `useflag` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
