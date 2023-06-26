@@ -38,6 +38,8 @@ namespace Y3.Models
         public int SessionCount { get; set; }
         [JsonProperty("session_total_price")]
         public decimal SessionTotalPrice { get; set; }
+        [JsonProperty("is_service")]
+        public bool IsService { get; set; }
 
         public object Clone()
         {
@@ -47,10 +49,11 @@ namespace Y3.Models
         public override string GetQueryParam(eDBQueryType type, bool isFirst = false)
         {
             return type == eDBQueryType.INSERT
-                ? $"('{Date.ToString(TimeUtil.TIME_FORMAT_1)}',{TrainerId},'{TrainerName}',{UserId},'{UserName}',{SessionPriceId},'{SessionPriceName}',{SessionCount}, {SessionTotalPrice})"
+                ? $"('{Date.ToString(TimeUtil.TIME_FORMAT_1)}',{TrainerId},'{TrainerName}',{UserId},'{UserName}',{SessionPriceId},'{SessionPriceName}',{SessionCount}, {SessionTotalPrice}, {IsService})"
                 : isFirst
-                ? $"SELECT '{Id}' as id, '{Date.ToString(TimeUtil.TIME_FORMAT_1)}' as date, {TrainerId} as trainer_id, '{TrainerName}' as trainer_name, {UserId} as user_id, '{UserName}' as user_name, {SessionPriceId} as session_price_id, '{SessionPriceName}' as session_price_name, {SessionCount} as session_count, {SessionTotalPrice} as session_total_price "
-                : $"UNION ALL SELECT '{Id}','{Date.ToString(TimeUtil.TIME_FORMAT_1)}',{TrainerId},'{TrainerName}',{UserId},'{UserName}',{SessionPriceId},'{SessionPriceName}',{SessionCount}, {SessionTotalPrice} ";
+                ? $"SELECT '{Id}' as id, '{Date.ToString(TimeUtil.TIME_FORMAT_1)}' as date, {TrainerId} as trainer_id, '{TrainerName}' as trainer_name, {UserId} as user_id, '{UserName}' as user_name, " +
+                $"{SessionPriceId} as session_price_id, '{SessionPriceName}' as session_price_name, {SessionCount} as session_count, {SessionTotalPrice} as session_total_price, {IsService} as is_service "
+                : $"UNION ALL SELECT '{Id}','{Date.ToString(TimeUtil.TIME_FORMAT_1)}',{TrainerId},'{TrainerName}',{UserId},'{UserName}',{SessionPriceId},'{SessionPriceName}',{SessionCount}, {SessionTotalPrice}, {IsService} ";
         }
 
         public override void Update(object data)
@@ -64,6 +67,7 @@ namespace Y3.Models
             SessionPriceName = ((Session)data).SessionPriceName;
             SessionCount = ((Session)data).SessionCount;
             SessionTotalPrice = ((Session)data).SessionTotalPrice;
+            IsService = ((Session)data).IsService;
         }
     }
 }

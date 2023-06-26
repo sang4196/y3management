@@ -51,18 +51,27 @@
             this.btnExist = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBox_logo = new System.Windows.Forms.PictureBox();
-            this.label_menuName = new System.Windows.Forms.Label();
             this.panelWindow = new System.Windows.Forms.Panel();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listBoxBirthTrainer = new System.Windows.Forms.ListBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBoxBirthUser = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_minimize = new System.Windows.Forms.Button();
+            this.label_menuName = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel_locker = new System.Windows.Forms.TableLayoutPanel();
+            this.btnNoPlus = new System.Windows.Forms.Button();
+            this.btnNoMinus = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnOwnerMinus = new System.Windows.Forms.Button();
+            this.btnOwnerPlus = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
             this.panelSubmenuSetting.SuspendLayout();
@@ -72,13 +81,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).BeginInit();
             this.panelWindow.SuspendLayout();
             this.panelMain.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -409,141 +415,37 @@
             this.pictureBox_logo.TabIndex = 0;
             this.pictureBox_logo.TabStop = false;
             // 
-            // label_menuName
-            // 
-            this.label_menuName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
-            this.label_menuName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_menuName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.label_menuName.ForeColor = System.Drawing.Color.LightGray;
-            this.label_menuName.Location = new System.Drawing.Point(250, 0);
-            this.label_menuName.Name = "label_menuName";
-            this.label_menuName.Size = new System.Drawing.Size(1197, 34);
-            this.label_menuName.TabIndex = 4;
-            this.label_menuName.Text = " ▶ 메인화면";
-            this.label_menuName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // panelWindow
             // 
             this.panelWindow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
             this.panelWindow.Controls.Add(this.panelMain);
+            this.panelWindow.Controls.Add(this.panel1);
             this.panelWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelWindow.Location = new System.Drawing.Point(250, 34);
+            this.panelWindow.Location = new System.Drawing.Point(250, 0);
             this.panelWindow.Name = "panelWindow";
-            this.panelWindow.Size = new System.Drawing.Size(1197, 741);
+            this.panelWindow.Size = new System.Drawing.Size(1197, 775);
             this.panelWindow.TabIndex = 5;
             // 
             // panelMain
             // 
-            this.panelMain.Controls.Add(this.tableLayoutPanel1);
-            this.panelMain.Controls.Add(this.panel1);
+            this.panelMain.Controls.Add(this.tableLayoutPanel_locker);
+            this.panelMain.Controls.Add(this.panel3);
+            this.panelMain.Controls.Add(this.panel2);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Location = new System.Drawing.Point(0, 35);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1197, 741);
-            this.panelMain.TabIndex = 2;
+            this.panelMain.Size = new System.Drawing.Size(1197, 740);
+            this.panelMain.TabIndex = 3;
             // 
-            // tableLayoutPanel1
+            // panel2
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 156);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1197, 585);
-            this.tableLayoutPanel1.TabIndex = 3;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox1, 2);
-            this.groupBox1.Size = new System.Drawing.Size(592, 579);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "          이번 달 생일!          ";
-            this.groupBox1.Visible = false;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 26);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(586, 550);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.listBoxBirthTrainer);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(3, 278);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(580, 269);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = " 트레이너";
-            // 
-            // listBoxBirthTrainer
-            // 
-            this.listBoxBirthTrainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxBirthTrainer.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.listBoxBirthTrainer.FormattingEnabled = true;
-            this.listBoxBirthTrainer.ItemHeight = 19;
-            this.listBoxBirthTrainer.Location = new System.Drawing.Point(3, 25);
-            this.listBoxBirthTrainer.Name = "listBoxBirthTrainer";
-            this.listBoxBirthTrainer.Size = new System.Drawing.Size(574, 241);
-            this.listBoxBirthTrainer.TabIndex = 0;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.listBoxBirthUser);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(580, 269);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = " 회원";
-            // 
-            // listBoxBirthUser
-            // 
-            this.listBoxBirthUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxBirthUser.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.listBoxBirthUser.FormattingEnabled = true;
-            this.listBoxBirthUser.ItemHeight = 19;
-            this.listBoxBirthUser.Location = new System.Drawing.Point(3, 25);
-            this.listBoxBirthUser.Name = "listBoxBirthUser";
-            this.listBoxBirthUser.Size = new System.Drawing.Size(574, 241);
-            this.listBoxBirthUser.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1197, 156);
-            this.panel1.TabIndex = 1;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1197, 156);
+            this.panel2.TabIndex = 1;
             // 
             // pictureBox2
             // 
@@ -555,6 +457,191 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btn_minimize);
+            this.panel1.Controls.Add(this.label_menuName);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1197, 35);
+            this.panel1.TabIndex = 0;
+            // 
+            // btn_minimize
+            // 
+            this.btn_minimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.btn_minimize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_minimize.ForeColor = System.Drawing.Color.White;
+            this.btn_minimize.Location = new System.Drawing.Point(1164, 0);
+            this.btn_minimize.Name = "btn_minimize";
+            this.btn_minimize.Size = new System.Drawing.Size(33, 35);
+            this.btn_minimize.TabIndex = 6;
+            this.btn_minimize.Text = "_";
+            this.btn_minimize.UseVisualStyleBackColor = false;
+            // 
+            // label_menuName
+            // 
+            this.label_menuName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.label_menuName.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label_menuName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label_menuName.ForeColor = System.Drawing.Color.LightGray;
+            this.label_menuName.Location = new System.Drawing.Point(0, 0);
+            this.label_menuName.Name = "label_menuName";
+            this.label_menuName.Size = new System.Drawing.Size(1164, 35);
+            this.label_menuName.TabIndex = 5;
+            this.label_menuName.Text = " ▶ 메인화면";
+            this.label_menuName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.btnOwnerMinus);
+            this.panel3.Controls.Add(this.btnOwnerPlus);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.btnNoMinus);
+            this.panel3.Controls.Add(this.btnNoPlus);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 156);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1197, 33);
+            this.panel3.TabIndex = 2;
+            // 
+            // tableLayoutPanel_locker
+            // 
+            this.tableLayoutPanel_locker.ColumnCount = 2;
+            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.95155F));
+            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 86.04845F));
+            this.tableLayoutPanel_locker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel_locker.Location = new System.Drawing.Point(0, 189);
+            this.tableLayoutPanel_locker.Name = "tableLayoutPanel_locker";
+            this.tableLayoutPanel_locker.RowCount = 2;
+            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.59589F));
+            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.40411F));
+            this.tableLayoutPanel_locker.Size = new System.Drawing.Size(1197, 551);
+            this.tableLayoutPanel_locker.TabIndex = 4;
+            // 
+            // btnNoPlus
+            // 
+            this.btnNoPlus.Location = new System.Drawing.Point(1001, 4);
+            this.btnNoPlus.Name = "btnNoPlus";
+            this.btnNoPlus.Size = new System.Drawing.Size(23, 23);
+            this.btnNoPlus.TabIndex = 0;
+            this.btnNoPlus.Tag = "0";
+            this.btnNoPlus.Text = "＋";
+            this.btnNoPlus.UseVisualStyleBackColor = true;
+            // 
+            // btnNoMinus
+            // 
+            this.btnNoMinus.Location = new System.Drawing.Point(1030, 4);
+            this.btnNoMinus.Name = "btnNoMinus";
+            this.btnNoMinus.Size = new System.Drawing.Size(23, 23);
+            this.btnNoMinus.TabIndex = 1;
+            this.btnNoMinus.Tag = "1";
+            this.btnNoMinus.Text = "－";
+            this.btnNoMinus.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(934, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "라커번호 - ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(1077, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = " 사용자 - ";
+            // 
+            // btnOwnerMinus
+            // 
+            this.btnOwnerMinus.Location = new System.Drawing.Point(1165, 4);
+            this.btnOwnerMinus.Name = "btnOwnerMinus";
+            this.btnOwnerMinus.Size = new System.Drawing.Size(23, 23);
+            this.btnOwnerMinus.TabIndex = 4;
+            this.btnOwnerMinus.Tag = "3";
+            this.btnOwnerMinus.Text = "－";
+            this.btnOwnerMinus.UseVisualStyleBackColor = true;
+            // 
+            // btnOwnerPlus
+            // 
+            this.btnOwnerPlus.Location = new System.Drawing.Point(1136, 4);
+            this.btnOwnerPlus.Name = "btnOwnerPlus";
+            this.btnOwnerPlus.Size = new System.Drawing.Size(23, 23);
+            this.btnOwnerPlus.TabIndex = 3;
+            this.btnOwnerPlus.Tag = "2";
+            this.btnOwnerPlus.Text = "＋";
+            this.btnOwnerPlus.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(6, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "사용가능";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Green;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(72, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 16);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "회원사용";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.LightBlue;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(138, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "트레이너";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Red;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(270, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 16);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "기간지남";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Yellow;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(204, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 16);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "마감임박";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -562,7 +649,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
             this.ClientSize = new System.Drawing.Size(1447, 797);
             this.Controls.Add(this.panelWindow);
-            this.Controls.Add(this.label_menuName);
             this.Controls.Add(this.panelSideMenu);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -583,13 +669,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).EndInit();
             this.panelWindow.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -618,18 +702,27 @@
         private System.Windows.Forms.Button btnExist;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.PictureBox pictureBox_logo;
-        private System.Windows.Forms.Label label_menuName;
         private System.Windows.Forms.Panel panelWindow;
+        private System.Windows.Forms.Panel panelMain;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox listBoxBirthTrainer;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListBox listBoxBirthUser;
+        private System.Windows.Forms.Button btn_minimize;
+        private System.Windows.Forms.Label label_menuName;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_locker;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnNoPlus;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnOwnerMinus;
+        private System.Windows.Forms.Button btnOwnerPlus;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnNoMinus;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
 

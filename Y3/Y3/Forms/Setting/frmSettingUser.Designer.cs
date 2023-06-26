@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtUserMemo = new System.Windows.Forms.TextBox();
@@ -58,6 +58,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtTrainerSalary = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtTrainerMemo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.chkTrainerBirthday = new System.Windows.Forms.CheckBox();
@@ -75,8 +77,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.grid_TrainerList = new System.Windows.Forms.DataGridView();
-            this.txtTrainerSalary = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.txtUserSessionCnt = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtUserServiceCnt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -105,6 +109,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtUserServiceCnt);
+            this.groupBox2.Controls.Add(this.txtUserSessionCnt);
+            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.txtUserMemo);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.chkUserBirthday);
@@ -122,6 +129,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtUserName);
             this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
@@ -274,6 +282,7 @@
             // txtUserPhone
             // 
             this.txtUserPhone.Location = new System.Drawing.Point(139, 95);
+            this.txtUserPhone.MaxLength = 11;
             this.txtUserPhone.Name = "txtUserPhone";
             this.txtUserPhone.Size = new System.Drawing.Size(176, 26);
             this.txtUserPhone.TabIndex = 12;
@@ -325,23 +334,23 @@
             // 
             // grid_UserList
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_UserList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_UserList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grid_UserList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_UserList.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_UserList.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_UserList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_UserList.Location = new System.Drawing.Point(3, 47);
             this.grid_UserList.Name = "grid_UserList";
@@ -423,6 +432,25 @@
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = " 트레이너 정보 등록";
+            // 
+            // txtTrainerSalary
+            // 
+            this.txtTrainerSalary.Location = new System.Drawing.Point(139, 103);
+            this.txtTrainerSalary.Name = "txtTrainerSalary";
+            this.txtTrainerSalary.Size = new System.Drawing.Size(176, 26);
+            this.txtTrainerSalary.TabIndex = 2;
+            this.txtTrainerSalary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(7, 105);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(126, 23);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "기본급 : ";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtTrainerMemo
             // 
@@ -549,6 +577,7 @@
             // txtTrainerPhone
             // 
             this.txtTrainerPhone.Location = new System.Drawing.Point(139, 138);
+            this.txtTrainerPhone.MaxLength = 11;
             this.txtTrainerPhone.Name = "txtTrainerPhone";
             this.txtTrainerPhone.Size = new System.Drawing.Size(176, 26);
             this.txtTrainerPhone.TabIndex = 3;
@@ -599,23 +628,23 @@
             // 
             // grid_TrainerList
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_TrainerList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_TrainerList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.grid_TrainerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_TrainerList.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_TrainerList.DefaultCellStyle = dataGridViewCellStyle4;
             this.grid_TrainerList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid_TrainerList.Location = new System.Drawing.Point(3, 22);
             this.grid_TrainerList.Name = "grid_TrainerList";
@@ -625,24 +654,43 @@
             this.grid_TrainerList.TabIndex = 2;
             this.grid_TrainerList.Tag = "1";
             // 
-            // txtTrainerSalary
+            // txtUserSessionCnt
             // 
-            this.txtTrainerSalary.Location = new System.Drawing.Point(139, 103);
-            this.txtTrainerSalary.Name = "txtTrainerSalary";
-            this.txtTrainerSalary.Size = new System.Drawing.Size(176, 26);
-            this.txtTrainerSalary.TabIndex = 2;
-            this.txtTrainerSalary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUserSessionCnt.Location = new System.Drawing.Point(589, 63);
+            this.txtUserSessionCnt.Name = "txtUserSessionCnt";
+            this.txtUserSessionCnt.Size = new System.Drawing.Size(84, 26);
+            this.txtUserSessionCnt.TabIndex = 19;
+            this.txtUserSessionCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label9
+            // label13
             // 
-            this.label9.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(7, 105);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(126, 23);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "기본급 : ";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label13.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(457, 65);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(126, 23);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "횟수 : ";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtUserServiceCnt
+            // 
+            this.txtUserServiceCnt.Location = new System.Drawing.Point(589, 95);
+            this.txtUserServiceCnt.Name = "txtUserServiceCnt";
+            this.txtUserServiceCnt.Size = new System.Drawing.Size(84, 26);
+            this.txtUserServiceCnt.TabIndex = 21;
+            this.txtUserServiceCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(457, 97);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 23);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "서비스 : ";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmSettingUser
             // 
@@ -718,5 +766,9 @@
         private System.Windows.Forms.TextBox txtSearchUser;
         private System.Windows.Forms.TextBox txtTrainerSalary;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtUserSessionCnt;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtUserServiceCnt;
+        private System.Windows.Forms.Label label14;
     }
 }

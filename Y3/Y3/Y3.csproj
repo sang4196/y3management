@@ -157,8 +157,15 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Singleton.cs" />
+    <Compile Include="UserControls\Locker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Locker.Designer.cs">
+      <DependentUpon>Locker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\Singleton.cs" />
     <Compile Include="Utility\CloneableList.cs" />
+    <Compile Include="Utility\Config.cs" />
     <Compile Include="Utility\Enums\Enums.cs" />
     <Compile Include="Utility\TimeUtil.cs" />
     <EmbeddedResource Include="Forms\Finance\frmFinanceMain.resx">
@@ -192,6 +199,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\Locker.resx">
+      <DependentUpon>Locker.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

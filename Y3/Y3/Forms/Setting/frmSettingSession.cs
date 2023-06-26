@@ -312,7 +312,7 @@ namespace Y3.Forms.Setting
 
             // 중복체크
             // 세션id, TR ID 동시 체크
-            if (Core.MODELS.SessionTrainerDuplication(STSessionId, int.Parse(STTrainerId)))
+            if (Core.MODELS.SessionTrainerDuplication(int.Parse(STSessionId), int.Parse(STTrainerId)))
             {
                 MessageBox.Show("해당 트레이너의 세션 설정이 존재합니다.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

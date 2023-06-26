@@ -78,22 +78,19 @@ namespace Y3.Forms.Setting
 
             txtSearchUser.KeyUp += TxtSearchUser_KeyUp;
 
-            txtUserPhone.KeyPress += TxtPhone_KeyPress;
-            txtTrainerPhone.KeyPress += TxtPhone_KeyPress;
-            txtTrainerSalary.KeyPress += TxtTrainerSalary_KeyPress;
+            txtUserPhone.KeyPress += Txt_KeyPress;
+            txtTrainerPhone.KeyPress += Txt_KeyPress;
+            txtTrainerSalary.KeyPress += Txt_KeyPress;
+            txtUserServiceCnt.KeyPress += Txt_KeyPress;
+            txtUserSessionCnt.KeyPress += Txt_KeyPress;
         }
 
 
         #region UI Event
 
-        private void TxtTrainerSalary_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txt_KeyPress(object sender, KeyPressEventArgs e)
         {
             Core.Instance.TypingOnlyNumber(sender, e, false, false);
-        }
-
-        private void TxtPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Core.Instance.TypingOnlyNumber(sender, e, false, true);
         }
 
         private void Btn_Click(object sender, EventArgs e)
@@ -138,10 +135,12 @@ namespace Y3.Forms.Setting
                     {
                         txtUserNo.Text = grid_UserList.CurrentRow.Cells["Id"].Value.ToString();
                         txtUserName.Text = grid_UserList.CurrentRow.Cells["Name"].Value.ToString();
-                        txtUserPhone.Text = grid_UserList.CurrentRow.Cells["PhoneNumber"].Value.ToString();
+                        txtUserPhone.Text = Core.Instance.ReversePhoneNumber(grid_UserList.CurrentRow.Cells["PhoneNumber"].Value.ToString());
                         dtUserBirthday.Value = DateTime.Parse(grid_UserList.CurrentRow.Cells["BirthDay"].Value.ToString()) == DateTime.MinValue ? dtNow : DateTime.Parse(grid_UserList.CurrentRow.Cells["BirthDay"].Value.ToString());
-                        comboUserSession.Text = grid_UserList.CurrentRow.Cells["Session"].Value.ToString() == "" ? "선택" : grid_UserList.CurrentRow.Cells["Session"].Value.ToString();
+                        comboUserSession.Text = grid_UserList.CurrentRow.Cells["SessionName"].Value.ToString() == "" ? "선택" : grid_UserList.CurrentRow.Cells["SessionName"].Value.ToString();
                         txtUserMemo.Text = grid_UserList.CurrentRow.Cells["Memo"].Value.ToString();
+                        txtUserSessionCnt.Text = grid_UserList.CurrentRow.Cells["RemainSession"].Value.ToString();
+                        txtUserServiceCnt.Text = grid_UserList.CurrentRow.Cells["RemainService"].Value.ToString();
 
                         if (txtUserPhone.Text == string.Empty)
                             chkUserPhone.Checked = true;
@@ -158,7 +157,7 @@ namespace Y3.Forms.Setting
                     {
                         txtTrainerNo.Text = grid_TrainerList.CurrentRow.Cells["Id"].Value.ToString();
                         txtTrainerName.Text = grid_TrainerList.CurrentRow.Cells["Name"].Value.ToString();
-                        txtTrainerPhone.Text = grid_TrainerList.CurrentRow.Cells["PhoneNumber"].Value.ToString();
+                        txtTrainerPhone.Text = Core.Instance.ReversePhoneNumber(grid_TrainerList.CurrentRow.Cells["PhoneNumber"].Value.ToString());
                         dtTrainerBirthday.Value = DateTime.Parse(grid_TrainerList.CurrentRow.Cells["BirthDay"].Value.ToString()) == DateTime.MinValue ? dtNow : DateTime.Parse(grid_TrainerList.CurrentRow.Cells["BirthDay"].Value.ToString());
                         txtTrainerSalary.Text = grid_TrainerList.CurrentRow.Cells["Salary"].Value.ToString();
                         txtTrainerMemo.Text = grid_TrainerList.CurrentRow.Cells["Memo"].Value.ToString();
@@ -215,6 +214,9 @@ namespace Y3.Forms.Setting
             comboUserSession.DataSource = Core.MODELS.GetSessionPriceCombo();
             comboUserSession.DisplayMember = "SessionName";
             comboUserSession.ValueMember = "Id";
+
+            LoadUserData();
+            LoadTrainerData();
         }
         #endregion
 
@@ -272,29 +274,42 @@ namespace Y3.Forms.Setting
 
         private void UpdateUser()
         {
-            User u = new User()
-            {
-                Id = txtUserNo.Text == "" ? 0 : int.Parse(txtUserNo.Text),
-                Name = txtUserName.Text,
-                PhoneNumber = chkUserPhone.Checked ? "" : txtUserPhone.Text,
-                BirthDay = chkUserBirthday.Checked ? DateTime.MinValue : dtUserBirthday.Value,
-                Session = comboUserSession.Text == "선택" ? "" : comboUserSession.Text,
-                Memo = txtUserMemo.Text,
-            };
-
-            if (u.Name == string.Empty)
+            if (txtUserName.Text == string.Empty)
             {
                 MessageBox.Show("이름은 필수 항목입니다.\n이름을 입력해주세요.", "이름 오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else if (!chkUserPhone.Checked)
             {
-                if (!u.PhoneNumber.Contains("-") || u.PhoneNumber.Length < 12)
+                if (txtUserPhone.Text.Length < 10)
                 {
-                    MessageBox.Show("핸드폰 번호를 정확히 입력해주세요.\n '-' 를 포함한 번호를 입력해주세요.", "핸드폰번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("핸드폰 번호를 정확히 입력해주세요.", "핸드폰번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
+
+            string userId = txtUserNo.Text;
+            string userName = txtUserName.Text;
+            string userPhone = txtUserPhone.Text;
+            DateTime userBirth = dtUserBirthday.Value;
+            string userSessionId = comboUserSession.SelectedValue.ToString();
+            string userSessionName = comboUserSession.Text;
+            string userMemo = txtUserMemo.Text;
+            int userSessionCnt = txtUserSessionCnt.Text == string.Empty || userSessionId == "0" ? 0 : int.Parse(txtUserSessionCnt.Text);
+            int userServiceCnt = txtUserServiceCnt.Text == string.Empty || userSessionId == "0" ? 0 : int.Parse(txtUserServiceCnt.Text);
+
+            User u = new User()
+            {
+                Id = userId == "" ? 0 : int.Parse(userId),
+                Name = userName,
+                PhoneNumber = chkUserPhone.Checked ? "" : Core.Instance.MakePhoneNumber(userPhone),
+                BirthDay = chkUserBirthday.Checked ? DateTime.MinValue : userBirth,
+                SessionId = int.Parse(userSessionId),
+                SessionName = userSessionName == "선택" ? "" : userSessionName,
+                RemainSession = userSessionCnt,
+                RemainService = userServiceCnt,
+                Memo = userMemo,
+            };
 
             DBUser d = new DBUser(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
 
@@ -321,21 +336,28 @@ namespace Y3.Forms.Setting
             }
             else if (!chkTrainerPhone.Checked)
             {
-                if (!txtTrainerPhone.Text.Contains("-") || txtTrainerPhone.Text.Length < 12)
+                if (txtTrainerPhone.Text.Length < 10)
                 {
-                    MessageBox.Show("핸드폰 번호를 정확히 입력해주세요.\n '-' 를 포함한 번호를 입력해주세요.", "핸드폰번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("핸드폰 번호를 정확히 입력해주세요.", "핸드폰번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
 
+            string trainerId = txtTrainerNo.Text;
+            string trainerName = txtTrainerName.Text;
+            string trainerPhone = txtTrainerPhone.Text;
+            DateTime trainerBirth = dtTrainerBirthday.Value;
+            string trainerSalary = txtTrainerSalary.Text;
+            string trainerMemo = txtTrainerMemo.Text;
+
             Trainer u = new Trainer()
             {
-                Id = txtTrainerNo.Text == "" ? 0 : int.Parse(txtTrainerNo.Text),
-                Name = txtTrainerName.Text,
-                PhoneNumber = chkTrainerPhone.Checked ? "" : txtTrainerPhone.Text,
-                BirthDay = chkTrainerBirthday.Checked ? DateTime.MinValue : dtTrainerBirthday.Value,
-                Salary = int.Parse(txtTrainerSalary.Text),
-                Memo = txtTrainerMemo.Text,
+                Id = trainerId == "" ? 0 : int.Parse(trainerId),
+                Name = trainerName,
+                PhoneNumber = chkTrainerPhone.Checked ? "" : Core.Instance.MakePhoneNumber(trainerPhone),
+                BirthDay = chkTrainerBirthday.Checked ? DateTime.MinValue : trainerBirth,
+                Salary = int.Parse(trainerSalary),
+                Memo = trainerMemo,
             };
 
             DBTrainer d = new DBTrainer(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
@@ -423,9 +445,13 @@ namespace Y3.Forms.Setting
             #region User
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Id", "Id", true, 70, false);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Name", "이름", true, 80);
-            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "PhoneNumber", "핸드폰 번호", true, 120);
-            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Session", "세션", true, 70);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionId", "세션", true, 70, false);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);
             // 헤더
             grid_UserList.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -435,6 +461,9 @@ namespace Y3.Forms.Setting
             grid_UserList.DefaultCellStyle.Font = new Font("굴림", 9, FontStyle.Regular);
 
             grid_UserList.Columns["BirthDay"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            grid_UserList.Columns["RemainSession"].DefaultCellStyle.Format = "###,###";
+            grid_UserList.Columns["RemainService"].DefaultCellStyle.Format = "###,###";
+            grid_UserList.Columns["LockerNo"].DefaultCellStyle.Format = "###,###";
 
             grid_UserList.RowHeadersVisible = false;
             grid_UserList.AllowUserToAddRows = false;
@@ -443,9 +472,10 @@ namespace Y3.Forms.Setting
             #region Trainer
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Id", "Id", true, 70, false);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Name", "이름", true, 80);
-            Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "PhoneNumber", "핸드폰 번호", true, 120);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Salary", "기본급", true, 120);
+            Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100);
+            Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 270);
             // 헤더
             grid_TrainerList.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;

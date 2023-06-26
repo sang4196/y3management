@@ -18,6 +18,7 @@ using Y3.Forms.Session;
 using Y3.Forms.Setting;
 using Y3.Models;
 using Y3.Models.DB;
+using Y3.Utility;
 using Y3.Utility.Enums;
 using static Y3.Enums;
 using Formatting = Newtonsoft.Json.Formatting;
@@ -29,8 +30,10 @@ namespace Y3
         private const string PATH_BASE = "C:\\Y3\\";
         private const string PATH_CONFIG = "Config\\";
         private const string PARAMETER_FILE_QUERY = "query.json";
+        private const string PARAMETER_CONFIG_QUERY = "Config.json";
 
         private QueryString _queryString = new QueryString();
+        private Config _Config = new Config();
 
         // form
         public frmMain _frmMain;
@@ -77,7 +80,7 @@ namespace Y3
             }
 
             //_queryString = ReadJsonToObject<QueryString>(_queryString, PATH_BASE + PATH_CONFIG + PARAMETER_FILE_QUERY);
-
+            _Config = ReadJsonToObject<Config>(_queryString, PATH_BASE + PATH_CONFIG + PARAMETER_CONFIG_QUERY);
         }
         public decimal CalcTotalPrice(decimal price, decimal per, decimal deduct)
         {
@@ -89,7 +92,31 @@ namespace Y3
 
         public void CloseProc()
         {
+            SaveConfig();
             Application.Exit();
+        }
+
+        public void SaveConfig()
+        {
+            SaveObjectToJson(_Config, PATH_BASE + PATH_CONFIG + PARAMETER_CONFIG_QUERY);
+        }
+
+        public string MakePhoneNumber(string number)
+        {
+            string rtn = number;
+            // 01011112222
+            rtn = rtn.Insert(3, "-");
+            // 010-11112222
+            if (rtn.Length > 11) rtn = rtn.Insert(8, "-");
+            // 010-1112222
+            else rtn = rtn.Insert(7, "-");
+
+            return rtn;
+        }
+
+        public string ReversePhoneNumber(string number)
+        {
+            return number.Replace("-", "");
         }
 
         public void SaveObjectToJson(object _object, string _fileName)
@@ -282,10 +309,14 @@ namespace Y3
         public static frmSessionSales FORM_SESSION_SALES { get => _instance._frmSessionSales; }
         // setting
         public static frmSettingUser FORM_SETTING_USER { get => _instance._frmSettingUser; }
-        public static Forms.Setting.frmSettingSession FORM_SETTING_SESSION { get => _instance._frmSettingSession; }
+        public static frmSettingSession FORM_SETTING_SESSION { get => _instance._frmSettingSession; }
+
         // db
         public static MariaDB MARIA { get => _instance._mariaDB; }
         public static QueryString QUERY { get => _instance._queryString; }
         public static ModelList MODELS { get => _instance._modelList; }
+
+        // config
+        public static Config CONFIG { get=>_instance._Config; }
     }
 }

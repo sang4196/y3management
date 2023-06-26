@@ -9,12 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Y3.Properties;
+using Y3.UserControls;
 using static Y3.Enums;
 
 namespace Y3.Forms
 {
     public partial class frmMain : Form
     {
+        private enum eLockerButton
+        {
+            NO_PLUS = 0,
+            NO_MINUS,
+            OWNER_PLUS,
+            OWNER_MINUS,
+        }
+
         private enum eButton
         {
             MAIN = 0,
@@ -46,6 +55,7 @@ namespace Y3.Forms
         const int SUBMENU_COUNT = 3;
 
         private Panel[] _subPanels = new Panel[SUBMENU_COUNT];
+        private Dictionary<int, Locker> _lockers = new Dictionary<int, Locker>();
 
         public frmMain()
         {
@@ -59,49 +69,7 @@ namespace Y3.Forms
             Core.Instance._frmMain = this;
             Core.Instance.InitCore();
 
-            InitBirthday();
-        }
-
-        private void InitBirthday()
-        {
-            var user = Core.MODELS.GetMonthBirthUser();
-            var trainer = Core.MODELS.GetMonthBirthTrainer();
-            foreach (var item in user)
-            {
-                listBoxBirthUser.Items.Add(item.GetBirthString());
-            }
-            foreach (var item in trainer)
-            {
-                listBoxBirthTrainer.Items.Add(item.GetBirthString());
-            }
-        }
-
-        private void InitControl()
-        {
-            ChangeStatusString(false);
-
-            SubMenuInit();
-        }
-
-        public void ChangeStatusString(bool isDBConnect)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate { ChangeStatusString(isDBConnect); }));
-            }
-            versionString.Text = $"Ver {Application.ProductVersion.ToString()}  DBConnect - {isDBConnect}";
-        }
-
-        private void SubMenuInit()
-        {
-            _subPanels[0] = panelSubmenuFinance;
-            _subPanels[1] = panelSubmenuSession;
-            _subPanels[2] = panelSubmenuSetting;
-
-            for (int i = 0; i < SUBMENU_COUNT; i++)
-            {
-                _subPanels[i].Visible = false;
-            }
+            MakeLocker();
         }
 
         private void InitEvent()
@@ -123,16 +91,54 @@ namespace Y3.Forms
             btnSettingSession.Click += BtnSub_Click;
 
             btnExist.Click += BtnMenu_Click;
+            btn_minimize.Click += Btn_minimize_Click;
+
+            btnNoMinus.Click += BtnLockerFont_Click;
+            btnNoPlus.Click += BtnLockerFont_Click;
+            btnOwnerMinus.Click += BtnLockerFont_Click;
+            btnOwnerPlus.Click += BtnLockerFont_Click;
+        }
+
+        #region UI Event
+
+        private void BtnLockerFont_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int selectIdx = int.Parse(btn.Tag.ToString());
+
+            switch (selectIdx)
+            {
+                case (int)eLockerButton.NO_PLUS:
+                    Core.CONFIG.LOCKER_NO_FONT_SIZE += 0.25f;
+                    break;
+                case (int)eLockerButton.NO_MINUS:
+                    Core.CONFIG.LOCKER_NO_FONT_SIZE -= 0.25f;
+                    break;
+                case (int)eLockerButton.OWNER_PLUS:
+                    Core.CONFIG.LOCKER_OWNER_FONT_SIZE += 0.25f;
+                    break;
+                case (int)eLockerButton.OWNER_MINUS:
+                    Core.CONFIG.LOCKER_OWNER_FONT_SIZE -= 0.25f;
+                    break;
+            }
+            Core.Instance.SaveConfig();
+
+            foreach (int item in _lockers.Keys)
+            {
+                _lockers[item].SetNoFontSize(Core.CONFIG.LOCKER_NO_FONT_SIZE);
+                _lockers[item].SetOwnerFontSize(Core.CONFIG.LOCKER_OWNER_FONT_SIZE);
+            }
+        }
+
+        private void Btn_minimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-        }
-        private void ChangeMenuName(string name)
-        {
-            label_menuName.Text = name;
         }
 
         private void BtnSub_Click(object sender, EventArgs e)
@@ -183,12 +189,11 @@ namespace Y3.Forms
             Button btn = (Button)sender;
             int selectIdx = int.Parse(btn.Tag.ToString());
 
-            switch(selectIdx)
+            switch (selectIdx)
             {
                 // main menu
                 case (int)eButton.MAIN:
                     SubMenuInit();
-                    InitBirthday();
                     openChildForm(null);
                     ChangeMenuName(" ▶ 메인화면");
                     break;
@@ -206,6 +211,79 @@ namespace Y3.Forms
                     break;
             }
         }
+        #endregion
+
+        private void MakeLocker()
+        {
+            int lockerCount = 0;
+            int lockerLength = (int)Math.Floor(Math.Sqrt(Core.CONFIG.LOCKER_COUNT)) + 1;
+            tableLayoutPanel_locker.Controls.Clear();
+            tableLayoutPanel_locker.ColumnStyles.Clear();
+            tableLayoutPanel_locker.RowStyles.Clear();
+
+            tableLayoutPanel_locker.RowCount = lockerLength;
+            tableLayoutPanel_locker.ColumnCount = lockerLength;
+
+            _lockers.Clear();
+            for (int c = 0; c < lockerLength; c++)
+            {
+                tableLayoutPanel_locker.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / lockerLength));
+
+                for (int r = 0; r < lockerLength; r++)
+                {
+                    if (c == 0)
+                    {
+                        tableLayoutPanel_locker.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / lockerLength));
+                    }
+
+                    if (lockerCount < Core.CONFIG.LOCKER_COUNT)
+                    {
+                        Locker locker = new Locker();
+                        locker.LOCKER_NO = ++lockerCount;
+                        locker.SetNoFontSize(Core.CONFIG.LOCKER_NO_FONT_SIZE);
+                        locker.SetOwnerFontSize(Core.CONFIG.LOCKER_OWNER_FONT_SIZE);
+                        _lockers.Add(lockerCount, locker);
+                        tableLayoutPanel_locker.Controls.Add(locker, r, c);
+                    }
+                }
+            }
+        }
+
+        private void InitControl()
+        {
+            ChangeStatusString(false);
+
+            SubMenuInit();
+        }
+
+        public void ChangeStatusString(bool isDBConnect)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(delegate { ChangeStatusString(isDBConnect); }));
+            }
+            versionString.Text = $"Ver {Application.ProductVersion.ToString()}  DBConnect - {isDBConnect}";
+        }
+
+        private void SubMenuInit()
+        {
+            _subPanels[0] = panelSubmenuFinance;
+            _subPanels[1] = panelSubmenuSession;
+            _subPanels[2] = panelSubmenuSetting;
+
+            for (int i = 0; i < SUBMENU_COUNT; i++)
+            {
+                _subPanels[i].Visible = false;
+            }
+        }
+
+        
+        private void ChangeMenuName(string name)
+        {
+            label_menuName.Text = name;
+        }
+
+        
 
         private void hideSubmenu()
         {

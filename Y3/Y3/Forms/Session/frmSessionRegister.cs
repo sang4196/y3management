@@ -12,6 +12,7 @@ using Y3.Models;
 using Y3.Utility.Enums;
 using MySqlX.XDevAPI;
 using Y3.Utility;
+using System.Runtime.Remoting;
 
 namespace Y3.Forms.Session
 {
@@ -163,9 +164,24 @@ namespace Y3.Forms.Session
             if (txtSessionNo.Text == string.Empty) return;
 
             int id = int.Parse(txtSessionNo.Text);
+            int userId = int.Parse(txtUserNo.Text);
+            bool isRecovery = false;
 
             if (MessageBox.Show("정말 삭제 하시겠습니까?", "삭제", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
+
+            if (MessageBox.Show("데이터 삭제 후 해당 회원에게 세션 횟수를 복원 시키겠습니까?", "알림", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                isRecovery = true;
+            }
+
+            Models.Session session = Core.MODELS.GetSessionById(id);
+            User user = Core.MODELS.GetUserById(userId);
+            if (isRecovery && (user.SessionId != session.SessionPriceId))
+            {
+                MessageBox.Show("삭제 실패!\n삭제하려는 데이터의 세션과 해당 유저의 세션이 상이합니다.", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             Models.Session d = new Models.Session()
             {
@@ -178,7 +194,22 @@ namespace Y3.Forms.Session
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
                 Core.MODELS.UpdateSessionData(d, eDBQueryType.DELETE);
+
+                if (isRecovery)
+                {
+                    if (session.IsService)
+                    {
+                        user.RemainService += session.SessionCount;
+                    }
+                    else
+                    {
+                        user.RemainSession += session.SessionCount;
+                    }
+                    Core.MODELS.SaveUser(user, eDBQueryType.UPDATE);
+                }
+
                 LoadSessionData();
+                LoadUserData();
             }
             else
             {
@@ -205,31 +236,108 @@ namespace Y3.Forms.Session
                 return;
             }
 
+            int totalSessioning = int.Parse(sessionCount);
+            User u = Core.MODELS.GetUserById(int.Parse(userId));
+            if (totalSessioning < 1)
+            {
+                MessageBox.Show("세션 진행횟수가 잘못되었습니다. 1이상의 숫자를 입력해주세요.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if ((u.RemainSession + u.RemainService) - totalSessioning < 0)
+            {
+                MessageBox.Show("세션 진행횟수가 남은 횟수보다 많습니다.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             // 중복체크 필요없을듯
 
+            List<Models.Session> saveList = new List<Models.Session>();
 
-            Models.Session d = new Models.Session()
+            // 기본 세션수보다 진행수가 높을경우 서비스가격으로 들어가야함.
+            // shlee 서비스일경우 25000원 - 서비스 설정 추가필요
+            int remain = u.RemainSession;
+            int sessioning = totalSessioning;
+            // 기본 남은세션이 소모세션보다 적을때
+            if (remain - totalSessioning < 0)
             {
-                Id = sessionNo == "" ? 0 : int.Parse(sessionNo),
-                UserId = int.Parse(userId),
-                UserName = userName,
-                SessionPriceId = int.Parse(sessionPriceID),
-                SessionPriceName = sessionPriceName,
-                TrainerId = int.Parse(trainerID),
-                TrainerName = trainerName,
-                Date = sessionDate,
-                SessionCount = int.Parse(sessionCount),
-                SessionTotalPrice = int.Parse(sessionTotalPrice)
-            };
+                sessioning -= remain;
 
-            DBSession save = new DBSession(d, d.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
+                if (remain != 0)
+                {
+                    Models.Session d1 = new Models.Session()
+                    {
+                        Id = sessionNo == "" ? 0 : int.Parse(sessionNo),
+                        UserId = int.Parse(userId),
+                        UserName = userName,
+                        SessionPriceId = int.Parse(sessionPriceID),
+                        SessionPriceName = sessionPriceName,
+                        TrainerId = int.Parse(trainerID),
+                        TrainerName = trainerName,
+                        Date = sessionDate,
+                        SessionCount = remain,
+                        SessionTotalPrice = int.Parse(sessionTotalPrice)
+                    };
+                    saveList.Add(d1);
+                }
+                if(sessioning > 0)
+                {
+                    Models.Session d2 = new Models.Session()
+                    {
+                        Id = sessionNo == "" ? 0 : int.Parse(sessionNo),
+                        UserId = int.Parse(userId),
+                        UserName = userName,
+                        SessionPriceId = int.Parse(sessionPriceID),
+                        SessionPriceName = sessionPriceName,
+                        TrainerId = int.Parse(trainerID),
+                        TrainerName = trainerName,
+                        Date = sessionDate,
+                        SessionCount = sessioning,
+                        SessionTotalPrice = 25000 * sessioning,
+                        IsService = true
+                    };
+                    saveList.Add(d2);
+                }
+            }
+            else
+            {
+                Models.Session d1 = new Models.Session()
+                {
+                    Id = sessionNo == "" ? 0 : int.Parse(sessionNo),
+                    UserId = int.Parse(userId),
+                    UserName = userName,
+                    SessionPriceId = int.Parse(sessionPriceID),
+                    SessionPriceName = sessionPriceName,
+                    TrainerId = int.Parse(trainerID),
+                    TrainerName = trainerName,
+                    Date = sessionDate,
+                    SessionCount = sessioning,
+                    SessionTotalPrice = int.Parse(sessionTotalPrice)
+                };
+                saveList.Add(d1);
+            }
 
-            if (Core.MARIA.Save(save, out long outId))
+            eDBQueryType saveType = saveList[0].Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT;
+            DBSession save = new DBSession(saveList, saveType);
+
+            if (Core.MARIA.MultiSave(save, out long outId))
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionData(d);
+                // outid 0일경우는 update, delete성공
+                // insert성공시 해당 로우 아이디반환
+                if (outId != 0)
+                {
+                    // insert성공시
+                    // 저장했던 객체에 id부여
+                    foreach (Models.Session item in saveList)
+                    {
+                        item.Id = (int)outId;
+                        outId += 1;
+                    }
+                    Core.MODELS.MinusUserSessionCount(u.Id, totalSessioning);
+                }
+                Core.MODELS.UpdateSessionData(saveList);
                 LoadSessionData();
+                LoadUserData();
             }
             else
             {
@@ -264,6 +372,8 @@ namespace Y3.Forms.Session
                         txtSessionUseCount.Text = grid_SessionList.CurrentRow.Cells["SessionCount"].Value.ToString();
 
                         txtSessionPrice.Text = ((int)(decimal.Parse(txtSessionTotalPrice.Text) / decimal.Parse(txtSessionUseCount.Text))).ToString();
+
+                        txtSessionUseCount.Enabled = false;
                     }
                     break;
                 case (int)eGrid.SESSION_PRICE:
@@ -288,10 +398,50 @@ namespace Y3.Forms.Session
                 case (int)eGrid.USER:
                     {
                         // user
+                        string trId = comboSearchTrainer.SelectedValue.ToString();
+                        if (trId == "0")
+                        {
+                            MessageBox.Show("트레이너를 선택해주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            comboSearchTrainer.Focus();
+                            return;
+                        }
+
+                        string spId = grid_UserList.CurrentRow.Cells["SessionId"].Value.ToString();
+                        string spName = grid_UserList.CurrentRow.Cells["SessionName"].Value.ToString();
+                        decimal price = 0;
+                        // 세션 아이디 있는지 체크
+                        if (spId == string.Empty || spId == "0")
+                        {
+                            MessageBox.Show("세션이 등록되지 않은 회원입니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        // 해당 세션 존재체크
+                        SessionPrice sp = Core.MODELS.GetSessionPriceById(int.Parse(spId));
+                        if (sp == null)
+                        {
+                            MessageBox.Show("세션이 존재하지 않습니다.\n관리자에게 문의 바랍니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        SessionTrainer st = Core.MODELS.GetSessionTrainerByTrIdAndSessionID(int.Parse(trId), sp.Id);
+                        if (st == null)
+                        {
+                            price = sp.FinalPrice;
+                        }
+                        else
+                        {
+                            price = Core.MODELS.GetSessionTrainerTotalPrice(sp.Id, int.Parse(trId));
+                        }
+
                         txtUserNo.Text = grid_UserList.CurrentRow.Cells["Id"].Value.ToString();
                         txtUserName.Text = grid_UserList.CurrentRow.Cells["Name"].Value.ToString();
 
+                        txtSessionPriceName.Text = spName;
+                        txtSessionPrice.Text = price.ToString("00");
+                        txtSessionPriceNo.Text = grid_UserList.CurrentRow.Cells["SessionId"].Value.ToString();
+
                         txtSessionNo.Text = string.Empty;
+                        txtSessionUseCount.Enabled = true;
+                        txtSessionUseCount.Text = string.Empty;
                     }
                     break;
             }
@@ -351,9 +501,23 @@ namespace Y3.Forms.Session
 
         private void LoadSessionData()
         {
-            if (comboSearchTrainer.SelectedValue == null || comboSearchTrainer.SelectedIndex == 0) return;
+            if (comboSearchTrainer.SelectedValue == null || comboSearchTrainer.SelectedIndex == 0)
+            {
+                if (grid_SessionList.DataSource != null)
+                    grid_SessionList.DataSource = ((DataTable)grid_SessionList.DataSource).Clone();
+                return;
+            }
 
             grid_SessionList.DataSource = Core.MODELS.GetSessionsDataTable((int)comboSearchTrainer.SelectedValue, dtSearchDate.Value);
+
+            int rowCnt = grid_SessionList.Rows.Count;
+            for (int i = 0; i < rowCnt; i++)
+            {
+                if (Convert.ToBoolean(grid_SessionList.Rows[i].Cells["IsService"].Value))
+                {
+                    grid_SessionList.Rows[i].Cells["SessionTotalPrice"].Style.BackColor = Color.Yellow;
+                }
+            }
 
             InitControl();
         }
@@ -376,6 +540,7 @@ namespace Y3.Forms.Session
             //txtTrainerName.Text = string.Empty;
 
             txtSessionUseCount.Text = string.Empty;
+            txtSessionUseCount.Enabled = true;
         }
 
         private void InitGrid()
@@ -390,6 +555,7 @@ namespace Y3.Forms.Session
             Core.Instance.SetGridCol_Text(grid_SessionList, new DataGridViewTextBoxColumn(), "SessionPriceId", "세션종류ID", true, 95, false);
             Core.Instance.SetGridCol_Text(grid_SessionList, new DataGridViewTextBoxColumn(), "SessionPriceName", "세션이름", true, 90);
             Core.Instance.SetGridCol_Text(grid_SessionList, new DataGridViewTextBoxColumn(), "SessionCount", "세션소모 수", true, 115);
+            Core.Instance.SetGridCol_Text(grid_SessionList, new DataGridViewTextBoxColumn(), "IsService", "서비스여부", true, 105, false);
             Core.Instance.SetGridCol_Text(grid_SessionList, new DataGridViewTextBoxColumn(), "SessionTotalPrice", "가격", true, 100);
             // 헤더
             grid_SessionList.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -412,7 +578,11 @@ namespace Y3.Forms.Session
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Name", "이름", true, 80);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90, false);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "PhoneNumber", "핸드폰 번호", true, 120);
-            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Session", "세션", true, 70);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionId", "세션", true, 70, false);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100, false);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);
             // 헤더
             grid_UserList.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;

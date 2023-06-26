@@ -58,6 +58,11 @@ namespace Y3.Models
             return Sessions.Where(p => p.TrainerId == trainerNo && p.Date.ToString(TimeUtil.TIME_FORMAT_6) == searchDt.ToString(TimeUtil.TIME_FORMAT_6)).ToList();
         }
 
+        public Session GetSessionById(int sessionId)
+        {
+            return Sessions.Find(p=>p.Id  == sessionId);
+        }
+
         public List<Session> GetSessions(int trainerNo, DateTime startDt, DateTime endDt)
         {
             return Sessions.Where(p => p.TrainerId == trainerNo && (p.Date >= startDt && p.Date <= endDt)).ToList();
@@ -88,6 +93,30 @@ namespace Y3.Models
                 Sessions.Add(data);
             }
         }
+
+        public void UpdateSessionData(List<Session> data, eDBQueryType type = eDBQueryType.INSERT)
+        {
+            foreach (Session item in data)
+            {
+                var obj = Sessions.FirstOrDefault(p => p.Id == item.Id);
+                if (obj != null)
+                {
+                    if (type == eDBQueryType.DELETE)
+                    {
+                        Session v = Sessions.Find(p => p.Id == item.Id);
+                        Sessions.Remove(v);
+                    }
+                    else
+                    {
+                        obj.Update(item);
+                    }
+                }
+                else
+                {
+                    Sessions.Add(item);
+                }
+            }
+        }
         #endregion
 
         #region SessionTrainer
@@ -96,14 +125,19 @@ namespace Y3.Models
             SessionTrainers = Core.Instance.DataTableToObject<SessionTrainer>(Core.MARIA.Get(new DBSessionTrainer(eDBQueryType.SELECT)));
         }
 
+        public SessionTrainer GetSessionTrainerByTrIdAndSessionID(int TrID, int sessionID)
+        {
+            return SessionTrainers.Find(p => p.TrainerId == TrID && p.SessionId == sessionID);
+        }
+
         public DataTable GetSessionTrainersDataTable()
         {
             return Core.Instance.ObjectToDataTable<SessionTrainer>(SessionTrainers);
         }
 
-        public bool SessionTrainerDuplication(string spName, int STTrainerId)
+        public bool SessionTrainerDuplication(int spId, int STTrainerId)
         {
-            var var = SessionTrainers.Find(p => p.SessionName == spName && p.TrainerId == STTrainerId);
+            var var = SessionTrainers.Find(p => p.SessionId == spId && p.TrainerId == STTrainerId);
             return var != null;
         }
 
@@ -149,6 +183,11 @@ namespace Y3.Models
         public List<SessionPrice> GetSessionPrices()
         {
             return SessionPrice;
+        }
+
+        public SessionPrice GetSessionPriceById(int id)
+        {
+            return SessionPrice.Find(p=>p.Id == id);
         }
 
         public DataTable GetSessionPriceCombo()
@@ -246,6 +285,39 @@ namespace Y3.Models
             return Core.Instance.ObjectToDataTable<User>(Users);
         }
 
+        public User GetUserById(int id)
+        {
+            return Users.Find(p=>p.Id == id);
+        }
+
+        public void SaveUser(User user, eDBQueryType saveType)
+        {
+            DBUser save = new DBUser(user, saveType);
+            if (!Core.MARIA.Save(save, out long outId))
+            {
+                MessageBox.Show("유저 정보 저장 실패.\n관리자에게 문의하세요.", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void MinusUserSessionCount(int userId, int count)
+        {
+            User d = Users.Find(p => p.Id == userId);
+            if (d != null)
+            {
+                if (d.RemainSession - count < 0)
+                {
+                    count -= d.RemainSession;
+                    d.RemainSession = 0;
+                    d.RemainService -= count;
+                }
+                else
+                {
+                    d.RemainSession -= count;
+                }
+                SaveUser(d, eDBQueryType.UPDATE);
+            }
+        }
+
         public void UpdateUserData(User data, eDBQueryType type = eDBQueryType.INSERT)
         {
             var obj = Users.FirstOrDefault(p => p.Id == data.Id);
@@ -335,7 +407,7 @@ namespace Y3.Models
         public decimal GetSessionTrainerTotalPrice(int SPNo, int TRNo)
         {
             var sp = SessionPrice.Find(p => p.Id == SPNo);
-            var st = SessionTrainers.Find(p => p.TrainerId == TRNo);
+            var st = SessionTrainers.Find(p => p.TrainerId == TRNo && p.SessionId == SPNo);
 
             if (sp == null) return 0;
             if (st == null) return sp.FinalPrice;
