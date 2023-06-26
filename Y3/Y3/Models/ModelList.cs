@@ -21,6 +21,7 @@ namespace Y3.Models
         private List<Trainer> Trainers = new List<Trainer>();
         private List<Session> Sessions = new List<Session>();
         private List<TrainerSales> TrainerSales = new List<TrainerSales>();
+        private List<Locker> Lockers = new List<Locker>();
 
         public ModelList()
         {
@@ -393,6 +394,34 @@ namespace Y3.Models
             }
         }
 
+        #endregion
+
+        #region SessionTrainer
+        private void ReadLockers()
+        {
+            Lockers = Core.Instance.DataTableToObject<Locker>(Core.MARIA.Get(new DBLocker(eDBQueryType.SELECT)));
+        }
+
+        public void UpdateLockerData(Locker data, eDBQueryType type = eDBQueryType.INSERT)
+        {
+            var obj = Lockers.FirstOrDefault(p => p.Id == data.Id);
+            if (obj != null)
+            {
+                if (type == eDBQueryType.DELETE)
+                {
+                    Locker v = Lockers.Find(p => p.Id == data.Id);
+                    Lockers.Remove(v);
+                }
+                else
+                {
+                    obj.Update(data);
+                }
+            }
+            else
+            {
+                Lockers.Add(data);
+            }
+        }
         #endregion
 
         public List<User> GetMonthBirthUser()

@@ -450,7 +450,7 @@ namespace Y3.Forms.Setting
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
-            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "락커번호", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);
             // 헤더
@@ -474,7 +474,7 @@ namespace Y3.Forms.Setting
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Name", "이름", true, 80);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "PhoneNumber", "핸드폰 번호", true, 120);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Salary", "기본급", true, 120);
-            Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100);
+            Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "LockerNo", "락커번호", true, 100);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_TrainerList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 270);
             // 헤더

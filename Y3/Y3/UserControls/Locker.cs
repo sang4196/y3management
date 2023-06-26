@@ -9,24 +9,50 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Y3.Utility;
+using Y3.Utility.Enums;
 
 namespace Y3.UserControls
 {
     public partial class Locker : UserControl
     {
         private int _lockerNo;
-        public int LOCKER_NO { 
+
+        public delegate void ButtonClickEventHandler(eUserType userType, int userId, int lockNo);
+        public event ButtonClickEventHandler ButtonClickEvent;
+                
+        private int _ownerId;
+        private string _ownerName;
+        private eUserType _userType;
+
+        public int LOCKER_NO
+        {
             set
             {
                 _lockerNo = value;
                 SetLockerTitle(_lockerNo.ToString());
-            } 
+                this.Tag = _lockerNo.ToString();
+            }
         }
-        Dictionary<int, string> _owners = new Dictionary<int, string>();
+        public eUserType USER_TYPE
+        {
+            set
+            {
+                _userType = value;
+            }
+        }
         public Locker()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
+
+            btn_locker.Click += Btn_locker_Click;
+        }
+
+        private void Btn_locker_Click(object sender, EventArgs e)
+        {
+            // 0 - user
+            // 1 - trainer
+            ButtonClickEvent(_userType, _ownerId, _lockerNo);
         }
 
         public void SetLockerTitle(string title)
@@ -36,25 +62,21 @@ namespace Y3.UserControls
 
         public void SetLockerOwner(int ownerId, string lockerOwner)
         {
-            _owners.Add(ownerId, lockerOwner);
+            _ownerId = ownerId;
+            _ownerName = lockerOwner;
             UpdateLockerOwner();
         }
 
         private void UpdateLockerOwner()
         {
-            btn_locker.Text = string.Join("\n", _owners.Values.ToArray());
+            btn_locker.Text = _ownerName;
         }
 
         public void InitOwner()
         {
             SetLockerTitle(_lockerNo.ToString());
-            _owners.Clear();
-        }
-
-        public void DeleteLockerOwner(int ownerId)
-        {
-            _owners.Remove(ownerId);
-            UpdateLockerOwner();
+            _ownerId = 0;
+            _ownerName = string.Empty;
         }
 
         public void SetNoFontSize(float fontSize) 

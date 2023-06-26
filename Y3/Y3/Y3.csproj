@@ -107,6 +107,18 @@
     <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Popup\popLocker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\popLocker.Designer.cs">
+      <DependentUpon>popLocker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Popup\popUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\popUser.Designer.cs">
+      <DependentUpon>popUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Session\frmSessionStats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +154,7 @@
     <Compile Include="Models\DB\BasicDBsql.cs" />
     <Compile Include="Models\DB\BasicDBModel.cs" />
     <Compile Include="Models\DB\DBSession.cs" />
+    <Compile Include="Models\DB\DBLocker.cs" />
     <Compile Include="Models\DB\DBSessionTrainer.cs" />
     <Compile Include="Models\DB\DBSessionPrice.cs" />
     <Compile Include="Models\DB\DBTrainerSales.cs" />
@@ -154,6 +167,7 @@
     <Compile Include="Models\SessionTrainer.cs" />
     <Compile Include="Models\Trainer.cs" />
     <Compile Include="Models\TrainerSales.cs" />
+    <Compile Include="Models\Locker.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -173,6 +187,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Popup\popLocker.resx">
+      <DependentUpon>popLocker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Popup\popUser.resx">
+      <DependentUpon>popUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Session\frmSessionStats.resx">
       <DependentUpon>frmSessionStats.cs</DependentUpon>

@@ -554,7 +554,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 16);
             this.label1.TabIndex = 2;
-            this.label1.Text = "라커번호 - ";
+            this.label1.Text = "락커번호 - ";
             // 
             // label2
             // 

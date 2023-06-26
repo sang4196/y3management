@@ -34,6 +34,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtUserServiceCnt = new System.Windows.Forms.TextBox();
+            this.txtUserSessionCnt = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.txtUserMemo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.chkUserBirthday = new System.Windows.Forms.CheckBox();
@@ -51,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grid_UserList = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -77,10 +81,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.grid_TrainerList = new System.Windows.Forms.DataGridView();
-            this.txtUserSessionCnt = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtUserServiceCnt = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -139,6 +139,33 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " 회원 정보 등록";
+            // 
+            // txtUserServiceCnt
+            // 
+            this.txtUserServiceCnt.Location = new System.Drawing.Point(589, 95);
+            this.txtUserServiceCnt.Name = "txtUserServiceCnt";
+            this.txtUserServiceCnt.Size = new System.Drawing.Size(84, 26);
+            this.txtUserServiceCnt.TabIndex = 21;
+            this.txtUserServiceCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtUserSessionCnt
+            // 
+            this.txtUserSessionCnt.Location = new System.Drawing.Point(589, 63);
+            this.txtUserSessionCnt.Name = "txtUserSessionCnt";
+            this.txtUserSessionCnt.Size = new System.Drawing.Size(84, 26);
+            this.txtUserSessionCnt.TabIndex = 19;
+            this.txtUserSessionCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(457, 65);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(126, 23);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "횟수 : ";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtUserMemo
             // 
@@ -317,6 +344,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "이름 : ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(457, 97);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(126, 23);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "서비스 : ";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox1
             // 
@@ -653,44 +691,6 @@
             this.grid_TrainerList.Size = new System.Drawing.Size(499, 317);
             this.grid_TrainerList.TabIndex = 2;
             this.grid_TrainerList.Tag = "1";
-            // 
-            // txtUserSessionCnt
-            // 
-            this.txtUserSessionCnt.Location = new System.Drawing.Point(589, 63);
-            this.txtUserSessionCnt.Name = "txtUserSessionCnt";
-            this.txtUserSessionCnt.Size = new System.Drawing.Size(84, 26);
-            this.txtUserSessionCnt.TabIndex = 19;
-            this.txtUserSessionCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(457, 65);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(126, 23);
-            this.label13.TabIndex = 18;
-            this.label13.Text = "횟수 : ";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtUserServiceCnt
-            // 
-            this.txtUserServiceCnt.Location = new System.Drawing.Point(589, 95);
-            this.txtUserServiceCnt.Name = "txtUserServiceCnt";
-            this.txtUserServiceCnt.Size = new System.Drawing.Size(84, 26);
-            this.txtUserServiceCnt.TabIndex = 21;
-            this.txtUserServiceCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label14
-            // 
-            this.label14.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
-            this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(457, 97);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 23);
-            this.label14.TabIndex = 20;
-            this.label14.Text = "서비스 : ";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmSettingUser
             // 

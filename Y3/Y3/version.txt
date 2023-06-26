@@ -75,3 +75,14 @@ CREATE TABLE `user` (
   `useflag` tinyint DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `locker` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `locker_no` int DEFAULT NULL,
+  `owner_type` int DEFAULT '0' COMMENT '0 - user\\n1 - trainer',
+  `owner_id` int DEFAULT NULL,
+  `owner_name` varchar(20) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

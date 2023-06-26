@@ -57,6 +57,8 @@ namespace Y3.Forms
         private Panel[] _subPanels = new Panel[SUBMENU_COUNT];
         private Dictionary<int, Locker> _lockers = new Dictionary<int, Locker>();
 
+        
+
         public frmMain()
         {
             InitializeComponent();
@@ -211,6 +213,11 @@ namespace Y3.Forms
                     break;
             }
         }
+        private void Locker_ButtonClickEvent(Utility.Enums.eUserType userType, int userId, int lockNo)
+        {
+            
+        }
+
         #endregion
 
         private void MakeLocker()
@@ -242,6 +249,7 @@ namespace Y3.Forms
                         locker.LOCKER_NO = ++lockerCount;
                         locker.SetNoFontSize(Core.CONFIG.LOCKER_NO_FONT_SIZE);
                         locker.SetOwnerFontSize(Core.CONFIG.LOCKER_OWNER_FONT_SIZE);
+                        locker.ButtonClickEvent += Locker_ButtonClickEvent;
                         _lockers.Add(lockerCount, locker);
                         tableLayoutPanel_locker.Controls.Add(locker, r, c);
                     }

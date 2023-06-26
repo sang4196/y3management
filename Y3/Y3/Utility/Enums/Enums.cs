@@ -13,4 +13,10 @@ namespace Y3.Utility.Enums
         DELETE = 2,
         SELECT = 3
     }
+
+    public enum eUserType
+    {
+        USER = 0,
+        TRAINER,
+    }
 }

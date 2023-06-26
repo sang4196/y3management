@@ -15,6 +15,7 @@ namespace Y3.Models.DB
         public string QUERY_SELECT_SESSION_PRICE = "SELECT * FROM session_price WHERE useflag = '1'";
         public string QUERY_SELECT_SESSION_TRAINER = "SELECT * FROM session_trainer WHERE useflag = '1'";
         public string QUERY_SELECT_SESSION = "SELECT * FROM session WHERE useflag = '1'";
+        public string QUERY_SELECT_LOCKER = "SELECT * FROM locker";
 
         // INSERT
         public string QUERY_INSERT_USER = "INSERT INTO user (name, birthday, phone_number, session_id, session_name, remain_session, remain_service, locker_no, memo) VALUES ";
@@ -23,6 +24,7 @@ namespace Y3.Models.DB
         public string QUERY_INSERT_SESSION_PRICE = "INSERT INTO session_price (session_name, price, percentage, deduct, final_price) VALUES ";
         public string QUERY_INSERT_SESSION_TRAINER = "INSERT INTO session_trainer (session_id, session_name, trainer_id, trainer_name, percentage) VALUES ";
         public string QUERY_INSERT_SESSION = "INSERT INTO session (date, trainer_id, trainer_name, user_id, user_name, session_price_id, session_price_name, session_count, session_total_price, is_service) VALUES ";
+        public string QUERY_INSERT_LOCKER = "INSERT INTO locker (locker_no, owner_type, owner_id, owner_name, start_date, end_date) VALUES ";
 
         // UPDATE
         public string QUERY_UPDATE_USER_1 = "UPDATE user u JOIN(";
@@ -37,6 +39,8 @@ namespace Y3.Models.DB
         public string QUERY_UPDATE_SESSION_TRAINER_2 = ") v ON t.id=v.id SET t.session_id=v.session_id, t.session_name=v.session_name, t.trainer_id=v.trainer_id, t.trainer_name=v.trainer_name, t.percentage=v.percentage;";
         public string QUERY_UPDATE_SESSION_1 = "UPDATE session t JOIN(";
         public string QUERY_UPDATE_SESSION_2 = ") v ON t.id=v.id SET t.date=v.date, t.trainer_id=v.trainer_id, t.trainer_name=v.trainer_name, t.user_id=v.user_id, t.user_name=v.user_name, t.session_price_id=v.session_price_id, t.session_price_name=v.session_price_name, t.session_count=v.session_count, t.session_total_price=v.session_total_price, t.is_service=v.is_service;";
+        public string QUERY_UPDATE_LOCKER_1 = "UPDATE locker t JOIN(";
+        public string QUERY_UPDATE_LOCKER_2 = ") v ON t.id=v.id SET t.locker_no=v.locker_no, t.owner_type=v.owner_type, t.owner_id=v.owner_id, t.owner_name=v.owner_name, t.start_date=v.start_date, t.end_date=v.end_date;";
 
         // DELETE
         public string QUERY_DELETE_USER = "UPDATE user SET useflag = 0 where id='{0}'";

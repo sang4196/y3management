@@ -43,7 +43,7 @@ namespace Y3.Models
             return type == eDBQueryType.INSERT
                 ? $"('{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},{LockerNo},'{Memo}')"
                 : isFirst 
-                ? $"SELECT '{Id}' as id, '{Name}' as name, '{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}' as birthday, '{PhoneNumber}' as phone_number, '{SessionId}' as session_id, '{SessionName}' as session_name, " +
+                ? $"SELECT '{Id}' as id, '{Name}' as name, '{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}' as birthday, '{PhoneNumber}' as phone_number, {SessionId} as session_id, '{SessionName}' as session_name, " +
                 $"{RemainSession} as remain_session, {RemainService} as remain_service, {LockerNo} as locker_no, '{Memo}' as memo "
                 : $"UNION ALL SELECT '{Id}','{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},{LockerNo},'{Memo}' ";
         }

@@ -582,7 +582,7 @@ namespace Y3.Forms.Session
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
-            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "라커번호", true, 100, false);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "락커번호", true, 100, false);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);
             // 헤더
             grid_UserList.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
