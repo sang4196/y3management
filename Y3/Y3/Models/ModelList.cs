@@ -36,6 +36,7 @@ namespace Y3.Models
             ReadSessionTrainers();
             ReadSessions();
             ReadTrainerSales();
+            ReadLockers();
         }
 
         #region Session
@@ -236,6 +237,11 @@ namespace Y3.Models
             return Core.Instance.ObjectToDataTable<Trainer>(Trainers);
         }
 
+        public Trainer GetTrainerById(int id)
+        {
+            return Trainers.Find(p=>p.Id == id);
+        }
+
         public List<Trainer> GetTrainers()
         {
             return Trainers;
@@ -400,6 +406,37 @@ namespace Y3.Models
         private void ReadLockers()
         {
             Lockers = Core.Instance.DataTableToObject<Locker>(Core.MARIA.Get(new DBLocker(eDBQueryType.SELECT)));
+        }
+
+        public Locker GetLockerByNo(int no)
+        {
+            return Lockers.Find(p => p.LockerNo == no);
+        }
+
+        public Locker GetLockerByOwnerId(eUserType type, int id)
+        {
+            return Lockers.Find(p => p.OwnerType == (int)type && p.OwnerId == id);
+        }
+
+        public List<Locker> GetLockers()
+        {
+            return Lockers;
+        }
+
+        public bool SaveLocker(Locker data, eDBQueryType type)
+        {
+            DBLocker d = new DBLocker(data, type);
+
+            if (Core.MARIA.Save(d, out long outId))
+            {
+                data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                UpdateLockerData(data, type);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void UpdateLockerData(Locker data, eDBQueryType type = eDBQueryType.INSERT)

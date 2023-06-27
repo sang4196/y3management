@@ -9,8 +9,8 @@ namespace Y3.Models.DB
     public class QueryString
     {
         // SELECT
-        public string QUERY_SELECT_USER = "SELECT * FROM user WHERE useflag = '1'";
-        public string QUERY_SELECT_TRAINER = "SELECT * FROM trainer WHERE useflag = '1'";
+        public string QUERY_SELECT_USER = "SELECT u.*, l.locker_no FROM user u left join locker l ON u.id = l.owner_id AND  l.owner_type = 1 WHERE u.useflag = '1'";
+        public string QUERY_SELECT_TRAINER = "SELECT t.*, l.locker_no FROM trainer t left join locker l ON t.id = l.owner_id AND  l.owner_type = 2 WHERE useflag = '1'";
         public string QUERY_SELECT_TRAINER_SALES = "SELECT * FROM trainer_sales WHERE useflag = '1'";
         public string QUERY_SELECT_SESSION_PRICE = "SELECT * FROM session_price WHERE useflag = '1'";
         public string QUERY_SELECT_SESSION_TRAINER = "SELECT * FROM session_trainer WHERE useflag = '1'";

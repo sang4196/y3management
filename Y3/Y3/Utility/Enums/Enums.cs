@@ -16,7 +16,8 @@ namespace Y3.Utility.Enums
 
     public enum eUserType
     {
-        USER = 0,
+        NONE = 0,
+        USER = 1,
         TRAINER,
     }
 }

@@ -32,5 +32,10 @@ namespace Y3.Utility
             dt = dt.AddMilliseconds(ts).ToLocalTime();
             return dt;
         }
+
+        public static DateTime GetStartDay(DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day, 00, 00, 00);
+        }
     }
 }

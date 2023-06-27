@@ -8,12 +8,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Y3.Models;
 using Y3.Utility;
 using Y3.Utility.Enums;
 
 namespace Y3.UserControls
 {
-    public partial class Locker : UserControl
+    public partial class UCLocker : UserControl
     {
         private int _lockerNo;
 
@@ -33,14 +34,33 @@ namespace Y3.UserControls
                 this.Tag = _lockerNo.ToString();
             }
         }
-        public eUserType USER_TYPE
+
+        private int OWNER_ID
         {
             set
             {
-                _userType = value;
+                _ownerId = value;
             }
         }
-        public Locker()
+
+        private string OWNER_NAME
+        {
+            set
+            {
+                _ownerName = value;
+                btn_locker.Text = value;
+            }
+        }
+        private eUserType USER_TYPE
+        {
+            get { return _userType; }
+            set
+            {
+                _userType = value;
+                SetOwnerColor();
+            }
+        }
+        public UCLocker()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
@@ -60,23 +80,53 @@ namespace Y3.UserControls
             label_lockerNo.Text = title;
         }
 
-        public void SetLockerOwner(int ownerId, string lockerOwner)
+        public void SetOwnerColor(Color color)
         {
-            _ownerId = ownerId;
-            _ownerName = lockerOwner;
-            UpdateLockerOwner();
+            btn_locker.BackColor = color;
         }
 
-        private void UpdateLockerOwner()
+        public void SetOwnerColor()
         {
-            btn_locker.Text = _ownerName;
+            Color color = Color.White;
+            switch (USER_TYPE)
+            {
+                case eUserType.NONE:
+                    color = Color.White;
+                    break;
+                case eUserType.USER:
+                    color = Color.Green;
+                    break;
+                case eUserType.TRAINER:
+                    color = Color.LightBlue;
+                    break;
+            }
+            btn_locker.BackColor = color;
+        }
+
+        public void SetLockerOwner(Locker locker)
+        {
+            USER_TYPE = (eUserType)locker.OwnerType;
+            OWNER_ID = locker.OwnerId;
+            OWNER_NAME = locker.OwnerName;
+
+            if(USER_TYPE != eUserType.NONE)
+            {
+                string title = string.Empty;
+                if (locker.EndDate == DateTime.MinValue)
+                    title = $"{_lockerNo} (기한없음)";
+                else
+                    title = $"{_lockerNo} ( ~{locker.EndDate.ToString(TimeUtil.TIME_FORMAT_5)})";
+
+                SetLockerTitle(title);
+            }
         }
 
         public void InitOwner()
         {
             SetLockerTitle(_lockerNo.ToString());
-            _ownerId = 0;
-            _ownerName = string.Empty;
+            USER_TYPE = eUserType.NONE;
+            OWNER_ID = 0;
+            OWNER_NAME = string.Empty;
         }
 
         public void SetNoFontSize(float fontSize) 
@@ -92,11 +142,6 @@ namespace Y3.UserControls
         public void ChangeNoBackColor(Color color)
         {
             label_lockerNo.BackColor = color;
-        }
-
-        public void SetEndDate(DateTime endData)
-        {
-            SetLockerTitle($"{_lockerNo} ( ~{endData.ToString(TimeUtil.TIME_FORMAT_5)})");
         }
     }
 }

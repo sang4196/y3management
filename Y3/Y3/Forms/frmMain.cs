@@ -8,8 +8,12 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Y3.Forms.Popup;
+using Y3.Models;
 using Y3.Properties;
 using Y3.UserControls;
+using Y3.Utility;
+using Y3.Utility.Enums;
 using static Y3.Enums;
 
 namespace Y3.Forms
@@ -55,7 +59,7 @@ namespace Y3.Forms
         const int SUBMENU_COUNT = 3;
 
         private Panel[] _subPanels = new Panel[SUBMENU_COUNT];
-        private Dictionary<int, Locker> _lockers = new Dictionary<int, Locker>();
+        private Dictionary<int, UCLocker> _lockers = new Dictionary<int, UCLocker>();
 
         
 
@@ -215,7 +219,8 @@ namespace Y3.Forms
         }
         private void Locker_ButtonClickEvent(Utility.Enums.eUserType userType, int userId, int lockNo)
         {
-            
+            popLocker pop = new popLocker(userType, userId, lockNo);
+            pop.ShowDialog();
         }
 
         #endregion
@@ -245,7 +250,7 @@ namespace Y3.Forms
 
                     if (lockerCount < Core.CONFIG.LOCKER_COUNT)
                     {
-                        Locker locker = new Locker();
+                        UCLocker locker = new UCLocker();
                         locker.LOCKER_NO = ++lockerCount;
                         locker.SetNoFontSize(Core.CONFIG.LOCKER_NO_FONT_SIZE);
                         locker.SetOwnerFontSize(Core.CONFIG.LOCKER_OWNER_FONT_SIZE);
@@ -255,6 +260,44 @@ namespace Y3.Forms
                     }
                 }
             }
+
+            foreach (Locker item in Core.MODELS.GetLockers())
+            {
+                if (item.OwnerId != 0)
+                {
+                    _lockers[item.LockerNo].SetLockerOwner(item);
+
+                    SetLockerColor(item);
+                }
+            }
+
+            
+        }
+
+        private void SetLockerColor(Locker item)
+        {
+            if (item.EndDate != DateTime.MinValue)
+            {
+                if (TimeUtil.GetStartDay(DateTime.Now) > item.EndDate)
+                {
+                    _lockers[item.LockerNo].SetOwnerColor(Color.Red);
+                }
+                else if (TimeUtil.GetStartDay(DateTime.Now).AddDays(7) >= item.EndDate)
+                {
+                    _lockers[item.LockerNo].SetOwnerColor(Color.Yellow);
+                }
+            }
+        }
+
+        public void EndLocker(int lockerNo)
+        {
+            _lockers[lockerNo].InitOwner();
+        }
+
+        public void UpdateLocker(Locker locker)
+        {
+            _lockers[locker.LockerNo].SetLockerOwner(locker);
+            SetLockerColor(locker);
         }
 
         private void InitControl()
