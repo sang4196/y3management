@@ -52,6 +52,8 @@ namespace Y3.Forms.Popup
 
         private void Grid_List_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
+
             int r = (int)e.RowIndex;
             ID = int.Parse(grid_List.Rows[r].Cells["Id"].Value.ToString());
             NAME = grid_List.Rows[r].Cells["Name"].Value.ToString();

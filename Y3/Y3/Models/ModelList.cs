@@ -234,6 +234,7 @@ namespace Y3.Models
 
         public DataTable GetTrainersDataTable()
         {
+            ReadTrainers();
             return Core.Instance.ObjectToDataTable<Trainer>(Trainers);
         }
 
@@ -289,6 +290,7 @@ namespace Y3.Models
 
         public DataTable GetUsersDataTable()
         {
+            ReadUsers();
             return Core.Instance.ObjectToDataTable<User>(Users);
         }
 

@@ -28,6 +28,10 @@ namespace Y3.Models
         [JsonProperty("memo")]
         public string Memo { get; set; }
 
+
+        [JsonProperty("locker_no")]
+        public int LockerNo { get; set; }
+
         public override string GetQueryParam(eDBQueryType type, bool isFirst = false)
         {
             return type == eDBQueryType.INSERT

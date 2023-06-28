@@ -105,11 +105,20 @@ namespace Y3.UserControls
 
         public void SetLockerOwner(Locker locker)
         {
+            string ownerName = string.Empty;
             USER_TYPE = (eUserType)locker.OwnerType;
             OWNER_ID = locker.OwnerId;
-            OWNER_NAME = locker.OwnerName;
+            if (locker.EndDate == DateTime.MinValue || locker.EndDate >= TimeUtil.GetStartDay(DateTime.Now))
+            {
+                ownerName = locker.OwnerName;
+            }
+            else
+            {
+                ownerName = $"{locker.OwnerName} (+{(TimeUtil.GetStartDay(DateTime.Now) - locker.EndDate).Days})";
+            }
+            OWNER_NAME = ownerName;
 
-            if(USER_TYPE != eUserType.NONE)
+            if (USER_TYPE != eUserType.NONE)
             {
                 string title = string.Empty;
                 if (locker.EndDate == DateTime.MinValue)

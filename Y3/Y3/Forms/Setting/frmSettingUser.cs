@@ -486,6 +486,7 @@ namespace Y3.Forms.Setting
 
             grid_TrainerList.Columns["BirthDay"].DefaultCellStyle.Format = "yyyy-MM-dd";
             grid_TrainerList.Columns["Salary"].DefaultCellStyle.Format = "###,###";
+            grid_TrainerList.Columns["LockerNo"].DefaultCellStyle.Format = "###,###";
 
             grid_TrainerList.RowHeadersVisible = false;
             grid_TrainerList.AllowUserToAddRows = false;

@@ -31,6 +31,7 @@ namespace Y3.Forms.Popup
         private int _lockerNo;
         private DateTime _endDate;
         private Locker _locker;
+        private bool isUse = false;
 
         public int OWNER_ID
         {
@@ -153,7 +154,7 @@ namespace Y3.Forms.Popup
 
         private void LoadOwner(eUserType type)
         {
-            if (OWNER_ID != 0)
+            if (isUse)
             {
                 MessageBox.Show("사용중인 락커입니다.\n마감처리를 먼저 해주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -212,6 +213,7 @@ namespace Y3.Forms.Popup
             if (Core.MODELS.SaveLocker(_locker, _locker.Id == 0 ? eDBQueryType.INSERT : eDBQueryType.UPDATE))
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                isUse = true;
                 Core.Instance._frmMain.UpdateLocker(_locker);
             }
             else
@@ -226,9 +228,6 @@ namespace Y3.Forms.Popup
             if (_locker != null)
             {
                 if (_locker.OwnerId == 0) return false;
-                _locker.OwnerId = 0;
-                _locker.OwnerName = string.Empty;
-                _locker.OwnerType = (int)eUserType.NONE;
 
                 if (_locker.EndDate >= TimeUtil.GetStartDay(DateTime.Now))
                 {
@@ -244,6 +243,11 @@ namespace Y3.Forms.Popup
                         return false;
                     }
                 }
+
+                _locker.OwnerId = 0;
+                _locker.OwnerName = string.Empty;
+                _locker.OwnerType = (int)eUserType.NONE;
+
                 if (!Core.MODELS.SaveLocker(_locker, eDBQueryType.UPDATE))
                 {
                     MessageBox.Show("락커 마감처리 실패.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -251,6 +255,7 @@ namespace Y3.Forms.Popup
                 }
                 else
                 {
+                    isUse = false;
                     Core.Instance._frmMain.EndLocker(_lockerNo);
                     InitControl();
                 }
@@ -276,7 +281,7 @@ namespace Y3.Forms.Popup
                     }
                 }
                 txtOwnerName.Text = GetOwnerNameById(OWNER_ID);
-                
+                isUse = false;
             }
         }
 

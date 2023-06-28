@@ -1,7 +1,3 @@
 ﻿ver 1.0.0.0
+ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-ALTER TABLE `y3db`.`user` 
-DROP COLUMN `locker_no`;
-
-ALTER TABLE `y3db`.`trainer` 
-DROP COLUMN `locker_no`;

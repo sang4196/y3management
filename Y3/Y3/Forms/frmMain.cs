@@ -213,6 +213,7 @@ namespace Y3.Forms
                     showSubmenu(panelSubmenuSetting);
                     break;
                 case (int)eButton.EXIT:
+                    if (MessageBox.Show("프로그램을 종료 하시겠습니까?", "프로그램 종료", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
                     Core.Instance.CloseProc();
                     break;
             }

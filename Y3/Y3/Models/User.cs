@@ -33,19 +33,21 @@ namespace Y3.Models
         public int RemainSession { get; set; }
         [JsonProperty("remain_service")]
         public int RemainService { get; set; }
-        [JsonProperty("locker_no")]
-        public int LockerNo { get; set; }
         [JsonProperty("memo")]
         public string Memo { get; set; }
+
+
+        [JsonProperty("locker_no")]
+        public int LockerNo { get; set; }
 
         public override string GetQueryParam(eDBQueryType type, bool isFirst = false)
         {
             return type == eDBQueryType.INSERT
-                ? $"('{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},{LockerNo},'{Memo}')"
+                ? $"('{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},'{Memo}')"
                 : isFirst 
                 ? $"SELECT '{Id}' as id, '{Name}' as name, '{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}' as birthday, '{PhoneNumber}' as phone_number, {SessionId} as session_id, '{SessionName}' as session_name, " +
-                $"{RemainSession} as remain_session, {RemainService} as remain_service, {LockerNo} as locker_no, '{Memo}' as memo "
-                : $"UNION ALL SELECT '{Id}','{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},{LockerNo},'{Memo}' ";
+                $"{RemainSession} as remain_session, {RemainService} as remain_service, '{Memo}' as memo "
+                : $"UNION ALL SELECT '{Id}','{Name}','{BirthDay.ToString(TimeUtil.TIME_FORMAT_1)}','{PhoneNumber}',{SessionId},'{SessionName}',{RemainSession},{RemainService},'{Memo}' ";
         }
 
         public override void Update(object data)
@@ -57,7 +59,6 @@ namespace Y3.Models
             SessionName = ((User)data).SessionName;
             RemainSession = ((User)data).RemainSession;
             RemainService = ((User)data).RemainService;
-            LockerNo = ((User)data).LockerNo;
             Memo = ((User)data).Memo;
         }
 

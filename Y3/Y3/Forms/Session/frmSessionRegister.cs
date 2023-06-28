@@ -438,6 +438,7 @@ namespace Y3.Forms.Session
                         txtSessionPriceName.Text = spName;
                         txtSessionPrice.Text = price.ToString("00");
                         txtSessionPriceNo.Text = grid_UserList.CurrentRow.Cells["SessionId"].Value.ToString();
+                        txtSessionTotalPrice.Text = string.Empty;
 
                         txtSessionNo.Text = string.Empty;
                         txtSessionUseCount.Enabled = true;
@@ -496,7 +497,8 @@ namespace Y3.Forms.Session
 
         private void LoadUserData()
         {
-            grid_UserList.DataSource = Core.MODELS.GetUsersDataTable();
+            grid_UserList.DataSource = Core.MODELS.GetUsersDataTable();//.AsEnumerable()
+                //.Where(r => r.Field<int>("RemainSession") != 0 && r.Field<int>("RemainService") != 0).CopyToDataTable();
         }
 
         private void LoadSessionData()
