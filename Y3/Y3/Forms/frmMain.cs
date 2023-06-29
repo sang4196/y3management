@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,11 +12,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Y3.Forms.Popup;
 using Y3.Models;
+using Y3.Models.DB;
 using Y3.Properties;
 using Y3.UserControls;
 using Y3.Utility;
 using Y3.Utility.Enums;
 using static Y3.Enums;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Y3.Forms
 {
@@ -61,7 +65,8 @@ namespace Y3.Forms
         private Panel[] _subPanels = new Panel[SUBMENU_COUNT];
         private Dictionary<int, UCLocker> _lockers = new Dictionary<int, UCLocker>();
 
-        
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         public frmMain()
         {
@@ -205,6 +210,7 @@ namespace Y3.Forms
                     break;
                 case (int)eButton.FINANCE:
                     //showSubmenu(panelSubmenuFinance);
+                    ReadExcelData();
                     break;
                 case (int)eButton.SESSION:
                     showSubmenu(panelSubmenuSession);
@@ -218,6 +224,7 @@ namespace Y3.Forms
                     break;
             }
         }
+
         private void Locker_ButtonClickEvent(Utility.Enums.eUserType userType, int userId, int lockNo)
         {
             popLocker pop = new popLocker(userType, userId, lockNo);
@@ -225,6 +232,178 @@ namespace Y3.Forms
         }
 
         #endregion
+
+        private void ReadExcelData()
+        {
+            uint excelProcessId = 0;
+            Excel.Application excelApp = null;
+            Excel.Workbook wb = null;
+            Excel.Worksheet ws = null;
+
+
+            List<string[]> result = new List<string[]>();
+            List<User> users = new List<User>();
+            List<User> lockerUser = new List<User>();
+            List<Locker> lockers = new List<Locker>();
+            try
+            {
+                // 엑셀 프로그램 실행
+                excelApp = new Excel.Application();
+                GetWindowThreadProcessId(new IntPtr(excelApp.Hwnd), out excelProcessId);
+
+                // 엑셀 파일 열기
+                wb = excelApp.Workbooks.Open(@"C:\user.xls");
+
+                // 첫번째 Worksheet
+                ws = wb.Worksheets.get_Item(1) as Excel.Worksheet;
+
+                // 현재 Worksheet에서 사용된 Range 전체를 선택
+                Excel.Range rng = ws.UsedRange;
+
+                //int row = ws.UsedRange.EntireRow.Count;
+                //Excel.Range rng = ws.Range[ws.Cells[1, 1], ws.Cells[row, numOfColumn]];
+
+                const int NAME = 1;
+                const int PHONE = 2;
+                const int LOCKER_END = 3;
+                const int LOCKER_NO = 4;
+                // Range 데이타를 배열 (1-based array)로
+                object[,] data = (object[,])rng.Value;
+
+                // 엑셀은 1번 시트에 컬럼4개
+                // 이름, 전번, 락커종료일, 락커번호순
+
+                for (int r = 1; r <= data.GetLength(0); r++)
+                {
+                    int length = Math.Min(data.GetLength(1), 4);
+                    string[] arr = new string[length];
+                    User u = new User();
+                    Locker L = new Locker();
+                    bool isLocker = false;
+                    for (int c = 1; c <= length; c++)
+                    {
+                        if (data[r, c] == null)
+                        {
+                            continue;
+                        }
+
+                        switch (c)
+                        {
+                            case NAME:
+                                u.Name = data[r, c].ToString();
+                                break;
+                            case PHONE:
+                                u.PhoneNumber = data[r, c].ToString();
+                                break;
+                            case LOCKER_END:
+                                if (!data[r, c].ToString().Trim().Equals(string.Empty))
+                                {
+                                    isLocker = true;
+                                    L.EndDate = TimeUtil.GetStartDay(DateTime.Parse(data[r, c].ToString().Trim()));
+                                    L.OwnerType = 1;
+                                }
+                                break;
+                            case LOCKER_NO:
+                                if (!int.Parse(data[r, c].ToString().Trim()).Equals(0))
+                                {
+                                    L.LockerNo = int.Parse(data[r, c].ToString().Trim());
+                                }
+                                break;
+                        }
+                    }
+
+                    users.Add(u);
+                    if (isLocker)
+                    {
+                        lockerUser.Add(u);
+                        lockers.Add(L);
+                    }
+
+                }
+
+                wb.Close(false);
+                excelApp.Quit();
+
+                DBUser save = new DBUser(users, eDBQueryType.INSERT);
+
+                if (Core.MARIA.MultiSave(save, out long id))
+                {
+                    if (id != 0)
+                    {
+                        foreach (User item in users)
+                        {
+                            item.Id = (int)id;
+                            id += 1;
+                        }
+                    }
+                    Core.MODELS.AddUsers(users);
+                }
+
+                for (int i = 0; i < lockerUser.Count; i++)
+                {
+                    lockers[i].OwnerId = lockerUser[i].Id;
+                    lockers[i].OwnerName = lockerUser[i].Name;
+                }
+
+                DBLocker save1 = new DBLocker(lockers, eDBQueryType.INSERT);
+
+                if (Core.MARIA.MultiSave(save1, out long id1))
+                {
+                    if (id1 != 0)
+                    {
+                        foreach (Locker item in lockers)
+                        {
+                            item.Id = (int)id1;
+                            id1 += 1;
+                        }
+                    }
+                    Core.MODELS.AddLockers(lockers);
+                }
+
+                if (true)
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                // Clean up
+                ReleaseExcelObject(ws);
+                ReleaseExcelObject(wb);
+                ReleaseExcelObject(excelApp);
+
+                if (excelApp != null && excelProcessId > 0)
+                {
+                    Process.GetProcessById((int)excelProcessId).Kill();
+                }
+            }
+
+        }
+
+        private void ReleaseExcelObject(object obj)
+        {
+            try
+            {
+                if (obj != null)
+                {
+                    Marshal.ReleaseComObject(obj);
+                    obj = null;
+                }
+            }
+            catch (Exception)
+            {
+                obj = null;
+                throw;
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
 
         private void MakeLocker()
         {

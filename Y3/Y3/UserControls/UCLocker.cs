@@ -114,7 +114,7 @@ namespace Y3.UserControls
             }
             else
             {
-                ownerName = $"{locker.OwnerName} (+{(TimeUtil.GetStartDay(DateTime.Now) - locker.EndDate).Days})";
+                ownerName = $"{locker.OwnerName} ({(locker.EndDate - TimeUtil.GetStartDay(DateTime.Now)).Days})";
             }
             OWNER_NAME = ownerName;
 

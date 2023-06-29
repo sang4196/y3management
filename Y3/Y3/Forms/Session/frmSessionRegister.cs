@@ -497,8 +497,7 @@ namespace Y3.Forms.Session
 
         private void LoadUserData()
         {
-            grid_UserList.DataSource = Core.MODELS.GetUsersDataTable();//.AsEnumerable()
-                //.Where(r => r.Field<int>("RemainSession") != 0 && r.Field<int>("RemainService") != 0).CopyToDataTable();
+            grid_UserList.DataSource = Core.MODELS.GetHaveSessionUsersDataTable();
         }
 
         private void LoadSessionData()

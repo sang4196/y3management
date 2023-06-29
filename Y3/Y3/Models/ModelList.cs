@@ -294,6 +294,17 @@ namespace Y3.Models
             return Core.Instance.ObjectToDataTable<User>(Users);
         }
 
+        public DataTable GetHaveSessionUsersDataTable()
+        {
+            ReadUsers();
+            return Core.Instance.ObjectToDataTable<User>(Users.Where(p=>p.RemainSession + p.RemainService > 0).ToList());
+        }
+
+        public void AddUsers(List<User> data)
+        {
+            Users.AddRange(data);
+        }
+
         public User GetUserById(int id)
         {
             return Users.Find(p=>p.Id == id);
@@ -415,6 +426,10 @@ namespace Y3.Models
             return Lockers.Find(p => p.LockerNo == no);
         }
 
+        public void AddLockers(List<Locker> data)
+        {
+            Lockers.AddRange(data);
+        }
         public Locker GetLockerByOwnerId(eUserType type, int id)
         {
             return Lockers.Find(p => p.OwnerType == (int)type && p.OwnerId == id);

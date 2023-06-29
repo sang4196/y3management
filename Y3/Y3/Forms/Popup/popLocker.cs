@@ -106,11 +106,11 @@ namespace Y3.Forms.Popup
 
             if (plusMonth > 0)
             {
-                dtEndDate.Value = DateTime.Now.AddMonths(plusMonth);
+                dtEndDate.Value = isUse ? END_DATE.AddMonths(plusMonth) : DateTime.Now.AddMonths(plusMonth);
             }
             else
             {
-                dtEndDate.Value = dtEndDate.Value.AddMonths(1);
+                dtEndDate.Value = isUse ? END_DATE.AddMonths(1) : dtEndDate.Value.AddMonths(1);
             }
         }
 
@@ -281,7 +281,9 @@ namespace Y3.Forms.Popup
                     }
                 }
                 txtOwnerName.Text = GetOwnerNameById(OWNER_ID);
-                isUse = false;
+                OWNER_NAME = _locker.OwnerName;
+                END_DATE = _locker.EndDate;
+                isUse = true;
             }
         }
 
