@@ -53,7 +53,8 @@ namespace Y3.Forms
                 MessageBox.Show("비밀번호가 틀립니다.", "비밀번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            this.Close();
+            this.Hide();
+            new frmMain().ShowDialog();
         }
     }
 }

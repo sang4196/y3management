@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,9 +16,18 @@ namespace Y3
         [STAThread]
         static void Main()
         {
+            Process[] processes = null;
+            string currentProcess = Process.GetCurrentProcess().ProcessName.ToUpper();
+            processes = Process.GetProcessesByName(currentProcess);
+            if (processes.Length > 1)
+            {
+                MessageBox.Show("프로그램이 이미 실행중입니다.");
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new frmLock());
         }
     }
 }

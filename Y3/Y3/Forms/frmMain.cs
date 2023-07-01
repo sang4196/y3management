@@ -74,9 +74,6 @@ namespace Y3.Forms
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
-            frmLock frm = new frmLock();
-            frm.ShowDialog();
-
             InitEvent();
             InitControl();
 
