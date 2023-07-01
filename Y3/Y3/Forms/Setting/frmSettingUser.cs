@@ -142,6 +142,7 @@ namespace Y3.Forms.Setting
                         txtUserMemo.Text = grid_UserList.CurrentRow.Cells["Memo"].Value.ToString();
                         txtUserSessionCnt.Text = grid_UserList.CurrentRow.Cells["RemainSession"].Value.ToString();
                         txtUserServiceCnt.Text = grid_UserList.CurrentRow.Cells["RemainService"].Value.ToString();
+                        comboUserTrainer.Text = grid_UserList.CurrentRow.Cells["TrainerName"].Value.ToString() == "" ? "선택" : grid_UserList.CurrentRow.Cells["TrainerName"].Value.ToString();
 
                         if (txtUserPhone.Text == string.Empty)
                             chkUserPhone.Checked = true;

@@ -34,6 +34,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboUserTrainer = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.txtUserServiceCnt = new System.Windows.Forms.TextBox();
             this.txtUserSessionCnt = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -81,8 +83,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.grid_TrainerList = new System.Windows.Forms.DataGridView();
-            this.comboUserTrainer = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -143,6 +143,26 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " 회원 정보 등록";
+            // 
+            // comboUserTrainer
+            // 
+            this.comboUserTrainer.FormattingEnabled = true;
+            this.comboUserTrainer.ItemHeight = 16;
+            this.comboUserTrainer.Location = new System.Drawing.Point(497, 34);
+            this.comboUserTrainer.Name = "comboUserTrainer";
+            this.comboUserTrainer.Size = new System.Drawing.Size(176, 24);
+            this.comboUserTrainer.TabIndex = 23;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(365, 36);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(126, 23);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "트레이너 : ";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtUserServiceCnt
             // 
@@ -695,26 +715,6 @@
             this.grid_TrainerList.Size = new System.Drawing.Size(499, 317);
             this.grid_TrainerList.TabIndex = 2;
             this.grid_TrainerList.Tag = "1";
-            // 
-            // comboUserTrainer
-            // 
-            this.comboUserTrainer.FormattingEnabled = true;
-            this.comboUserTrainer.ItemHeight = 16;
-            this.comboUserTrainer.Location = new System.Drawing.Point(497, 34);
-            this.comboUserTrainer.Name = "comboUserTrainer";
-            this.comboUserTrainer.Size = new System.Drawing.Size(176, 24);
-            this.comboUserTrainer.TabIndex = 23;
-            // 
-            // label15
-            // 
-            this.label15.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
-            this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(365, 36);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(126, 23);
-            this.label15.TabIndex = 22;
-            this.label15.Text = "트레이너 : ";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmSettingUser
             // 

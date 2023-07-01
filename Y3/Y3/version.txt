@@ -4,5 +4,3 @@ ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 ALTER TABLE `y3db`.`user` 
 ADD COLUMN `trainer_id` INT NULL AFTER `remain_service`,
 ADD COLUMN `trainer_name` VARCHAR(20) NULL AFTER `trainer_id`;
-
-비번 0419

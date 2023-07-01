@@ -25,19 +25,10 @@ namespace Y3.Forms
             btnLogin.Click += BtnLogin_Click;
             btnClose.Click += BtnClose_Click;
 
-            //txtPassword.KeyUp += TxtUserNo_KeyUp;
             txtPassword.KeyDown += TxtPassword_KeyDown;
         }
 
         private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Login();
-            }
-        }
-
-        private void TxtUserNo_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
