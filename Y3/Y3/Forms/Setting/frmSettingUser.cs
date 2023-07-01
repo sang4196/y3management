@@ -56,6 +56,7 @@ namespace Y3.Forms.Setting
 
             LoadUserData();
             LoadTrainerData();
+            SetComboTrainer();
         }
         private void InitEvent()
         {
@@ -228,6 +229,7 @@ namespace Y3.Forms.Setting
             txtUserMemo.Text = "";
             dtUserBirthday.Value = DateTime.Now;
             comboUserSession.SelectedValue = 0;
+            comboUserTrainer.SelectedValue = 0;
             chkUserPhone.Checked = false;
             chkUserBirthday.Checked = false;
 
@@ -245,6 +247,13 @@ namespace Y3.Forms.Setting
             dtTrainerBirthday.Value = DateTime.Now;
             chkTrainerPhone.Checked = false;
             chkTrainerBirthday.Checked = false;
+        }
+
+        private void SetComboTrainer()
+        {
+            comboUserTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboUserTrainer.DisplayMember = "Name";
+            comboUserTrainer.ValueMember = "Id";
         }
 
         private void LoadUserData(string filter = "")
@@ -300,6 +309,8 @@ namespace Y3.Forms.Setting
             string userMemo = txtUserMemo.Text;
             int userSessionCnt = txtUserSessionCnt.Text == string.Empty || userSessionId == "0" ? 0 : int.Parse(txtUserSessionCnt.Text);
             int userServiceCnt = txtUserServiceCnt.Text == string.Empty || userSessionId == "0" ? 0 : int.Parse(txtUserServiceCnt.Text);
+            string userTrainerId = comboUserTrainer.SelectedValue.ToString();
+            string userTrainerName = comboUserTrainer.Text;
 
             User u = new User()
             {
@@ -311,6 +322,8 @@ namespace Y3.Forms.Setting
                 SessionName = userSessionName == "선택" ? "" : userSessionName,
                 RemainSession = userSessionCnt,
                 RemainService = userServiceCnt,
+                TrainerId = int.Parse(userTrainerId),
+                TrainerName = userTrainerName,
                 Memo = userMemo,
             };
 
@@ -372,6 +385,7 @@ namespace Y3.Forms.Setting
                 Core.MODELS.UpdateTrainerData(u);
                 InitTrainerControl();
                 LoadTrainerData();
+                SetComboTrainer();
             }
             else
             {
@@ -453,6 +467,8 @@ namespace Y3.Forms.Setting
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "TrainerId", "세션", true, 70, false);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "TrainerName", "담당", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "락커번호", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "BirthDay", "생일", true, 90);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);

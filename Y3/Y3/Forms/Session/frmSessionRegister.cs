@@ -42,7 +42,7 @@ namespace Y3.Forms.Session
             InitGrid();
 
             LoadSessionData();
-            LoadUserData();
+            LoadUserData(0, "");
             LoadSessionPriceData();
             SetComboTrainer();
         }
@@ -73,7 +73,7 @@ namespace Y3.Forms.Session
 
         private void TxtSearchUser_KeyUp(object sender, KeyEventArgs e)
         {
-            LoadUserData(txtSearchUser.Text);
+            LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
         }
 
         private void TxtSessionUseCount_KeyUp(object sender, KeyEventArgs e)
@@ -216,7 +216,7 @@ namespace Y3.Forms.Session
                 }
 
                 LoadSessionData();
-                LoadUserData();
+                LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
             }
             else
             {
@@ -344,7 +344,7 @@ namespace Y3.Forms.Session
                 }
                 Core.MODELS.UpdateSessionData(saveList);
                 LoadSessionData();
-                LoadUserData();
+                LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
             }
             else
             {
@@ -463,6 +463,8 @@ namespace Y3.Forms.Session
         private void ComboSearchTrainer_SelectedValueChanged(object sender, EventArgs e)
         {
             LoadSessionData();
+            int.TryParse(comboSearchTrainer.SelectedValue.ToString(), out int trainerId);
+            LoadUserData(trainerId, txtSearchUser.Text);
 
             if (comboSearchTrainer.SelectedIndex != 0)
             {
@@ -484,7 +486,7 @@ namespace Y3.Forms.Session
             comboSearchTrainer.DisplayMember = "Name";
             comboSearchTrainer.ValueMember = "Id";
 
-            LoadUserData();
+            LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
             SetComboTrainer();
             LoadSessionData();
         }
@@ -502,9 +504,9 @@ namespace Y3.Forms.Session
             grid_sessionPirce.DataSource = Core.MODELS.GetSessionPriceDataTable();
         }
 
-        private void LoadUserData(string filter = "")
+        private void LoadUserData(int trainerId, string filter)
         {
-            DataTable dt = Core.MODELS.GetUsersHaveSessionDataTable();
+            DataTable dt = Core.MODELS.GetUsersHaveSessionDataTableByTrainerId(trainerId);
             if (filter != "")
             {
                 DataTable dtFilter = ((DataTable)grid_UserList.DataSource).Clone();
@@ -608,6 +610,8 @@ namespace Y3.Forms.Session
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "SessionName", "세션", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainSession", "잔여 횟수", true, 100);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "RemainService", "잔여 서비스", true, 120);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "TrainerId", "세션", true, 70, false);
+            Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "TrainerName", "담당", true, 70);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "LockerNo", "락커번호", true, 100, false);
             Core.Instance.SetGridCol_Text(grid_UserList, new DataGridViewTextBoxColumn(), "Memo", "메모", true, 200);
             // 헤더

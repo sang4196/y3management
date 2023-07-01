@@ -1,4 +1,8 @@
 ﻿ver 1.0.0.0
 ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-('이름','0001-01-01 00:00:00','010-1111-1234', null, null, null, null, null);
+ALTER TABLE `y3db`.`user` 
+ADD COLUMN `trainer_id` INT NULL AFTER `remain_service`,
+ADD COLUMN `trainer_name` VARCHAR(20) NULL AFTER `trainer_id`;
+
+비번 0419

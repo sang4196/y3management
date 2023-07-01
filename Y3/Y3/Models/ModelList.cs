@@ -294,10 +294,13 @@ namespace Y3.Models
             return Core.Instance.ObjectToDataTable<User>(Users);
         }
 
-        public DataTable GetUsersHaveSessionDataTable()
+        public DataTable GetUsersHaveSessionDataTableByTrainerId(int trainerId = 0)
         {
             ReadUsers();
-            return Core.Instance.ObjectToDataTable<User>(Users.Where(p=>p.RemainSession + p.RemainService > 0).ToList());
+            if (trainerId != 0)
+                return Core.Instance.ObjectToDataTable<User>(Users.Where(p => p.RemainSession + p.RemainService > 0 && p.TrainerId == trainerId).ToList());
+            else
+                return Core.Instance.ObjectToDataTable<User>(Users.Where(p => p.RemainSession + p.RemainService > 0).ToList());
         }
 
         public void AddUsers(List<User> data)

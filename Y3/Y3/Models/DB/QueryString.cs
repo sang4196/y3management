@@ -18,7 +18,7 @@ namespace Y3.Models.DB
         public string QUERY_SELECT_LOCKER = "SELECT * FROM locker";
 
         // INSERT
-        public string QUERY_INSERT_USER = "INSERT INTO user (name, birthday, phone_number, session_id, session_name, remain_session, remain_service, memo) VALUES ";
+        public string QUERY_INSERT_USER = "INSERT INTO user (name, birthday, phone_number, session_id, session_name, remain_session, remain_service, trainer_id, trainer_name, memo) VALUES ";
         public string QUERY_INSERT_TRAINER = "INSERT INTO trainer (name, birthday, phone_number, salary, memo) VALUES ";
         public string QUERY_INSERT_TRAINER_SALES = "INSERT INTO trainer_sales (trainer_id, trainer_name, sales_date, sales_price, memo) VALUES ";
         public string QUERY_INSERT_SESSION_PRICE = "INSERT INTO session_price (session_name, price, percentage, deduct, final_price) VALUES ";
@@ -28,7 +28,7 @@ namespace Y3.Models.DB
 
         // UPDATE
         public string QUERY_UPDATE_USER_1 = "UPDATE user u JOIN(";
-        public string QUERY_UPDATE_USER_2 = ") v ON u.id=v.id SET u.name=v.name, u.birthday=v.birthday, u.phone_number=v.phone_number, u.session_id=v.session_id, u.session_name=v.session_name, u.remain_session=v.remain_session, u.remain_service=v.remain_service, u.memo=v.memo;";
+        public string QUERY_UPDATE_USER_2 = ") v ON u.id=v.id SET u.name=v.name, u.birthday=v.birthday, u.phone_number=v.phone_number, u.session_id=v.session_id, u.session_name=v.session_name, u.remain_session=v.remain_session, u.remain_service=v.remain_service, u.trainer_id=v.trainer_id, u.trainer_name=v.trainer_name, u.memo=v.memo;";
         public string QUERY_UPDATE_TRAINER_1 = "UPDATE trainer u JOIN(";
         public string QUERY_UPDATE_TRAINER_2 = ") v ON u.id=v.id SET u.name=v.name, u.birthday=v.birthday, u.phone_number=v.phone_number, u.salary=v.salary, u.memo=v.memo;";
         public string QUERY_UPDATE_TRAINER_SALES_1 = "UPDATE trainer_sales u JOIN(";

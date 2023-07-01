@@ -81,6 +81,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.grid_TrainerList = new System.Windows.Forms.DataGridView();
+            this.comboUserTrainer = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -109,6 +111,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.comboUserTrainer);
+            this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.txtUserServiceCnt);
             this.groupBox2.Controls.Add(this.txtUserSessionCnt);
             this.groupBox2.Controls.Add(this.label13);
@@ -142,7 +146,7 @@
             // 
             // txtUserServiceCnt
             // 
-            this.txtUserServiceCnt.Location = new System.Drawing.Point(589, 95);
+            this.txtUserServiceCnt.Location = new System.Drawing.Point(589, 125);
             this.txtUserServiceCnt.Name = "txtUserServiceCnt";
             this.txtUserServiceCnt.Size = new System.Drawing.Size(84, 26);
             this.txtUserServiceCnt.TabIndex = 21;
@@ -150,7 +154,7 @@
             // 
             // txtUserSessionCnt
             // 
-            this.txtUserSessionCnt.Location = new System.Drawing.Point(589, 63);
+            this.txtUserSessionCnt.Location = new System.Drawing.Point(589, 93);
             this.txtUserSessionCnt.Name = "txtUserSessionCnt";
             this.txtUserSessionCnt.Size = new System.Drawing.Size(84, 26);
             this.txtUserSessionCnt.TabIndex = 19;
@@ -160,7 +164,7 @@
             // 
             this.label13.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(457, 65);
+            this.label13.Location = new System.Drawing.Point(457, 95);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(126, 23);
             this.label13.TabIndex = 18;
@@ -226,7 +230,7 @@
             // 
             this.comboUserSession.FormattingEnabled = true;
             this.comboUserSession.ItemHeight = 16;
-            this.comboUserSession.Location = new System.Drawing.Point(497, 33);
+            this.comboUserSession.Location = new System.Drawing.Point(497, 63);
             this.comboUserSession.Name = "comboUserSession";
             this.comboUserSession.Size = new System.Drawing.Size(176, 24);
             this.comboUserSession.TabIndex = 13;
@@ -288,7 +292,7 @@
             // 
             this.label4.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(365, 35);
+            this.label4.Location = new System.Drawing.Point(365, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(126, 23);
             this.label4.TabIndex = 6;
@@ -349,7 +353,7 @@
             // 
             this.label14.Font = new System.Drawing.Font("굴림", 13F, System.Drawing.FontStyle.Bold);
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(457, 97);
+            this.label14.Location = new System.Drawing.Point(457, 127);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(126, 23);
             this.label14.TabIndex = 20;
@@ -692,6 +696,26 @@
             this.grid_TrainerList.TabIndex = 2;
             this.grid_TrainerList.Tag = "1";
             // 
+            // comboUserTrainer
+            // 
+            this.comboUserTrainer.FormattingEnabled = true;
+            this.comboUserTrainer.ItemHeight = 16;
+            this.comboUserTrainer.Location = new System.Drawing.Point(497, 34);
+            this.comboUserTrainer.Name = "comboUserTrainer";
+            this.comboUserTrainer.Size = new System.Drawing.Size(176, 24);
+            this.comboUserTrainer.TabIndex = 23;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("굴림", 15F, System.Drawing.FontStyle.Bold);
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(365, 36);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(126, 23);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "트레이너 : ";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // frmSettingUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -770,5 +794,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtUserServiceCnt;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboUserTrainer;
+        private System.Windows.Forms.Label label15;
     }
 }
