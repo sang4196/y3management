@@ -230,6 +230,9 @@ namespace Y3.Forms.Setting
             comboUserSession.SelectedValue = 0;
             chkUserPhone.Checked = false;
             chkUserBirthday.Checked = false;
+
+            txtUserSessionCnt.Text = "";
+            txtUserServiceCnt.Text = "";
         }
 
         private void InitTrainerControl()

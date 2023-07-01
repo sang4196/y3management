@@ -65,9 +65,16 @@ namespace Y3.Forms.Session
 
             txtSessionUseCount.KeyPress += TxtSessionUseCount_KeyPress;
             txtSessionUseCount.KeyUp += TxtSessionUseCount_KeyUp;
+
+            txtSearchUser.KeyUp += TxtSearchUser_KeyUp;
         }
 
         #region UI Event
+
+        private void TxtSearchUser_KeyUp(object sender, KeyEventArgs e)
+        {
+            LoadUserData(txtSearchUser.Text);
+        }
 
         private void TxtSessionUseCount_KeyUp(object sender, KeyEventArgs e)
         {
@@ -495,9 +502,27 @@ namespace Y3.Forms.Session
             grid_sessionPirce.DataSource = Core.MODELS.GetSessionPriceDataTable();
         }
 
-        private void LoadUserData()
+        private void LoadUserData(string filter = "")
         {
-            grid_UserList.DataSource = Core.MODELS.GetHaveSessionUsersDataTable();
+            DataTable dt = Core.MODELS.GetUsersHaveSessionDataTable();
+            if (filter != "")
+            {
+                DataTable dtFilter = ((DataTable)grid_UserList.DataSource).Clone();
+                var var = dt.AsEnumerable()
+                        .Where(row => row.Field<String>("Name").Contains(filter)
+                                || row.Field<String>("PhoneNumber").Contains(filter));
+
+                if (var.ToList().Count > 0)
+                {
+                    dtFilter = var.OrderByDescending(row => row.Field<int>("Id")).CopyToDataTable();
+                }
+
+                grid_UserList.DataSource = dtFilter;
+            }
+            else
+            {
+                grid_UserList.DataSource = dt;
+            }
         }
 
         private void LoadSessionData()

@@ -294,7 +294,7 @@ namespace Y3.Models
             return Core.Instance.ObjectToDataTable<User>(Users);
         }
 
-        public DataTable GetHaveSessionUsersDataTable()
+        public DataTable GetUsersHaveSessionDataTable()
         {
             ReadUsers();
             return Core.Instance.ObjectToDataTable<User>(Users.Where(p=>p.RemainSession + p.RemainService > 0).ToList());
