@@ -160,6 +160,8 @@
     </Compile>
     <Compile Include="Interface\IDBModel.cs" />
     <Compile Include="Interface\IDBsql.cs" />
+    <Compile Include="Interface\IModelList.cs" />
+    <Compile Include="Models\BasicModelList.cs" />
     <Compile Include="Models\DB\BasicDBsql.cs" />
     <Compile Include="Models\DB\BasicDBModel.cs" />
     <Compile Include="Models\DB\DBSession.cs" />

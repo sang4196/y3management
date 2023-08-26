@@ -99,9 +99,9 @@ namespace Y3.Forms.Session
             gridSales.Columns.Clear();
             gridSessionCount.Columns.Clear();
 
-            _sessionPrice = Core.MODELS.GetSessionPrices();
-            _trainer = Core.MODELS.GetTrainers();
-            _trainerSales = Core.MODELS.GetTrainerSales();
+            _sessionPrice = Core.M_SESSION_PRICE.GetList();
+            _trainer = Core.M_TRAINER.GetList();
+            _trainerSales = Core.M_TRAINER_SALES.GetList();
 
             _commonDT = new DataTable();
             _commonDT.Columns.Add("TrainerName");
@@ -138,7 +138,7 @@ namespace Y3.Forms.Session
                 drSessionCount = dtSessionCount.NewRow();
                 drSales = dtSales.NewRow();
 
-                List<Models.Session> sessions = Core.MODELS.GetSessions(trainer.Id, startDt, endDt);
+                List<Models.Session> sessions = Core.M_SESSION.GetList(trainer.Id, startDt, endDt);
                 decimal totalPrice = sessions.Sum(p => p.SessionTotalPrice);
                 int totalCount = sessions.Sum(p => p.SessionCount);
 
@@ -149,7 +149,7 @@ namespace Y3.Forms.Session
                 drSessionCount["Total"] = totalCount;
                 drSessionCount["Avg"] = totalCount / 12;
 
-                List<TrainerSales> ts = Core.MODELS.GetTrainerSales(trainer.Id, startDt, endDt);
+                List<TrainerSales> ts = Core.M_TRAINER_SALES.GetList(trainer.Id, startDt, endDt);
                 long totalSales = ts.Sum(p => p.SalesPrice);
                 drSales["TrainerName"] = trainer.Name;
                 drSales["Total"] = totalSales;
@@ -217,7 +217,7 @@ namespace Y3.Forms.Session
             foreach (Trainer trainer in _trainer)
             {
                 dr = dt.NewRow();
-                List<Models.Session> sessions = Core.MODELS.GetSessions(trainer.Id, startDt, endDt);
+                List<Models.Session> sessions = Core.M_SESSION.GetList(trainer.Id, startDt, endDt);
                 decimal totalPrice = sessions.Sum(p => p.SessionTotalPrice);
                 int totalCount = sessions.Sum(p => p.SessionCount);
 

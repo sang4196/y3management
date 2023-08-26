@@ -336,7 +336,7 @@ namespace Y3.Forms
                             id += 1;
                         }
                     }
-                    Core.MODELS.AddUsers(users);
+                    Core.M_USER.Add(users);
                 }
 
                 for (int i = 0; i < lockerUser.Count; i++)
@@ -357,7 +357,7 @@ namespace Y3.Forms
                             id1 += 1;
                         }
                     }
-                    Core.MODELS.AddLockers(lockers);
+                    Core.M_LOCKER.Add(lockers);
                 }
 
                 if (true)
@@ -441,7 +441,7 @@ namespace Y3.Forms
                 }
             }
 
-            foreach (Locker item in Core.MODELS.GetLockers())
+            foreach (Locker item in Core.M_LOCKER.GetList())
             {
                 if (item.OwnerId != 0)
                 {

@@ -213,7 +213,7 @@ namespace Y3.Forms.Setting
         {
             if (this.Visible == false) return;
 
-            comboUserSession.DataSource = Core.MODELS.GetSessionPriceCombo();
+            comboUserSession.DataSource = Core.M_SESSION_PRICE.GetCombo();
             comboUserSession.DisplayMember = "SessionName";
             comboUserSession.ValueMember = "Id";
 
@@ -252,14 +252,14 @@ namespace Y3.Forms.Setting
 
         private void SetComboTrainer()
         {
-            comboUserTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboUserTrainer.DataSource = Core.M_TRAINER.GetCombo();
             comboUserTrainer.DisplayMember = "Name";
             comboUserTrainer.ValueMember = "Id";
         }
 
         private void LoadUserData(string filter = "")
         {
-            DataTable dt = Core.MODELS.GetUsersDataTable();
+            DataTable dt = Core.M_USER.GetDataTable();
             if (filter != "")
             {
                 DataTable dtFilter = ((DataTable)grid_UserList.DataSource).Clone();
@@ -282,7 +282,7 @@ namespace Y3.Forms.Setting
 
         private void LoadTrainerData()
         {
-            grid_TrainerList.DataSource = Core.MODELS.GetTrainersDataTable();
+            grid_TrainerList.DataSource = Core.M_TRAINER.GetDataTable();
         }
 
         private void UpdateUser()
@@ -334,7 +334,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.MODELS.UpdateUserData(u);
+                Core.M_USER.UpdateData(u);
                 InitUserControl();
                 LoadUserData();
             }
@@ -383,7 +383,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.MODELS.UpdateTrainerData(u);
+                Core.M_TRAINER.UpdateData(u);
                 InitTrainerControl();
                 LoadTrainerData();
                 SetComboTrainer();
@@ -413,7 +413,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.MODELS.UpdateUserData(u, eDBQueryType.DELETE);
+                Core.M_USER.UpdateData(u, eDBQueryType.DELETE);
                 InitUserControl();
                 LoadUserData();
             }
@@ -442,7 +442,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.MODELS.UpdateTrainerData(u, eDBQueryType.DELETE);
+                Core.M_TRAINER.UpdateData(u, eDBQueryType.DELETE);
                 InitTrainerControl();
                 LoadTrainerData();
             }

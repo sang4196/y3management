@@ -132,12 +132,12 @@ namespace Y3.Forms.Popup
 
         private void LoadTrainerData()
         {
-            grid_List.DataSource = Core.MODELS.GetTrainersDataTable();
+            grid_List.DataSource = Core.M_TRAINER.GetDataTable();
         }
 
         private void LoadUserData(string filter = "")
         {
-            DataTable dt = Core.MODELS.GetUsersDataTable();
+            DataTable dt = Core.M_USER.GetDataTable();
             if (filter != "")
             {
                 DataTable dtFilter = ((DataTable)grid_List.DataSource).Clone();

@@ -74,7 +74,7 @@ namespace Y3.Forms.Popup
             this._lockerNo = lockerNo;
 
             txtLockerNo.Text = _lockerNo.ToString();
-            _locker = Core.MODELS.GetLockerByNo(_lockerNo);
+            _locker = Core.M_LOCKER.GetByNo(_lockerNo);
 
             InitEvent();
 
@@ -175,7 +175,7 @@ namespace Y3.Forms.Popup
             string rtn = string.Empty;
             if (_type == eUserType.USER)
             {
-                User user = Core.MODELS.GetUserById(OWNER_ID);
+                User user = Core.M_USER.GetById(OWNER_ID);
                 if (user != null)
                 {
                     rtn = user.Name;
@@ -183,7 +183,7 @@ namespace Y3.Forms.Popup
             }
             else
             {
-                Trainer trainer = Core.MODELS.GetTrainerById(OWNER_ID);
+                Trainer trainer = Core.M_TRAINER.GetById(OWNER_ID);
                 if (trainer != null)
                 {
                     rtn = trainer.Name;
@@ -194,7 +194,7 @@ namespace Y3.Forms.Popup
 
         private void SaveLocker()
         {
-            if(Core.MODELS.GetLockerByOwnerId(_type, OWNER_ID) != null)
+            if(Core.M_LOCKER.GetByOwnerId(_type, OWNER_ID) != null)
             {
                 MessageBox.Show("이미 사용 중인 락커가 있습니다. 다시 확인해 주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -210,7 +210,7 @@ namespace Y3.Forms.Popup
             _locker.OwnerName = GetOwnerNameById(OWNER_ID);
             _locker.EndDate = chkNoLimit.Checked ? DateTime.MinValue : TimeUtil.GetStartDay(dtEndDate.Value);
 
-            if (Core.MODELS.SaveLocker(_locker, _locker.Id == 0 ? eDBQueryType.INSERT : eDBQueryType.UPDATE))
+            if (Core.M_LOCKER.Save(_locker, _locker.Id == 0 ? eDBQueryType.INSERT : eDBQueryType.UPDATE))
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 isUse = true;
@@ -248,7 +248,7 @@ namespace Y3.Forms.Popup
                 _locker.OwnerName = string.Empty;
                 _locker.OwnerType = (int)eUserType.NONE;
 
-                if (!Core.MODELS.SaveLocker(_locker, eDBQueryType.UPDATE))
+                if (!Core.M_LOCKER.Save(_locker, eDBQueryType.UPDATE))
                 {
                     MessageBox.Show("락커 마감처리 실패.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;

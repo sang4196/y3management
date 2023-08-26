@@ -21,6 +21,7 @@ using Y3.Models.DB;
 using Y3.Utility;
 using Y3.Utility.Enums;
 using static Y3.Enums;
+using static Y3.Models.ModelList;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Y3
@@ -314,7 +315,15 @@ namespace Y3
         // db
         public static MariaDB MARIA { get => _instance._mariaDB; }
         public static QueryString QUERY { get => _instance._queryString; }
+        // model
         public static ModelList MODELS { get => _instance._modelList; }
+        public static SessionList M_SESSION { get => _instance._modelList.SESSION; }
+        public static SessionTrainerList M_SESSION_TRAINER { get => _instance._modelList.SESSION_TRAINER; }
+        public static SessionPriceList M_SESSION_PRICE { get => _instance._modelList.SESSION_PRICE; }
+        public static TrainerList M_TRAINER { get => _instance._modelList.TRAINER; }
+        public static UserList M_USER { get => _instance._modelList.USER; }
+        public static TrainerSalesList M_TRAINER_SALES { get => _instance._modelList.TRAINER_SALES; }
+        public static LockerList M_LOCKER { get => _instance._modelList.LOCKER; }
 
         // config
         public static Config CONFIG { get=>_instance._Config; }

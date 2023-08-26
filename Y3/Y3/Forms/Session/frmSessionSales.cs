@@ -102,14 +102,14 @@ namespace Y3.Forms.Session
         {
             if (comboSearchTrainer.SelectedValue == null || comboSearchTrainer.SelectedIndex == 0) return;
 
-            grid_SalesList.DataSource = Core.MODELS.GetTrainerSalesDataTable((int)comboSearchTrainer.SelectedValue, dtSearchDate.Value);
+            grid_SalesList.DataSource = Core.M_TRAINER_SALES.GetDataTable((int)comboSearchTrainer.SelectedValue, dtSearchDate.Value);
 
             InitControl();
         }
 
         private void SetComboTrainer()
         {
-            comboSearchTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboSearchTrainer.DataSource = Core.M_TRAINER.GetCombo();
             comboSearchTrainer.DisplayMember = "Name";
             comboSearchTrainer.ValueMember = "Id";
         }
@@ -133,7 +133,7 @@ namespace Y3.Forms.Session
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateTrainerSalesData(d, eDBQueryType.DELETE);
+                Core.M_TRAINER_SALES.UpdateData(d, eDBQueryType.DELETE);
                 LoadSalesData();
             }
             else
@@ -176,7 +176,7 @@ namespace Y3.Forms.Session
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateTrainerSalesData(d);
+                Core.M_TRAINER_SALES.UpdateData(d);
                 LoadSalesData();
             }
             else

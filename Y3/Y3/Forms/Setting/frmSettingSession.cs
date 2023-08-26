@@ -130,14 +130,14 @@ namespace Y3.Forms.Setting
 
         private void SetComboTrainer()
         {
-            comboTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboTrainer.DataSource = Core.M_TRAINER.GetCombo();
             comboTrainer.DisplayMember = "Name";
             comboTrainer.ValueMember = "Id";
         }
 
         private void SetComboSession()
         {
-            comboSession.DataSource = Core.MODELS.GetSessionPriceCombo();
+            comboSession.DataSource = Core.M_SESSION_PRICE.GetCombo();
             comboSession.DisplayMember = "SessionName";
             comboSession.ValueMember = "Id";
         }
@@ -236,13 +236,13 @@ namespace Y3.Forms.Setting
 
         private void LoadSessionData()
         {
-            grid_sessionPirce.DataSource = Core.MODELS.GetSessionPriceDataTable();
+            grid_sessionPirce.DataSource = Core.M_SESSION_PRICE.GetDataTable();
         }
 
 
         private void LoadSTData()
         {
-            grid_ST.DataSource = Core.MODELS.GetSessionTrainersDataTable();
+            grid_ST.DataSource = Core.M_SESSION_TRAINER.GetDataTable();
         }
 
         private void UpdateSessionPrice()
@@ -262,7 +262,7 @@ namespace Y3.Forms.Setting
 
             // 중복체크
             // 이름만 중복 체크
-            if (Core.MODELS.SessionPriceDuplication(sessionName))
+            if (Core.M_SESSION_PRICE.Duplication(sessionName))
             {
                 MessageBox.Show("동일한 세션이름이 존재합니다.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -284,7 +284,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionPriceData(d);
+                Core.M_SESSION_PRICE.UpdateData(d);
                 InitSessionControl();
                 LoadSessionData();
                 SetComboSession();
@@ -312,7 +312,7 @@ namespace Y3.Forms.Setting
 
             // 중복체크
             // 세션id, TR ID 동시 체크
-            if (Core.MODELS.SessionTrainerDuplication(int.Parse(STSessionId), int.Parse(STTrainerId)))
+            if (Core.M_SESSION_TRAINER.Duplication(int.Parse(STSessionId), int.Parse(STTrainerId)))
             {
                 MessageBox.Show("해당 트레이너의 세션 설정이 존재합니다.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -334,7 +334,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionTrainerData(d);
+                Core.M_SESSION_TRAINER.UpdateData(d);
                 InitSTControl();
                 LoadSTData();
             }
@@ -363,7 +363,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionPriceData(d, eDBQueryType.DELETE);
+                Core.M_SESSION_PRICE.UpdateData(d, eDBQueryType.DELETE);
                 InitSessionControl();
                 LoadSessionData();
             }
@@ -392,7 +392,7 @@ namespace Y3.Forms.Setting
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionTrainerData(d, eDBQueryType.DELETE);
+                Core.M_SESSION_TRAINER.UpdateData(d, eDBQueryType.DELETE);
                 InitSTControl();
                 LoadSTData();
             }

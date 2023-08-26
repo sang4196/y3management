@@ -129,7 +129,7 @@ namespace Y3.Forms.Session
             if (MessageBox.Show($"{comboSearchTrainer.Text} 트레이너의 {dt.ToString("yyyy-MM")} 데이터를 불러오시겠습니까?", "불러오기", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            List<Models.Session> data =  Core.MODELS.GetSessions((int)comboSearchTrainer.SelectedValue, dt);
+            List<Models.Session> data =  Core.M_SESSION.GetList((int)comboSearchTrainer.SelectedValue, dt);
 
             if (data.Count > 0)
             {
@@ -152,7 +152,7 @@ namespace Y3.Forms.Session
                             id += 1;
                         }
                     }
-                    Core.MODELS.AddSessions(data);
+                    Core.M_SESSION.Add(data);
                     LoadSessionData();
                 }
                 else
@@ -182,8 +182,8 @@ namespace Y3.Forms.Session
                 isRecovery = true;
             }
 
-            Models.Session session = Core.MODELS.GetSessionById(id);
-            User user = Core.MODELS.GetUserById(userId);
+            Models.Session session = Core.M_SESSION.GetById(id);
+            User user = Core.M_USER.GetById(userId);
             if (isRecovery && (user.SessionId != session.SessionPriceId))
             {
                 MessageBox.Show("삭제 실패!\n삭제하려는 데이터의 세션과 해당 유저의 세션이 상이합니다.", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -200,7 +200,7 @@ namespace Y3.Forms.Session
             {
                 MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.MODELS.UpdateSessionData(d, eDBQueryType.DELETE);
+                Core.M_SESSION.UpdateData(d, eDBQueryType.DELETE);
 
                 if (isRecovery)
                 {
@@ -212,7 +212,7 @@ namespace Y3.Forms.Session
                     {
                         user.RemainSession += session.SessionCount;
                     }
-                    Core.MODELS.SaveUser(user, eDBQueryType.UPDATE);
+                    Core.M_USER.Save(user, eDBQueryType.UPDATE);
                 }
 
                 LoadSessionData();
@@ -244,7 +244,7 @@ namespace Y3.Forms.Session
             }
 
             int totalSessioning = int.Parse(sessionCount);
-            User u = Core.MODELS.GetUserById(int.Parse(userId));
+            User u = Core.M_USER.GetById(int.Parse(userId));
             if (totalSessioning < 1)
             {
                 MessageBox.Show("세션 진행횟수가 잘못되었습니다. 1이상의 숫자를 입력해주세요.\n", "오류", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -340,9 +340,9 @@ namespace Y3.Forms.Session
                         item.Id = (int)outId;
                         outId += 1;
                     }
-                    Core.MODELS.MinusUserSessionCount(u.Id, totalSessioning);
+                    Core.M_USER.MinusUserSessionCount(u.Id, totalSessioning);
                 }
-                Core.MODELS.UpdateSessionData(saveList);
+                Core.M_SESSION.UpdateMultiData(saveList);
                 LoadSessionData();
                 LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
             }
@@ -423,13 +423,13 @@ namespace Y3.Forms.Session
                             return;
                         }
                         // 해당 세션 존재체크
-                        SessionPrice sp = Core.MODELS.GetSessionPriceById(int.Parse(spId));
+                        SessionPrice sp = Core.M_SESSION_PRICE.GetById(int.Parse(spId));
                         if (sp == null)
                         {
                             MessageBox.Show("세션이 존재하지 않습니다.\n관리자에게 문의 바랍니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        SessionTrainer st = Core.MODELS.GetSessionTrainerByTrIdAndSessionID(int.Parse(trId), sp.Id);
+                        SessionTrainer st = Core.M_SESSION_TRAINER.GetByTrIdAndSessionID(int.Parse(trId), sp.Id);
                         if (st == null)
                         {
                             price = sp.FinalPrice;
@@ -482,7 +482,7 @@ namespace Y3.Forms.Session
         {
             if (this.Visible == false) return;
 
-            comboSearchTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboSearchTrainer.DataSource = Core.M_TRAINER.GetCombo();
             comboSearchTrainer.DisplayMember = "Name";
             comboSearchTrainer.ValueMember = "Id";
 
@@ -494,19 +494,19 @@ namespace Y3.Forms.Session
 
         private void SetComboTrainer()
         {
-            comboSearchTrainer.DataSource = Core.MODELS.GetTrainersCombo();
+            comboSearchTrainer.DataSource = Core.M_TRAINER.GetCombo();
             comboSearchTrainer.DisplayMember = "Name";
             comboSearchTrainer.ValueMember = "Id";
         }
 
         private void LoadSessionPriceData()
         {
-            grid_sessionPirce.DataSource = Core.MODELS.GetSessionPriceDataTable();
+            grid_sessionPirce.DataSource = Core.M_SESSION_PRICE.GetDataTable();
         }
 
         private void LoadUserData(int trainerId, string filter)
         {
-            DataTable dt = Core.MODELS.GetUsersHaveSessionDataTableByTrainerId(trainerId);
+            DataTable dt = Core.M_USER.GetUsersHaveSessionDataTableByTrainerId(trainerId);
             if (filter != "")
             {
                 DataTable dtFilter = ((DataTable)grid_UserList.DataSource).Clone();
@@ -536,7 +536,7 @@ namespace Y3.Forms.Session
                 return;
             }
 
-            grid_SessionList.DataSource = Core.MODELS.GetSessionsDataTable((int)comboSearchTrainer.SelectedValue, dtSearchDate.Value);
+            grid_SessionList.DataSource = Core.M_SESSION.GetDataTable((int)comboSearchTrainer.SelectedValue, dtSearchDate.Value);
 
             int rowCnt = grid_SessionList.Rows.Count;
             for (int i = 0; i < rowCnt; i++)
