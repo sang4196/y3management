@@ -1,6 +1,13 @@
 ﻿ver 1.0.0.0
 ALTER TABLE [TABLE명] AUTO_INCREMENT = [시작할 값];
 
-ALTER TABLE `y3db`.`user` 
-ADD COLUMN `trainer_id` INT NULL AFTER `remain_service`,
-ADD COLUMN `trainer_name` VARCHAR(20) NULL AFTER `trainer_id`;
+
+// 진행중
+1. 모델 저장 통일, 모델리스트(인터페이스,추상클래스생성)
+ - 추상클래스 구현, T의 고민!
+
+// 할것
+2. 각종 설정만들기(락커수 등등)
+3. 어드민 테이블 생성(지점관리), 모든테이블 지점 등록
+4. ~가계부
+5. 어드민 화면 만들기
