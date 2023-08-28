@@ -24,11 +24,11 @@ namespace Y3.Models
         public LockerList LOCKER { get; }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public class SessionList : BasicModelList<Session>
+        #region Session
+        public class SessionList : BasicModelList
         {
             private List<Session> Sessions = new List<Session>();
-
-            #region Session
+            
             public void ReadData()
             {
                 Sessions = Core.Instance.DataTableToObject<Session>(Core.MARIA.Get(new DBSession(eDBQueryType.SELECT)));
@@ -108,14 +108,15 @@ namespace Y3.Models
                     }
                 }
             }
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region SessionTrainer
         public class SessionTrainerList : BasicModelList<SessionTrainer>
         {
             private List<SessionTrainer> SessionTrainers = new List<SessionTrainer>();
 
-            #region SessionTrainer
             public void ReadData()
             {
                 SessionTrainers = Core.Instance.DataTableToObject<SessionTrainer>(Core.MARIA.Get(new DBSessionTrainer(eDBQueryType.SELECT)));
@@ -161,14 +162,15 @@ namespace Y3.Models
                     SessionTrainers.Add(data);
                 }
             }
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region SessionPrice
         public class SessionPriceList : BasicModelList<SessionPrice>
         {
             private List<SessionPrice> SessionPrice = new List<SessionPrice>();
 
-            #region SessionPrice
             public void ReadData()
             {
                 SessionPrice = Core.Instance.DataTableToObject<SessionPrice>(Core.MARIA.Get(new DBSessionPrice(eDBQueryType.SELECT)));
@@ -227,15 +229,15 @@ namespace Y3.Models
                     SessionPrice.Add(data);
                 }
             }
-            #endregion
-
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Trainer
         public class TrainerList : BasicModelList<Trainer>
         {
             private List<Trainer> Trainers = new List<Trainer>();
 
-            #region Trainer
             public void ReadData()
             {
                 Trainers = Core.Instance.DataTableToObject<Trainer>(Core.MARIA.Get(new DBTrainer(eDBQueryType.SELECT)));
@@ -294,14 +296,15 @@ namespace Y3.Models
                     Trainers.Add(data);
                 }
             }
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region User
         public class UserList : BasicModelList<User>
         {
             private List<User> Users = new List<User>();
 
-            #region User
             public void ReadData()
             {
                 Users = Core.Instance.DataTableToObject<User>(Core.MARIA.Get(new DBUser(eDBQueryType.SELECT)));
@@ -385,15 +388,15 @@ namespace Y3.Models
                     Users.Add(data);
                 }
             }
-
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region TrainerSales
         public class TrainerSalesList : BasicModelList<TrainerSales>
         {
             private List<TrainerSales> TrainerSales = new List<TrainerSales>();
 
-            #region TrainerSales
             public void ReadData()
             {
                 TrainerSales = Core.Instance.DataTableToObject<TrainerSales>(Core.MARIA.Get(new DBTrainerSales(eDBQueryType.SELECT)));
@@ -445,14 +448,15 @@ namespace Y3.Models
                 }
             }
 
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Locker
         public class LockerList : BasicModelList<Locker>
         {
             private List<Locker> Lockers = new List<Locker>();
 
-            #region Locker
             public void ReadData()
             {
                 Lockers = Core.Instance.DataTableToObject<Locker>(Core.MARIA.Get(new DBLocker(eDBQueryType.SELECT)));
@@ -513,8 +517,9 @@ namespace Y3.Models
                     Lockers.Add(data);
                 }
             }
-            #endregion
         }
+        #endregion
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public ModelList()

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Y3.Models;
+using Y3.Models.DB;
 using Y3.Utility.Enums;
 
 namespace Y3.Interface
@@ -13,11 +14,11 @@ namespace Y3.Interface
     {
         void ReadData();
         DataTable GetDataTable();
-        T GetbyId<T>(int id);
-        List<T> GetList<T>();
-        void Add<T>(List<T> list);
+        BasicDBModel GetbyId<BasicDBModel>(int id);
+        List<BasicDBModel> GetList<BasicDBModel>();
+        void Add<BasicDBModel>(List<BasicDBModel> list);
 
-        void UpdateData<T>(T data, eDBQueryType type);
-        void Save<T>(T data, eDBQueryType type);
+        void UpdateData<BasicDBModel>(BasicDBModel data, eDBQueryType type);
+        void Save<BasicDBModel>(BasicDBModel data, eDBQueryType type);
     }
 }
