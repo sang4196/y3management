@@ -14,11 +14,5 @@ namespace Y3.Interface
     {
         void ReadData();
         DataTable GetDataTable();
-        BasicDBModel GetbyId<BasicDBModel>(int id);
-        List<BasicDBModel> GetList<BasicDBModel>();
-        void Add<BasicDBModel>(List<BasicDBModel> list);
-
-        void UpdateData<BasicDBModel>(BasicDBModel data, eDBQueryType type);
-        void Save<BasicDBModel>(BasicDBModel data, eDBQueryType type);
     }
 }

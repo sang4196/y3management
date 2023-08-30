@@ -10,23 +10,28 @@ using Y3.Utility.Enums;
 
 namespace Y3.Models
 {
-    public abstract class BasicModelList : IModelList
+    public abstract class BasicModelList<T> : IModelList
     {
-        // abstract
+        // interface
         public abstract void ReadData();
-        public abstract BasicDBModel GetbyId<BasicDBModel>(int id);
         public abstract DataTable GetDataTable();
-        public abstract List<BasicDBModel> GetList<BasicDBModel>();
-        public virtual void Add<BasicDBModel>(List<BasicDBModel> list)
+
+
+
+        public abstract T GetById(int id);
+        public abstract List<T> GetList();
+        public abstract bool Save(T data, eDBQueryType type);
+        public virtual void Add(List<T> list)
         {
             // 로그남기기
         }
         
-        public virtual void Save<BasicDBModel>(BasicDBModel data, eDBQueryType type)
+        public virtual void UpdateData(T data, eDBQueryType type = eDBQueryType.INSERT)
         {
             // 로그남기기
         }
-        public virtual void UpdateData<BasicDBModel>(BasicDBModel data, eDBQueryType type)
+
+        public virtual void UpdateMultiData(List<T> data, eDBQueryType type = eDBQueryType.INSERT)
         {
             // 로그남기기
         }

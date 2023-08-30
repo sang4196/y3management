@@ -1,6 +1,7 @@
 ﻿using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -25,47 +26,44 @@ namespace Y3.Models
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Session
-        public class SessionList : BasicModelList
+        public class SessionList : BasicModelList<Session>
         {
             private List<Session> Sessions = new List<Session>();
-            
-            public void ReadData()
+
+            public override void ReadData()
             {
                 Sessions = Core.Instance.DataTableToObject<Session>(Core.MARIA.Get(new DBSession(eDBQueryType.SELECT)));
             }
 
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 return Core.Instance.ObjectToDataTable<Session>(Sessions);
             }
 
-            public DataTable GetDataTable(int trainerNo, DateTime searchDt)
+            public override Session GetById(int id)
             {
-                return Core.Instance.ObjectToDataTable<Session>(GetList(trainerNo, searchDt));
+                return Sessions.Find(p => p.Id == id);
             }
 
-            public List<Session> GetList(int trainerNo, DateTime searchDt)
+            public override List<Session> GetList()
             {
-                return Sessions.Where(p => p.TrainerId == trainerNo && p.Date.ToString(TimeUtil.TIME_FORMAT_6) == searchDt.ToString(TimeUtil.TIME_FORMAT_6)).ToList();
+                return Sessions;
             }
 
-            public Session GetById(int sessionId)
+            public override bool Save(Session data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return Sessions.Find(p => p.Id == sessionId);
+                return true;
             }
 
-            public List<Session> GetList(int trainerNo, DateTime startDt, DateTime endDt)
+            public override void Add(List<Session> list)
             {
-                return Sessions.Where(p => p.TrainerId == trainerNo && (p.Date >= startDt && p.Date <= endDt)).ToList();
+                base.Add(list);
+                Sessions.AddRange(list);
             }
 
-            public void Add(List<Session> sessions)
+            public override void UpdateData(Session data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                Sessions.AddRange(sessions);
-            }
-
-            public void UpdateData(Session data, eDBQueryType type = eDBQueryType.INSERT)
-            {
+                base.UpdateData(data, type);
                 var obj = Sessions.FirstOrDefault(p => p.Id == data.Id);
                 if (obj != null)
                 {
@@ -85,8 +83,9 @@ namespace Y3.Models
                 }
             }
 
-            public void UpdateMultiData(List<Session> data, eDBQueryType type = eDBQueryType.INSERT)
+            public override void UpdateMultiData(List<Session> data, eDBQueryType type = eDBQueryType.INSERT)
             {
+                base.UpdateMultiData(data, type);
                 foreach (Session item in data)
                 {
                     var obj = Sessions.FirstOrDefault(p => p.Id == item.Id);
@@ -107,6 +106,22 @@ namespace Y3.Models
                         Sessions.Add(item);
                     }
                 }
+
+            }
+
+            public DataTable GetDataTable(int trainerNo, DateTime searchDt)
+            {
+                return Core.Instance.ObjectToDataTable<Session>(GetList(trainerNo, searchDt));
+            }
+
+            public List<Session> GetList(int trainerNo, DateTime searchDt)
+            {
+                return Sessions.Where(p => p.TrainerId == trainerNo && p.Date.ToString(TimeUtil.TIME_FORMAT_6) == searchDt.ToString(TimeUtil.TIME_FORMAT_6)).ToList();
+            }
+
+            public List<Session> GetList(int trainerNo, DateTime startDt, DateTime endDt)
+            {
+                return Sessions.Where(p => p.TrainerId == trainerNo && (p.Date >= startDt && p.Date <= endDt)).ToList();
             }
         }
         #endregion
@@ -117,33 +132,39 @@ namespace Y3.Models
         {
             private List<SessionTrainer> SessionTrainers = new List<SessionTrainer>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 SessionTrainers = Core.Instance.DataTableToObject<SessionTrainer>(Core.MARIA.Get(new DBSessionTrainer(eDBQueryType.SELECT)));
             }
-            public List<SessionTrainer> GetList()
-            {
-                return SessionTrainers;
-            }
 
-            public SessionTrainer GetByTrIdAndSessionID(int TrID, int sessionID)
-            {
-                return SessionTrainers.Find(p => p.TrainerId == TrID && p.SessionId == sessionID);
-            }
-
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 return Core.Instance.ObjectToDataTable<SessionTrainer>(SessionTrainers);
             }
 
-            public bool Duplication(int spId, int STTrainerId)
+            public override SessionTrainer GetById(int id)
             {
-                var var = SessionTrainers.Find(p => p.SessionId == spId && p.TrainerId == STTrainerId);
-                return var != null;
+                return SessionTrainers.Find(p => p.Id == id);
             }
 
-            public void UpdateData(SessionTrainer data, eDBQueryType type = eDBQueryType.INSERT)
+            public override List<SessionTrainer> GetList()
             {
+                return SessionTrainers;
+            }
+
+            public override bool Save(SessionTrainer data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                return true;
+            }
+
+            public override void Add(List<SessionTrainer> list)
+            {
+                base.Add(list);
+            }
+
+            public override void UpdateData(SessionTrainer data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateData(data, type);
                 var obj = SessionTrainers.FirstOrDefault(p => p.Id == data.Id);
                 if (obj != null)
                 {
@@ -162,6 +183,24 @@ namespace Y3.Models
                     SessionTrainers.Add(data);
                 }
             }
+
+            public override void UpdateMultiData(List<SessionTrainer> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
+
+
+            public SessionTrainer GetByTrIdAndSessionID(int TrID, int sessionID)
+            {
+                return SessionTrainers.Find(p => p.TrainerId == TrID && p.SessionId == sessionID);
+            }
+
+            public bool Duplication(int spId, int STTrainerId)
+            {
+                var var = SessionTrainers.Find(p => p.SessionId == spId && p.TrainerId == STTrainerId);
+                return var != null;
+            }
         }
         #endregion
 
@@ -171,46 +210,39 @@ namespace Y3.Models
         {
             private List<SessionPrice> SessionPrice = new List<SessionPrice>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 SessionPrice = Core.Instance.DataTableToObject<SessionPrice>(Core.MARIA.Get(new DBSessionPrice(eDBQueryType.SELECT)));
             }
 
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 return Core.Instance.ObjectToDataTable<SessionPrice>(SessionPrice);
             }
 
-            public bool Duplication(string spName)
-            {
-                var var = SessionPrice.Find(p => p.SessionName == spName);
-                return var != null;
-            }
-
-            public List<SessionPrice> GetList()
-            {
-                return SessionPrice;
-            }
-
-            public SessionPrice GetById(int id)
+            public override SessionPrice GetById(int id)
             {
                 return SessionPrice.Find(p => p.Id == id);
             }
 
-            public DataTable GetCombo()
+            public override List<SessionPrice> GetList()
             {
-                DataTable dt = Core.Instance.ObjectToDataTable<SessionPrice>(SessionPrice);
-                DataTable rtn = dt.Clone();
-                DataRow empty = rtn.NewRow();
-                empty["Id"] = 0;
-                empty["SessionName"] = "선택";
-                rtn.Rows.Add(empty);
-                rtn.Merge(dt);
-                return rtn;
+                return SessionPrice;
             }
 
-            public void UpdateData(SessionPrice data, eDBQueryType type = eDBQueryType.INSERT)
+            public override bool Save(SessionPrice data, eDBQueryType type = eDBQueryType.INSERT)
             {
+                return true;
+            }
+
+            public override void Add(List<SessionPrice> list)
+            {
+                base.Add(list);
+            }
+
+            public override void UpdateData(SessionPrice data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateData(data, type);
                 var obj = SessionPrice.FirstOrDefault(p => p.Id == data.Id);
                 if (obj != null)
                 {
@@ -229,6 +261,31 @@ namespace Y3.Models
                     SessionPrice.Add(data);
                 }
             }
+
+            public override void UpdateMultiData(List<SessionPrice> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
+
+
+            public bool Duplication(string spName)
+            {
+                var var = SessionPrice.Find(p => p.SessionName == spName);
+                return var != null;
+            }
+
+            public DataTable GetCombo()
+            {
+                DataTable dt = Core.Instance.ObjectToDataTable<SessionPrice>(SessionPrice);
+                DataTable rtn = dt.Clone();
+                DataRow empty = rtn.NewRow();
+                empty["Id"] = 0;
+                empty["SessionName"] = "선택";
+                rtn.Rows.Add(empty);
+                rtn.Merge(dt);
+                return rtn;
+            }
         }
         #endregion
 
@@ -238,46 +295,40 @@ namespace Y3.Models
         {
             private List<Trainer> Trainers = new List<Trainer>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 Trainers = Core.Instance.DataTableToObject<Trainer>(Core.MARIA.Get(new DBTrainer(eDBQueryType.SELECT)));
             }
 
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 ReadData();
                 return Core.Instance.ObjectToDataTable<Trainer>(Trainers);
             }
 
-            public Trainer GetById(int id)
+            public override Trainer GetById(int id)
             {
                 return Trainers.Find(p => p.Id == id);
             }
 
-            public List<Trainer> GetList()
+            public override List<Trainer> GetList()
             {
                 return Trainers;
             }
 
-            public DataTable GetCombo()
+            public override bool Save(Trainer data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                DataTable dt = Core.Instance.ObjectToDataTable<Trainer>(Trainers);
-                DataTable rtn = dt.Clone();
-                DataRow empty = rtn.NewRow();
-                empty["Id"] = 0;
-                empty["Name"] = "선택";
-                rtn.Rows.Add(empty);
-                rtn.Merge(dt);
-                return rtn;
+                return true;
             }
 
-            public List<Trainer> GetMonthBirthTrainer()
+            public override void Add(List<Trainer> list)
             {
-                return Trainers.Where(p => p.BirthDay.Month == DateTime.Now.Month && p.BirthDay.Year > 1900).ToList();
+                base.Add(list);
             }
 
-            public void UpdateData(Trainer data, eDBQueryType type = eDBQueryType.INSERT)
+            public override void UpdateData(Trainer data, eDBQueryType type = eDBQueryType.INSERT)
             {
+                base.UpdateData(data, type);
                 var obj = Trainers.FirstOrDefault(p => p.Id == data.Id);
                 if (obj != null)
                 {
@@ -296,6 +347,31 @@ namespace Y3.Models
                     Trainers.Add(data);
                 }
             }
+
+            public override void UpdateMultiData(List<Trainer> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
+
+
+            public DataTable GetCombo()
+            {
+                DataTable dt = Core.Instance.ObjectToDataTable<Trainer>(Trainers);
+                DataTable rtn = dt.Clone();
+                DataRow empty = rtn.NewRow();
+                empty["Id"] = 0;
+                empty["Name"] = "선택";
+                rtn.Rows.Add(empty);
+                rtn.Merge(dt);
+                return rtn;
+            }
+
+            public List<Trainer> GetMonthBirthTrainer()
+            {
+                return Trainers.Where(p => p.BirthDay.Month == DateTime.Now.Month && p.BirthDay.Year > 1900).ToList();
+            }
+
         }
         #endregion
 
@@ -305,16 +381,71 @@ namespace Y3.Models
         {
             private List<User> Users = new List<User>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 Users = Core.Instance.DataTableToObject<User>(Core.MARIA.Get(new DBUser(eDBQueryType.SELECT)));
             }
 
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 ReadData();
                 return Core.Instance.ObjectToDataTable<User>(Users);
             }
+
+            public override User GetById(int id)
+            {
+                return Users.Find(p => p.Id == id);
+            }
+
+            public override List<User> GetList()
+            {
+                return Users;
+            }
+
+            public override bool Save(User data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                DBUser save = new DBUser(data, type);
+                if (!Core.MARIA.Save(save, out long outId))
+                {
+                    MessageBox.Show("유저 정보 저장 실패.\n관리자에게 문의하세요.", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                return true;
+            }
+
+            public override void Add(List<User> list)
+            {
+                base.Add(list);
+                Users.AddRange(list);
+            }
+
+            public override void UpdateData(User data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateData(data, type);
+                var obj = Users.FirstOrDefault(p => p.Id == data.Id);
+                if (obj != null)
+                {
+                    if (type == eDBQueryType.DELETE)
+                    {
+                        User v = Users.Find(p => p.Id == data.Id);
+                        Users.Remove(v);
+                    }
+                    else
+                    {
+                        obj.Update(data);
+                    }
+                }
+                else
+                {
+                    Users.Add(data);
+                }
+            }
+
+            public override void UpdateMultiData(List<User> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
 
             public DataTable GetUsersHaveSessionDataTableByTrainerId(int trainerId = 0)
             {
@@ -323,25 +454,6 @@ namespace Y3.Models
                     return Core.Instance.ObjectToDataTable<User>(Users.Where(p => p.RemainSession + p.RemainService > 0 && p.TrainerId == trainerId).ToList());
                 else
                     return Core.Instance.ObjectToDataTable<User>(Users.Where(p => p.RemainSession + p.RemainService > 0).ToList());
-            }
-
-            public void Add(List<User> data)
-            {
-                Users.AddRange(data);
-            }
-
-            public User GetById(int id)
-            {
-                return Users.Find(p => p.Id == id);
-            }
-
-            public void Save(User user, eDBQueryType saveType)
-            {
-                DBUser save = new DBUser(user, saveType);
-                if (!Core.MARIA.Save(save, out long outId))
-                {
-                    MessageBox.Show("유저 정보 저장 실패.\n관리자에게 문의하세요.", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
 
             public void MinusUserSessionCount(int userId, int count)
@@ -367,27 +479,6 @@ namespace Y3.Models
             {
                 return Users.Where(p => p.BirthDay.Month == DateTime.Now.Month && p.BirthDay.Year > 1900).ToList();
             }
-
-            public void UpdateData(User data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                var obj = Users.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        User v = Users.Find(p => p.Id == data.Id);
-                        Users.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    Users.Add(data);
-                }
-            }
         }
         #endregion
 
@@ -397,38 +488,39 @@ namespace Y3.Models
         {
             private List<TrainerSales> TrainerSales = new List<TrainerSales>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 TrainerSales = Core.Instance.DataTableToObject<TrainerSales>(Core.MARIA.Get(new DBTrainerSales(eDBQueryType.SELECT)));
             }
 
-            public DataTable GetDataTable()
+            public override DataTable GetDataTable()
             {
                 return Core.Instance.ObjectToDataTable<TrainerSales>(TrainerSales);
             }
 
-            public DataTable GetDataTable(int trainerNo, DateTime searchDt)
+            public override TrainerSales GetById(int id)
             {
-                return Core.Instance.ObjectToDataTable<TrainerSales>(GetList(trainerNo, searchDt));
+                return TrainerSales.Find(p => p.Id == id);
             }
 
-            public List<TrainerSales> GetList()
+            public override List<TrainerSales> GetList()
             {
                 return TrainerSales;
             }
 
-            public List<TrainerSales> GetList(int trainerNo, DateTime searchDt)
+            public override bool Save(TrainerSales data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return TrainerSales.Where(p => p.TrainerId == trainerNo && p.SalesDate.ToString(TimeUtil.TIME_FORMAT_6) == searchDt.ToString(TimeUtil.TIME_FORMAT_6)).ToList();
+                return true;
             }
 
-            public List<TrainerSales> GetList(int trainerNo, DateTime startDt, DateTime endDt)
+            public override void Add(List<TrainerSales> list)
             {
-                return TrainerSales.Where(p => p.TrainerId == trainerNo && (p.SalesDate >= startDt && p.SalesDate <= endDt)).ToList();
+                base.Add(list);
             }
 
-            public void UpdateData(TrainerSales data, eDBQueryType type = eDBQueryType.INSERT)
+            public override void UpdateData(TrainerSales data, eDBQueryType type = eDBQueryType.INSERT)
             {
+                base.UpdateData(data, type);
                 var obj = TrainerSales.FirstOrDefault(p => p.Id == data.Id);
                 if (obj != null)
                 {
@@ -448,6 +540,26 @@ namespace Y3.Models
                 }
             }
 
+            public override void UpdateMultiData(List<TrainerSales> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
+
+            public DataTable GetDataTable(int trainerNo, DateTime searchDt)
+            {
+                return Core.Instance.ObjectToDataTable<TrainerSales>(GetList(trainerNo, searchDt));
+            }
+
+            public List<TrainerSales> GetList(int trainerNo, DateTime searchDt)
+            {
+                return TrainerSales.Where(p => p.TrainerId == trainerNo && p.SalesDate.ToString(TimeUtil.TIME_FORMAT_6) == searchDt.ToString(TimeUtil.TIME_FORMAT_6)).ToList();
+            }
+
+            public List<TrainerSales> GetList(int trainerNo, DateTime startDt, DateTime endDt)
+            {
+                return TrainerSales.Where(p => p.TrainerId == trainerNo && (p.SalesDate >= startDt && p.SalesDate <= endDt)).ToList();
+            }
         }
         #endregion
 
@@ -457,31 +569,27 @@ namespace Y3.Models
         {
             private List<Locker> Lockers = new List<Locker>();
 
-            public void ReadData()
+            public override void ReadData()
             {
                 Lockers = Core.Instance.DataTableToObject<Locker>(Core.MARIA.Get(new DBLocker(eDBQueryType.SELECT)));
             }
 
-            public Locker GetByNo(int no)
+            public override DataTable GetDataTable()
             {
-                return Lockers.Find(p => p.LockerNo == no);
+                return Core.Instance.ObjectToDataTable<Locker>(Lockers);
             }
 
-            public void Add(List<Locker> data)
+            public override Locker GetById(int id)
             {
-                Lockers.AddRange(data);
-            }
-            public Locker GetByOwnerId(eUserType type, int id)
-            {
-                return Lockers.Find(p => p.OwnerType == (int)type && p.OwnerId == id);
+                return Lockers.Find(p => p.Id == id);
             }
 
-            public List<Locker> GetList()
+            public override List<Locker> GetList()
             {
                 return Lockers;
             }
 
-            public bool Save(Locker data, eDBQueryType type)
+            public override bool Save(Locker data, eDBQueryType type = eDBQueryType.INSERT)
             {
                 DBLocker d = new DBLocker(data, type);
 
@@ -497,25 +605,31 @@ namespace Y3.Models
                 }
             }
 
-            public void UpdateData(Locker data, eDBQueryType type = eDBQueryType.INSERT)
+            public override void Add(List<Locker> list)
             {
-                var obj = Lockers.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        Locker v = Lockers.Find(p => p.Id == data.Id);
-                        Lockers.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    Lockers.Add(data);
-                }
+                base.Add(list);
+                Lockers.AddRange(list);
+            }
+
+            public override void UpdateData(Locker data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateData(data, type);
+            }
+
+            public override void UpdateMultiData(List<Locker> data, eDBQueryType type = eDBQueryType.INSERT)
+            {
+                base.UpdateMultiData(data, type);
+            }
+
+
+            public Locker GetByNo(int no)
+            {
+                return Lockers.Find(p => p.LockerNo == no);
+            }
+
+            public Locker GetByOwnerId(eUserType type, int id)
+            {
+                return Lockers.Find(p => p.OwnerType == (int)type && p.OwnerId == id);
             }
         }
         #endregion
