@@ -194,14 +194,9 @@ namespace Y3.Forms.Session
             {
                 Id = id,
             };
-            DBSession save = new DBSession(d, eDBQueryType.DELETE);
 
-            if (Core.MARIA.Save(save, out long outId))
+            if (Core.M_SESSION.Save(d, eDBQueryType.DELETE))
             {
-                MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.M_SESSION.UpdateData(d, eDBQueryType.DELETE);
-
                 if (isRecovery)
                 {
                     if (session.IsService)
@@ -217,10 +212,6 @@ namespace Y3.Forms.Session
 
                 LoadSessionData();
                 LoadUserData(int.Parse(comboSearchTrainer.SelectedValue.ToString()), txtSearchUser.Text);
-            }
-            else
-            {
-                MessageBox.Show("삭제 실패!", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

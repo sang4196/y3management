@@ -26,9 +26,32 @@ namespace Y3.Models
             // 로그남기기
         }
         
-        public virtual void UpdateData(T data, eDBQueryType type = eDBQueryType.INSERT)
+        //public virtual void UpdateData(T data, eDBQueryType type = eDBQueryType.INSERT)
+        //{
+        //    // 로그남기기
+        //}
+
+        public virtual List<BasicDBModel> UpdateData(List<BasicDBModel> list, BasicDBModel data, eDBQueryType type = eDBQueryType.INSERT)
         {
             // 로그남기기
+            var obj = list.FirstOrDefault(p => p.Id == data.Id);
+            if (obj != null)
+            {
+                if (type == eDBQueryType.DELETE)
+                {
+                    BasicDBModel v = list.Find(p => p.Id == data.Id);
+                    list.Remove(v);
+                }
+                else
+                {
+                    obj.Update(data);
+                }
+            }
+            else
+            {
+                list.Add(data);
+            }
+            return list;
         }
 
         public virtual void UpdateMultiData(List<T> data, eDBQueryType type = eDBQueryType.INSERT)

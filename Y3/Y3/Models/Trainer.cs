@@ -15,8 +15,6 @@ namespace Y3.Models
     /// </summary>
     public class Trainer : BasicDBModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("birthday")]

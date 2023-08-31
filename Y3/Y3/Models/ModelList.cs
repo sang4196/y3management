@@ -1,4 +1,5 @@
 ﻿using MySqlX.XDevAPI;
+using Org.BouncyCastle.Asn1.Cms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,13 +17,13 @@ namespace Y3.Models
 {
     public class ModelList
     {
-        public SessionList SESSION { get; }
-        public SessionTrainerList SESSION_TRAINER { get; }
-        public SessionPriceList SESSION_PRICE { get; }
-        public TrainerList TRAINER { get; }
-        public UserList USER { get; }
-        public TrainerSalesList TRAINER_SALES { get; }
-        public LockerList LOCKER { get; }
+        public SessionList SESSION { get; } = new SessionList();
+        public SessionTrainerList SESSION_TRAINER { get; } = new SessionTrainerList();
+        public SessionPriceList SESSION_PRICE { get; } = new SessionPriceList();
+        public TrainerList TRAINER { get; } = new TrainerList();
+        public UserList USER { get; } = new UserList();
+        public TrainerSalesList TRAINER_SALES { get; } = new TrainerSalesList();
+        public LockerList LOCKER { get; } = new LockerList();
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Session
@@ -52,35 +53,21 @@ namespace Y3.Models
 
             public override bool Save(Session data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return true;
+                DBSession save = new DBSession(data, type);
+
+                if (Core.MODELS.Save(save, type, out long outId))
+                {
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    Sessions = UpdateData(Sessions.Cast<BasicDBModel>().ToList(), data, type).Cast<Session>().ToList();
+                    return true;
+                }
+                return false;
             }
 
             public override void Add(List<Session> list)
             {
                 base.Add(list);
                 Sessions.AddRange(list);
-            }
-
-            public override void UpdateData(Session data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = Sessions.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        Session v = Sessions.Find(p => p.Id == data.Id);
-                        Sessions.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    Sessions.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<Session> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -154,34 +141,20 @@ namespace Y3.Models
 
             public override bool Save(SessionTrainer data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return true;
+                DBSessionTrainer save = new DBSessionTrainer(data, type);
+
+                if (Core.MODELS.Save(save, type, out long outId))
+                {
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    SessionTrainers = UpdateData(SessionTrainers.Cast<BasicDBModel>().ToList(), data, type).Cast<SessionTrainer>().ToList();
+                    return true;
+                }
+                return false;
             }
 
             public override void Add(List<SessionTrainer> list)
             {
                 base.Add(list);
-            }
-
-            public override void UpdateData(SessionTrainer data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = SessionTrainers.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        SessionTrainer v = SessionTrainers.Find(p => p.Id == data.Id);
-                        SessionTrainers.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    SessionTrainers.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<SessionTrainer> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -232,34 +205,20 @@ namespace Y3.Models
 
             public override bool Save(SessionPrice data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return true;
+                DBSessionPrice save = new DBSessionPrice(data, type);
+
+                if (Core.MODELS.Save(save, type, out long outId))
+                {
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    SessionPrice = UpdateData(SessionPrice.Cast<BasicDBModel>().ToList(), data, type).Cast<SessionPrice>().ToList();
+                    return true;
+                }
+                return false;
             }
 
             public override void Add(List<SessionPrice> list)
             {
                 base.Add(list);
-            }
-
-            public override void UpdateData(SessionPrice data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = SessionPrice.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        SessionPrice v = SessionPrice.Find(p => p.Id == data.Id);
-                        SessionPrice.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    SessionPrice.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<SessionPrice> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -318,34 +277,20 @@ namespace Y3.Models
 
             public override bool Save(Trainer data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return true;
+                DBTrainer save = new DBTrainer(data, type);
+
+                if (Core.MODELS.Save(save, type, out long outId))
+                {
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    Trainers = UpdateData(Trainers.Cast<BasicDBModel>().ToList(), data, type).Cast<Trainer>().ToList();
+                    return true;
+                }
+                return false;
             }
 
             public override void Add(List<Trainer> list)
             {
                 base.Add(list);
-            }
-
-            public override void UpdateData(Trainer data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = Trainers.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        Trainer v = Trainers.Find(p => p.Id == data.Id);
-                        Trainers.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    Trainers.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<Trainer> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -405,40 +350,20 @@ namespace Y3.Models
             public override bool Save(User data, eDBQueryType type = eDBQueryType.INSERT)
             {
                 DBUser save = new DBUser(data, type);
-                if (!Core.MARIA.Save(save, out long outId))
+
+                if (Core.MODELS.Save(save, type, out long outId))
                 {
-                    MessageBox.Show("유저 정보 저장 실패.\n관리자에게 문의하세요.", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    Users = UpdateData(Users.Cast<BasicDBModel>().ToList(), data, type).Cast<User>().ToList();
+                    return true;
                 }
-                return true;
+                return false;
             }
 
             public override void Add(List<User> list)
             {
                 base.Add(list);
                 Users.AddRange(list);
-            }
-
-            public override void UpdateData(User data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = Users.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        User v = Users.Find(p => p.Id == data.Id);
-                        Users.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    Users.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<User> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -510,34 +435,20 @@ namespace Y3.Models
 
             public override bool Save(TrainerSales data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                return true;
+                DBTrainerSales save = new DBTrainerSales(data, type);
+
+                if (Core.MODELS.Save(save, type, out long outId))
+                {
+                    data.Id = (int)outId == 0 ? data.Id : (int)outId;
+                    TrainerSales = UpdateData(TrainerSales.Cast<BasicDBModel>().ToList(), data, type).Cast<TrainerSales>().ToList();
+                    return true;
+                }
+                return false;
             }
 
             public override void Add(List<TrainerSales> list)
             {
                 base.Add(list);
-            }
-
-            public override void UpdateData(TrainerSales data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
-                var obj = TrainerSales.FirstOrDefault(p => p.Id == data.Id);
-                if (obj != null)
-                {
-                    if (type == eDBQueryType.DELETE)
-                    {
-                        TrainerSales v = TrainerSales.Find(p => p.Id == data.Id);
-                        TrainerSales.Remove(v);
-                    }
-                    else
-                    {
-                        obj.Update(data);
-                    }
-                }
-                else
-                {
-                    TrainerSales.Add(data);
-                }
             }
 
             public override void UpdateMultiData(List<TrainerSales> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -591,29 +502,21 @@ namespace Y3.Models
 
             public override bool Save(Locker data, eDBQueryType type = eDBQueryType.INSERT)
             {
-                DBLocker d = new DBLocker(data, type);
+                DBLocker save = new DBLocker(data, type);
 
-                if (Core.MARIA.Save(d, out long outId))
+                if (Core.MODELS.Save(save, type, out long outId))
                 {
                     data.Id = (int)outId == 0 ? data.Id : (int)outId;
-                    UpdateData(data, type);
+                    Lockers = UpdateData(Lockers.Cast<BasicDBModel>().ToList(), data, type).Cast<Locker>().ToList();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
 
             public override void Add(List<Locker> list)
             {
                 base.Add(list);
                 Lockers.AddRange(list);
-            }
-
-            public override void UpdateData(Locker data, eDBQueryType type = eDBQueryType.INSERT)
-            {
-                base.UpdateData(data, type);
             }
 
             public override void UpdateMultiData(List<Locker> data, eDBQueryType type = eDBQueryType.INSERT)
@@ -650,6 +553,22 @@ namespace Y3.Models
             USER.ReadData();
             TRAINER_SALES.ReadData();
             LOCKER.ReadData();
+        }
+
+        private bool Save(BasicDBsql save, eDBQueryType type, out long returnId)
+        {
+            string typeString = type == eDBQueryType.DELETE ? "삭제" : "저장";
+
+            if (Core.MARIA.Save(save, out long outId))
+            {
+                MessageBox.Show($"{typeString} 성공!", $"{typeString} 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                returnId = outId;
+                return true;
+            }
+
+            MessageBox.Show($"정보 {typeString} 실패.\n관리자에게 문의하세요.", $"{typeString} 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            returnId = -1;
+            return false;
         }
 
         public decimal GetSessionTrainerTotalPrice(int SPNo, int TRNo)

@@ -59,7 +59,7 @@ namespace Y3.Forms.Popup
             set
             {
                 _endDate = value;
-                dtEndDate.Value = value;
+                dtEndDate.Value = DateTime.MinValue == _endDate ? DateTimePicker.MinimumDateTime : value;
                 if (_endDate == DateTime.MinValue) chkNoLimit.Checked = true;
             }
         }
@@ -104,6 +104,9 @@ namespace Y3.Forms.Popup
             Button btn = (Button)sender;
             int plusMonth = int.Parse(btn.Tag.ToString());
 
+            if (dtEndDate.Value == DateTimePicker.MinimumDateTime)
+                END_DATE = DateTime.Now;
+
             if (plusMonth > 0)
             {
                 dtEndDate.Value = isUse ? END_DATE.AddMonths(plusMonth) : DateTime.Now.AddMonths(plusMonth);
@@ -142,6 +145,12 @@ namespace Y3.Forms.Popup
         private void ChkNoLimit_CheckedChanged(object sender, EventArgs e)
         {
             dtEndDate.Enabled = !chkNoLimit.Checked;
+
+            btn1m.Enabled = !chkNoLimit.Checked;
+            btn3m.Enabled = !chkNoLimit.Checked;
+            btn6m.Enabled = !chkNoLimit.Checked;
+            btn12m.Enabled = !chkNoLimit.Checked;
+            btnP1m.Enabled = !chkNoLimit.Checked;
         }
 
         private void InitControl()
@@ -212,13 +221,8 @@ namespace Y3.Forms.Popup
 
             if (Core.M_LOCKER.Save(_locker, _locker.Id == 0 ? eDBQueryType.INSERT : eDBQueryType.UPDATE))
             {
-                MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 isUse = true;
                 Core.Instance._frmMain.UpdateLocker(_locker);
-            }
-            else
-            {
-                MessageBox.Show("저장 실패!", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -248,12 +252,7 @@ namespace Y3.Forms.Popup
                 _locker.OwnerName = string.Empty;
                 _locker.OwnerType = (int)eUserType.NONE;
 
-                if (!Core.M_LOCKER.Save(_locker, eDBQueryType.UPDATE))
-                {
-                    MessageBox.Show("락커 마감처리 실패.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                else
+                if (Core.M_LOCKER.Save(_locker, eDBQueryType.UPDATE))
                 {
                     isUse = false;
                     Core.Instance._frmMain.EndLocker(_lockerNo);

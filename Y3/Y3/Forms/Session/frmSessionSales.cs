@@ -127,18 +127,10 @@ namespace Y3.Forms.Session
             {
                 Id = id,
             };
-            DBTrainerSales save = new DBTrainerSales(d, eDBQueryType.DELETE);
 
-            if (Core.MARIA.Save(save, out long outId))
+            if (Core.M_TRAINER_SALES.Save(d, eDBQueryType.DELETE))
             {
-                MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.M_TRAINER_SALES.UpdateData(d, eDBQueryType.DELETE);
                 LoadSalesData();
-            }
-            else
-            {
-                MessageBox.Show("삭제 실패!", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -170,18 +162,9 @@ namespace Y3.Forms.Session
                 Memo = memo,
             };
 
-            DBTrainerSales save = new DBTrainerSales(d, d.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
-
-            if (Core.MARIA.Save(save, out long outId))
+            if (Core.M_TRAINER_SALES.Save(d, d.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT))
             {
-                MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                d.Id = (int)outId == 0 ? d.Id : (int)outId;
-                Core.M_TRAINER_SALES.UpdateData(d);
                 LoadSalesData();
-            }
-            else
-            {
-                MessageBox.Show("저장 실패!", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

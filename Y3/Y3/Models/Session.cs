@@ -18,8 +18,6 @@ namespace Y3.Models
     /// </summary>
     public class Session : BasicDBModel, ICloneable
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         [JsonProperty("date")]
         public DateTime Date { get; set; }
         [JsonProperty("trainer_id")]

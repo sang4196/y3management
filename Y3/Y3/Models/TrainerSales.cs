@@ -17,8 +17,6 @@ namespace Y3.Models
     /// </summary>
     public class TrainerSales : BasicDBModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         [JsonProperty("trainer_id")]
         public int TrainerId { get; set; }
         [JsonProperty("trainer_name")]

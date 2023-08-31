@@ -328,19 +328,10 @@ namespace Y3.Forms.Setting
                 Memo = userMemo,
             };
 
-            DBUser d = new DBUser(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
-
-            if (Core.MARIA.Save(d, out long outId))
+            if (Core.M_USER.Save(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT))
             {
-                MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.M_USER.UpdateData(u);
                 InitUserControl();
                 LoadUserData();
-            }
-            else
-            {
-                MessageBox.Show("저장 실패!", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -377,20 +368,11 @@ namespace Y3.Forms.Setting
                 Memo = trainerMemo,
             };
 
-            DBTrainer d = new DBTrainer(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT);
-
-            if (Core.MARIA.Save(d, out long outId))
+            if (Core.M_TRAINER.Save(u, u.Id != 0 ? eDBQueryType.UPDATE : eDBQueryType.INSERT))
             {
-                MessageBox.Show("저장 성공!", "저장 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.M_TRAINER.UpdateData(u);
                 InitTrainerControl();
                 LoadTrainerData();
                 SetComboTrainer();
-            }
-            else
-            {
-                MessageBox.Show("저장 실패!", "저장 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -407,19 +389,11 @@ namespace Y3.Forms.Setting
             {
                 Id = id,
             };
-            DBUser d = new DBUser(u, eDBQueryType.DELETE);
 
-            if (Core.MARIA.Save(d, out long outId))
+            if (Core.M_USER.Save(u, eDBQueryType.DELETE))
             {
-                MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.M_USER.UpdateData(u, eDBQueryType.DELETE);
                 InitUserControl();
                 LoadUserData();
-            }
-            else
-            {
-                MessageBox.Show("삭제 실패!", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -436,19 +410,12 @@ namespace Y3.Forms.Setting
             {
                 Id = id,
             };
-            DBTrainer d = new DBTrainer(u, eDBQueryType.DELETE);
 
-            if (Core.MARIA.Save(d, out long outId))
+            if (Core.M_TRAINER.Save(u, eDBQueryType.DELETE))
             {
-                MessageBox.Show("삭제 성공!", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                u.Id = (int)outId == 0 ? u.Id : (int)outId;
-                Core.M_TRAINER.UpdateData(u, eDBQueryType.DELETE);
                 InitTrainerControl();
                 LoadTrainerData();
-            }
-            else
-            {
-                MessageBox.Show("삭제 실패!", "실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SetComboTrainer();
             }
         }
 

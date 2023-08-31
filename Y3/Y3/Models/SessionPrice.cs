@@ -17,8 +17,6 @@ namespace Y3.Models
     /// </summary>
     public class SessionPrice : BasicDBModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         /// <summary>
         /// 세션이름
         /// </summary>

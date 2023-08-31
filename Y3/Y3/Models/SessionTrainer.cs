@@ -14,8 +14,6 @@ namespace Y3.Models
     /// </summary>
     public class SessionTrainer : BasicDBModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         [JsonProperty("session_id")]
         public int SessionId { get; set; }
         /// <summary>

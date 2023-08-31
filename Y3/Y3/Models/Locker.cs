@@ -17,8 +17,6 @@ namespace Y3.Models
     /// </summary>
     public class Locker : BasicDBModel
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
         [JsonProperty("locker_no")]
         public int LockerNo { get; set; }
         [JsonProperty("owner_type")]
