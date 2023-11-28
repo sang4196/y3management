@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Y3.Cores.Database;
 using Y3.Forms;
+using Y3.Forms.admin;
 using Y3.Forms.Finance;
 using Y3.Forms.Session;
 using Y3.Forms.Setting;
@@ -33,17 +34,25 @@ namespace Y3
         private const string PARAMETER_FILE_QUERY = "query.json";
         private const string PARAMETER_CONFIG_QUERY = "Config.json";
 
+        public int GYM_NO;
+
         private QueryString _queryString = new QueryString();
         private Config _Config = new Config();
 
         // form
         public frmMain _frmMain;
         private frmFinanceMain _frmFinanceMain;
+
         private frmSessionStats _frmSessionMain;
         private frmSessionRegister _frmSessionRegister;
         private frmSessionSales _frmSessionSales;
+
         private frmSettingUser _frmSettingUser;
         private frmSettingSession _frmSettingSession;
+        private frmSettingETC _frmSettingETC;
+
+        private frmAdminRegister _frmAdminRegister;
+
 
         // db
         private MariaDB _mariaDB;
@@ -64,8 +73,8 @@ namespace Y3
             _frmSessionSales = new frmSessionSales();
             _frmSettingUser = new frmSettingUser();
             _frmSettingSession = new frmSettingSession();
-
-            _frmMain.ChangeStatusString(_mariaDB.IsConnected());
+            _frmSettingETC = new frmSettingETC();
+            _frmAdminRegister = new frmAdminRegister();
         }
 
         private void InitDB()
@@ -81,7 +90,11 @@ namespace Y3
             }
 
             //_queryString = ReadJsonToObject<QueryString>(_queryString, PATH_BASE + PATH_CONFIG + PARAMETER_FILE_QUERY);
-            _Config = ReadJsonToObject<Config>(_queryString, PATH_BASE + PATH_CONFIG + PARAMETER_CONFIG_QUERY);
+
+            if (File.Exists(PATH_BASE + PATH_CONFIG + PARAMETER_CONFIG_QUERY))
+            {
+                _Config = ReadJsonToObject<Config>(_queryString, PATH_BASE + PATH_CONFIG + PARAMETER_CONFIG_QUERY);
+            }
         }
         public decimal CalcTotalPrice(decimal price, decimal per, decimal deduct)
         {
@@ -311,6 +324,9 @@ namespace Y3
         // setting
         public static frmSettingUser FORM_SETTING_USER { get => _instance._frmSettingUser; }
         public static frmSettingSession FORM_SETTING_SESSION { get => _instance._frmSettingSession; }
+        public static frmSettingETC FORM_SETTING_ETC { get => _instance._frmSettingETC; }
+        // admin
+        public static frmAdminRegister FORM_ADMIN_REGISTER { get => _instance._frmAdminRegister; }
 
         // db
         public static MariaDB MARIA { get => _instance._mariaDB; }

@@ -47,6 +47,10 @@ namespace Y3.Forms
             SETTING = 900,
             SETTING_USER = 901,
             SETTING_SESSION = 902,
+            SETTING_ETC = 903,
+
+            ADMIN = 1000,
+            ADMIN_REGISTER = 1001,
 
             EXIT = 9999
         }
@@ -60,7 +64,7 @@ namespace Y3.Forms
         static extern bool ReleaseCapture();
         //
 
-        const int SUBMENU_COUNT = 3;
+        const int SUBMENU_COUNT = 4;
 
         private Panel[] _subPanels = new Panel[SUBMENU_COUNT];
         private Dictionary<int, UCLocker> _lockers = new Dictionary<int, UCLocker>();
@@ -74,11 +78,15 @@ namespace Y3.Forms
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
+            if (true)
+            {
+                btnAdmin.Visible = true;
+            }
+
             InitEvent();
             InitControl();
 
             Core.Instance._frmMain = this;
-            Core.Instance.InitCore();
 
             MakeLocker();
         }
@@ -98,8 +106,11 @@ namespace Y3.Forms
 
             btnSetting.Click += BtnMenu_Click;
             btnSettingUser.Click += BtnSub_Click;
-            btnSettingTrainer.Click += BtnSub_Click;
             btnSettingSession.Click += BtnSub_Click;
+            btnSettingETC.Click += BtnSub_Click;
+
+            btnAdmin.Click += BtnMenu_Click;
+            btnAdminRegister.Click += BtnSub_Click;
 
             btnExist.Click += BtnMenu_Click;
             btn_minimize.Click += Btn_minimize_Click;
@@ -191,6 +202,16 @@ namespace Y3.Forms
                     openChildForm(Core.FORM_SETTING_SESSION);
                     subtitle = " ▶ 설정";
                     break;
+                case (int)eButton.SETTING_ETC:
+                    openChildForm(Core.FORM_SETTING_ETC);
+                    subtitle = " ▶ 설정";
+                    break;
+
+                // admin
+                case (int)eButton.ADMIN_REGISTER:
+                    openChildForm(Core.FORM_ADMIN_REGISTER);
+                    subtitle = " ▶ 어드민";
+                    break;
             }
             ChangeMenuName($"{subtitle} - {btn.Text}");
         }
@@ -210,13 +231,15 @@ namespace Y3.Forms
                     break;
                 case (int)eButton.FINANCE:
                     //showSubmenu(panelSubmenuFinance);
-                    ReadExcelData();
                     break;
                 case (int)eButton.SESSION:
                     showSubmenu(panelSubmenuSession);
                     break;
                 case (int)eButton.SETTING:
                     showSubmenu(panelSubmenuSetting);
+                    break;
+                case (int)eButton.ADMIN:
+                    showSubmenu(panelSubmenuAdmin);
                     break;
                 case (int)eButton.EXIT:
                     if (MessageBox.Show("프로그램을 종료 하시겠습니까?", "프로그램 종료", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
@@ -482,18 +505,14 @@ namespace Y3.Forms
 
         private void InitControl()
         {
-            ChangeStatusString(false);
+            ChangeStatusString();
 
             SubMenuInit();
         }
 
-        public void ChangeStatusString(bool isDBConnect)
+        public void ChangeStatusString()
         {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate { ChangeStatusString(isDBConnect); }));
-            }
-            versionString.Text = $"Ver {Application.ProductVersion.ToString()}  DBConnect - {isDBConnect}";
+            versionString.Text = $"Ver {Application.ProductVersion.ToString()}";
         }
 
         private void SubMenuInit()
@@ -501,6 +520,7 @@ namespace Y3.Forms
             _subPanels[0] = panelSubmenuFinance;
             _subPanels[1] = panelSubmenuSession;
             _subPanels[2] = panelSubmenuSetting;
+            _subPanels[3] = panelSubmenuAdmin;
 
             for (int i = 0; i < SUBMENU_COUNT; i++)
             {

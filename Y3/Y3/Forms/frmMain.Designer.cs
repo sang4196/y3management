@@ -33,8 +33,8 @@
             this.versionString = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelSideMenu = new System.Windows.Forms.Panel();
             this.panelSubmenuSetting = new System.Windows.Forms.Panel();
+            this.btnSettingETC = new System.Windows.Forms.Button();
             this.btnSettingSession = new System.Windows.Forms.Button();
-            this.btnSettingTrainer = new System.Windows.Forms.Button();
             this.btnSettingUser = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.panelSubmenuSession = new System.Windows.Forms.Panel();
@@ -53,25 +53,28 @@
             this.pictureBox_logo = new System.Windows.Forms.PictureBox();
             this.panelWindow = new System.Windows.Forms.Panel();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel_locker = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnOwnerMinus = new System.Windows.Forms.Button();
+            this.btnOwnerPlus = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnNoMinus = new System.Windows.Forms.Button();
+            this.btnNoPlus = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_minimize = new System.Windows.Forms.Button();
             this.label_menuName = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel_locker = new System.Windows.Forms.TableLayoutPanel();
-            this.btnNoPlus = new System.Windows.Forms.Button();
-            this.btnNoMinus = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnOwnerMinus = new System.Windows.Forms.Button();
-            this.btnOwnerPlus = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnAdmin = new System.Windows.Forms.Button();
+            this.panelSubmenuAdmin = new System.Windows.Forms.Panel();
+            this.btnAdminRegister = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.panelSideMenu.SuspendLayout();
             this.panelSubmenuSetting.SuspendLayout();
@@ -81,10 +84,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).BeginInit();
             this.panelWindow.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panelSubmenuAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -107,6 +111,8 @@
             // 
             this.panelSideMenu.AutoScroll = true;
             this.panelSideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(7)))), ((int)(((byte)(17)))));
+            this.panelSideMenu.Controls.Add(this.panelSubmenuAdmin);
+            this.panelSideMenu.Controls.Add(this.btnAdmin);
             this.panelSideMenu.Controls.Add(this.panelSubmenuSetting);
             this.panelSideMenu.Controls.Add(this.btnSetting);
             this.panelSideMenu.Controls.Add(this.panelSubmenuSession);
@@ -125,14 +131,31 @@
             // panelSubmenuSetting
             // 
             this.panelSubmenuSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelSubmenuSetting.Controls.Add(this.btnSettingETC);
             this.panelSubmenuSetting.Controls.Add(this.btnSettingSession);
-            this.panelSubmenuSetting.Controls.Add(this.btnSettingTrainer);
             this.panelSubmenuSetting.Controls.Add(this.btnSettingUser);
             this.panelSubmenuSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuSetting.Location = new System.Drawing.Point(0, 524);
             this.panelSubmenuSetting.Name = "panelSubmenuSetting";
-            this.panelSubmenuSetting.Size = new System.Drawing.Size(250, 122);
+            this.panelSubmenuSetting.Size = new System.Drawing.Size(233, 122);
             this.panelSubmenuSetting.TabIndex = 13;
+            // 
+            // btnSettingETC
+            // 
+            this.btnSettingETC.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSettingETC.FlatAppearance.BorderSize = 0;
+            this.btnSettingETC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSettingETC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettingETC.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnSettingETC.Location = new System.Drawing.Point(0, 80);
+            this.btnSettingETC.Name = "btnSettingETC";
+            this.btnSettingETC.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnSettingETC.Size = new System.Drawing.Size(233, 40);
+            this.btnSettingETC.TabIndex = 3;
+            this.btnSettingETC.Tag = "903";
+            this.btnSettingETC.Text = "기타설정";
+            this.btnSettingETC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSettingETC.UseVisualStyleBackColor = true;
             // 
             // btnSettingSession
             // 
@@ -141,33 +164,15 @@
             this.btnSettingSession.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettingSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSettingSession.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnSettingSession.Location = new System.Drawing.Point(0, 80);
+            this.btnSettingSession.Location = new System.Drawing.Point(0, 40);
             this.btnSettingSession.Name = "btnSettingSession";
             this.btnSettingSession.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSettingSession.Size = new System.Drawing.Size(250, 40);
-            this.btnSettingSession.TabIndex = 3;
-            this.btnSettingSession.Tag = "903";
+            this.btnSettingSession.Size = new System.Drawing.Size(233, 40);
+            this.btnSettingSession.TabIndex = 2;
+            this.btnSettingSession.Tag = "902";
             this.btnSettingSession.Text = "세션관련";
             this.btnSettingSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSettingSession.UseVisualStyleBackColor = true;
-            this.btnSettingSession.Visible = false;
-            // 
-            // btnSettingTrainer
-            // 
-            this.btnSettingTrainer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSettingTrainer.FlatAppearance.BorderSize = 0;
-            this.btnSettingTrainer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSettingTrainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettingTrainer.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnSettingTrainer.Location = new System.Drawing.Point(0, 40);
-            this.btnSettingTrainer.Name = "btnSettingTrainer";
-            this.btnSettingTrainer.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSettingTrainer.Size = new System.Drawing.Size(250, 40);
-            this.btnSettingTrainer.TabIndex = 2;
-            this.btnSettingTrainer.Tag = "902";
-            this.btnSettingTrainer.Text = "세션관련";
-            this.btnSettingTrainer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSettingTrainer.UseVisualStyleBackColor = true;
             // 
             // btnSettingUser
             // 
@@ -179,7 +184,7 @@
             this.btnSettingUser.Location = new System.Drawing.Point(0, 0);
             this.btnSettingUser.Name = "btnSettingUser";
             this.btnSettingUser.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSettingUser.Size = new System.Drawing.Size(250, 40);
+            this.btnSettingUser.Size = new System.Drawing.Size(233, 40);
             this.btnSettingUser.TabIndex = 1;
             this.btnSettingUser.Tag = "901";
             this.btnSettingUser.Text = "유저관리";
@@ -196,7 +201,7 @@
             this.btnSetting.Location = new System.Drawing.Point(0, 479);
             this.btnSetting.Name = "btnSetting";
             this.btnSetting.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnSetting.Size = new System.Drawing.Size(250, 45);
+            this.btnSetting.Size = new System.Drawing.Size(233, 45);
             this.btnSetting.TabIndex = 12;
             this.btnSetting.Tag = "900";
             this.btnSetting.Text = "설정";
@@ -212,7 +217,7 @@
             this.panelSubmenuSession.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuSession.Location = new System.Drawing.Point(0, 357);
             this.panelSubmenuSession.Name = "panelSubmenuSession";
-            this.panelSubmenuSession.Size = new System.Drawing.Size(250, 122);
+            this.panelSubmenuSession.Size = new System.Drawing.Size(233, 122);
             this.panelSubmenuSession.TabIndex = 11;
             // 
             // btnSessionSales
@@ -225,7 +230,7 @@
             this.btnSessionSales.Location = new System.Drawing.Point(0, 80);
             this.btnSessionSales.Name = "btnSessionSales";
             this.btnSessionSales.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSessionSales.Size = new System.Drawing.Size(250, 40);
+            this.btnSessionSales.Size = new System.Drawing.Size(233, 40);
             this.btnSessionSales.TabIndex = 3;
             this.btnSessionSales.Tag = "203";
             this.btnSessionSales.Text = "개인 매출등록";
@@ -242,7 +247,7 @@
             this.btnSessionReg.Location = new System.Drawing.Point(0, 40);
             this.btnSessionReg.Name = "btnSessionReg";
             this.btnSessionReg.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSessionReg.Size = new System.Drawing.Size(250, 40);
+            this.btnSessionReg.Size = new System.Drawing.Size(233, 40);
             this.btnSessionReg.TabIndex = 2;
             this.btnSessionReg.Tag = "202";
             this.btnSessionReg.Text = "세션진행 등록";
@@ -259,7 +264,7 @@
             this.btnSessionSubMain.Location = new System.Drawing.Point(0, 0);
             this.btnSessionSubMain.Name = "btnSessionSubMain";
             this.btnSessionSubMain.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSessionSubMain.Size = new System.Drawing.Size(250, 40);
+            this.btnSessionSubMain.Size = new System.Drawing.Size(233, 40);
             this.btnSessionSubMain.TabIndex = 1;
             this.btnSessionSubMain.Tag = "201";
             this.btnSessionSubMain.Text = "세션현황";
@@ -276,7 +281,7 @@
             this.btnSession.Location = new System.Drawing.Point(0, 312);
             this.btnSession.Name = "btnSession";
             this.btnSession.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnSession.Size = new System.Drawing.Size(250, 45);
+            this.btnSession.Size = new System.Drawing.Size(233, 45);
             this.btnSession.TabIndex = 10;
             this.btnSession.Tag = "200";
             this.btnSession.Text = "세션정산";
@@ -292,7 +297,7 @@
             this.panelSubmenuFinance.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuFinance.Location = new System.Drawing.Point(0, 190);
             this.panelSubmenuFinance.Name = "panelSubmenuFinance";
-            this.panelSubmenuFinance.Size = new System.Drawing.Size(250, 122);
+            this.panelSubmenuFinance.Size = new System.Drawing.Size(233, 122);
             this.panelSubmenuFinance.TabIndex = 9;
             // 
             // button4
@@ -305,7 +310,7 @@
             this.button4.Location = new System.Drawing.Point(0, 80);
             this.button4.Name = "button4";
             this.button4.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button4.Size = new System.Drawing.Size(250, 40);
+            this.button4.Size = new System.Drawing.Size(233, 40);
             this.button4.TabIndex = 3;
             this.button4.Text = "button4";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -321,7 +326,7 @@
             this.button3.Location = new System.Drawing.Point(0, 40);
             this.button3.Name = "button3";
             this.button3.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(250, 40);
+            this.button3.Size = new System.Drawing.Size(233, 40);
             this.button3.TabIndex = 2;
             this.button3.Text = "button3";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -337,7 +342,7 @@
             this.btnFinanceSubMain.Location = new System.Drawing.Point(0, 0);
             this.btnFinanceSubMain.Name = "btnFinanceSubMain";
             this.btnFinanceSubMain.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnFinanceSubMain.Size = new System.Drawing.Size(250, 40);
+            this.btnFinanceSubMain.Size = new System.Drawing.Size(233, 40);
             this.btnFinanceSubMain.TabIndex = 1;
             this.btnFinanceSubMain.Tag = "101";
             this.btnFinanceSubMain.Text = "메인";
@@ -354,7 +359,7 @@
             this.btnFinance.Location = new System.Drawing.Point(0, 145);
             this.btnFinance.Name = "btnFinance";
             this.btnFinance.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFinance.Size = new System.Drawing.Size(250, 45);
+            this.btnFinance.Size = new System.Drawing.Size(233, 45);
             this.btnFinance.TabIndex = 8;
             this.btnFinance.Tag = "100";
             this.btnFinance.Text = "가계부(준비중)";
@@ -371,7 +376,7 @@
             this.btnMain.Location = new System.Drawing.Point(0, 100);
             this.btnMain.Name = "btnMain";
             this.btnMain.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnMain.Size = new System.Drawing.Size(250, 45);
+            this.btnMain.Size = new System.Drawing.Size(233, 45);
             this.btnMain.TabIndex = 7;
             this.btnMain.Tag = "0";
             this.btnMain.Text = "메인화면";
@@ -385,10 +390,10 @@
             this.btnExist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExist.ForeColor = System.Drawing.Color.Gainsboro;
-            this.btnExist.Location = new System.Drawing.Point(0, 730);
+            this.btnExist.Location = new System.Drawing.Point(0, 813);
             this.btnExist.Name = "btnExist";
             this.btnExist.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnExist.Size = new System.Drawing.Size(250, 45);
+            this.btnExist.Size = new System.Drawing.Size(233, 45);
             this.btnExist.TabIndex = 6;
             this.btnExist.Tag = "9999";
             this.btnExist.Text = "프로그램 종료";
@@ -401,7 +406,7 @@
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(250, 100);
+            this.panelLogo.Size = new System.Drawing.Size(233, 100);
             this.panelLogo.TabIndex = 1;
             // 
             // pictureBox_logo
@@ -410,7 +415,7 @@
             this.pictureBox_logo.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_logo.Image")));
             this.pictureBox_logo.Location = new System.Drawing.Point(0, 0);
             this.pictureBox_logo.Name = "pictureBox_logo";
-            this.pictureBox_logo.Size = new System.Drawing.Size(250, 100);
+            this.pictureBox_logo.Size = new System.Drawing.Size(233, 100);
             this.pictureBox_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_logo.TabIndex = 0;
             this.pictureBox_logo.TabStop = false;
@@ -436,6 +441,155 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1197, 740);
             this.panelMain.TabIndex = 3;
+            // 
+            // tableLayoutPanel_locker
+            // 
+            this.tableLayoutPanel_locker.ColumnCount = 2;
+            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.95155F));
+            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 86.04845F));
+            this.tableLayoutPanel_locker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel_locker.Location = new System.Drawing.Point(0, 189);
+            this.tableLayoutPanel_locker.Name = "tableLayoutPanel_locker";
+            this.tableLayoutPanel_locker.RowCount = 2;
+            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.59589F));
+            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.40411F));
+            this.tableLayoutPanel_locker.Size = new System.Drawing.Size(1197, 551);
+            this.tableLayoutPanel_locker.TabIndex = 4;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.btnOwnerMinus);
+            this.panel3.Controls.Add(this.btnOwnerPlus);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.btnNoMinus);
+            this.panel3.Controls.Add(this.btnNoPlus);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 156);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1197, 33);
+            this.panel3.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Yellow;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(204, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 16);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "마감임박";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Red;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(270, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 16);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "기간지남";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.LightBlue;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(138, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 16);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "트레이너";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Green;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(72, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 16);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "회원사용";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(6, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "사용가능";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(1077, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = " 사용자 - ";
+            // 
+            // btnOwnerMinus
+            // 
+            this.btnOwnerMinus.Location = new System.Drawing.Point(1165, 4);
+            this.btnOwnerMinus.Name = "btnOwnerMinus";
+            this.btnOwnerMinus.Size = new System.Drawing.Size(23, 23);
+            this.btnOwnerMinus.TabIndex = 4;
+            this.btnOwnerMinus.Tag = "3";
+            this.btnOwnerMinus.Text = "－";
+            this.btnOwnerMinus.UseVisualStyleBackColor = true;
+            // 
+            // btnOwnerPlus
+            // 
+            this.btnOwnerPlus.Location = new System.Drawing.Point(1136, 4);
+            this.btnOwnerPlus.Name = "btnOwnerPlus";
+            this.btnOwnerPlus.Size = new System.Drawing.Size(23, 23);
+            this.btnOwnerPlus.TabIndex = 3;
+            this.btnOwnerPlus.Tag = "2";
+            this.btnOwnerPlus.Text = "＋";
+            this.btnOwnerPlus.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(934, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "락커번호 - ";
+            // 
+            // btnNoMinus
+            // 
+            this.btnNoMinus.Location = new System.Drawing.Point(1030, 4);
+            this.btnNoMinus.Name = "btnNoMinus";
+            this.btnNoMinus.Size = new System.Drawing.Size(23, 23);
+            this.btnNoMinus.TabIndex = 1;
+            this.btnNoMinus.Tag = "1";
+            this.btnNoMinus.Text = "－";
+            this.btnNoMinus.UseVisualStyleBackColor = true;
+            // 
+            // btnNoPlus
+            // 
+            this.btnNoPlus.Location = new System.Drawing.Point(1001, 4);
+            this.btnNoPlus.Name = "btnNoPlus";
+            this.btnNoPlus.Size = new System.Drawing.Size(23, 23);
+            this.btnNoPlus.TabIndex = 0;
+            this.btnNoPlus.Tag = "0";
+            this.btnNoPlus.Text = "＋";
+            this.btnNoPlus.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -493,154 +647,50 @@
             this.label_menuName.Text = " ▶ 메인화면";
             this.label_menuName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel3
+            // btnAdmin
             // 
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.btnOwnerMinus);
-            this.panel3.Controls.Add(this.btnOwnerPlus);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.btnNoMinus);
-            this.panel3.Controls.Add(this.btnNoPlus);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 156);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1197, 33);
-            this.panel3.TabIndex = 2;
+            this.btnAdmin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAdmin.FlatAppearance.BorderSize = 0;
+            this.btnAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdmin.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnAdmin.Location = new System.Drawing.Point(0, 646);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnAdmin.Size = new System.Drawing.Size(233, 45);
+            this.btnAdmin.TabIndex = 14;
+            this.btnAdmin.Tag = "1000";
+            this.btnAdmin.Text = "어드민설정";
+            this.btnAdmin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Visible = false;
             // 
-            // tableLayoutPanel_locker
+            // panelSubmenuAdmin
             // 
-            this.tableLayoutPanel_locker.ColumnCount = 2;
-            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.95155F));
-            this.tableLayoutPanel_locker.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 86.04845F));
-            this.tableLayoutPanel_locker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel_locker.Location = new System.Drawing.Point(0, 189);
-            this.tableLayoutPanel_locker.Name = "tableLayoutPanel_locker";
-            this.tableLayoutPanel_locker.RowCount = 2;
-            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.59589F));
-            this.tableLayoutPanel_locker.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.40411F));
-            this.tableLayoutPanel_locker.Size = new System.Drawing.Size(1197, 551);
-            this.tableLayoutPanel_locker.TabIndex = 4;
+            this.panelSubmenuAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelSubmenuAdmin.Controls.Add(this.btnAdminRegister);
+            this.panelSubmenuAdmin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSubmenuAdmin.Location = new System.Drawing.Point(0, 691);
+            this.panelSubmenuAdmin.Name = "panelSubmenuAdmin";
+            this.panelSubmenuAdmin.Size = new System.Drawing.Size(233, 122);
+            this.panelSubmenuAdmin.TabIndex = 15;
             // 
-            // btnNoPlus
+            // btnAdminRegister
             // 
-            this.btnNoPlus.Location = new System.Drawing.Point(1001, 4);
-            this.btnNoPlus.Name = "btnNoPlus";
-            this.btnNoPlus.Size = new System.Drawing.Size(23, 23);
-            this.btnNoPlus.TabIndex = 0;
-            this.btnNoPlus.Tag = "0";
-            this.btnNoPlus.Text = "＋";
-            this.btnNoPlus.UseVisualStyleBackColor = true;
-            // 
-            // btnNoMinus
-            // 
-            this.btnNoMinus.Location = new System.Drawing.Point(1030, 4);
-            this.btnNoMinus.Name = "btnNoMinus";
-            this.btnNoMinus.Size = new System.Drawing.Size(23, 23);
-            this.btnNoMinus.TabIndex = 1;
-            this.btnNoMinus.Tag = "1";
-            this.btnNoMinus.Text = "－";
-            this.btnNoMinus.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(934, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "락커번호 - ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1077, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
-            this.label2.TabIndex = 5;
-            this.label2.Text = " 사용자 - ";
-            // 
-            // btnOwnerMinus
-            // 
-            this.btnOwnerMinus.Location = new System.Drawing.Point(1165, 4);
-            this.btnOwnerMinus.Name = "btnOwnerMinus";
-            this.btnOwnerMinus.Size = new System.Drawing.Size(23, 23);
-            this.btnOwnerMinus.TabIndex = 4;
-            this.btnOwnerMinus.Tag = "3";
-            this.btnOwnerMinus.Text = "－";
-            this.btnOwnerMinus.UseVisualStyleBackColor = true;
-            // 
-            // btnOwnerPlus
-            // 
-            this.btnOwnerPlus.Location = new System.Drawing.Point(1136, 4);
-            this.btnOwnerPlus.Name = "btnOwnerPlus";
-            this.btnOwnerPlus.Size = new System.Drawing.Size(23, 23);
-            this.btnOwnerPlus.TabIndex = 3;
-            this.btnOwnerPlus.Tag = "2";
-            this.btnOwnerPlus.Text = "＋";
-            this.btnOwnerPlus.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 16);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "사용가능";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.Green;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(72, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 16);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "회원사용";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.LightBlue;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(138, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 16);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "트레이너";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.Red;
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(270, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 16);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "기간지남";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.Yellow;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(204, 7);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 16);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "마감임박";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnAdminRegister.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAdminRegister.FlatAppearance.BorderSize = 0;
+            this.btnAdminRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdminRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdminRegister.ForeColor = System.Drawing.Color.Gainsboro;
+            this.btnAdminRegister.Location = new System.Drawing.Point(0, 0);
+            this.btnAdminRegister.Name = "btnAdminRegister";
+            this.btnAdminRegister.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnAdminRegister.Size = new System.Drawing.Size(233, 40);
+            this.btnAdminRegister.TabIndex = 1;
+            this.btnAdminRegister.Tag = "1001";
+            this.btnAdminRegister.Text = "어드민관리";
+            this.btnAdminRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdminRegister.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -669,11 +719,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).EndInit();
             this.panelWindow.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panelSubmenuAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -684,8 +735,8 @@
         private System.Windows.Forms.ToolStripStatusLabel versionString;
         private System.Windows.Forms.Panel panelSideMenu;
         private System.Windows.Forms.Panel panelSubmenuSetting;
+        private System.Windows.Forms.Button btnSettingETC;
         private System.Windows.Forms.Button btnSettingSession;
-        private System.Windows.Forms.Button btnSettingTrainer;
         private System.Windows.Forms.Button btnSettingUser;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.Panel panelSubmenuSession;
@@ -723,6 +774,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.Panel panelSubmenuAdmin;
+        private System.Windows.Forms.Button btnAdminRegister;
     }
 }
 

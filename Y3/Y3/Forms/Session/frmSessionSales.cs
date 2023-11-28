@@ -34,6 +34,8 @@ namespace Y3.Forms.Session
 
         private void InitEvent()
         {
+            this.VisibleChanged += FrmSessionSales_VisibleChanged;
+
             btnSessionInit.Click += Btn_Click;
             btnSessionUpdate.Click += Btn_Click;
             btnSessionDel.Click += Btn_Click;
@@ -45,9 +47,14 @@ namespace Y3.Forms.Session
             grid_SalesList.CellDoubleClick += Grid_SalesList_CellDoubleClick;
         }
 
-       
-
         #region UI Event
+
+        private void FrmSessionSales_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible == false) return;
+
+            SetComboTrainer();
+        }
         private void Grid_SalesList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             txtSalesNo.Text = grid_SalesList.CurrentRow.Cells["Id"].Value.ToString();

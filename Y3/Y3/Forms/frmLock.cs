@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Y3.Models;
 
 namespace Y3.Forms
 {
@@ -48,6 +49,8 @@ namespace Y3.Forms
 
         private void Login()
         {
+            Core.Instance.InitCore();
+
             if (!txtPassword.Text.Equals("0419"))
             {
                 MessageBox.Show("비밀번호가 틀립니다.", "비밀번호 오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);

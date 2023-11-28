@@ -13,6 +13,7 @@ namespace Y3.Models.DB
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+
         public abstract string GetQueryParam(eDBQueryType type, bool isFirst = false);
 
         public abstract void Update(object data);
